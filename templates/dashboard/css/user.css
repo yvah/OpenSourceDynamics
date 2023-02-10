@@ -1,0 +1,76 @@
+.screen-1 {
+    background: #1e1e2f;
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    margin: 100px;
+    margin-top: 0%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    gap: 2em;
+}
+
+.screen-1 .username {
+    background: #fff;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+    margin-top: -3em;
+}
+
+.screen-1 .username input {
+    outline:#000000;
+    border: none;
+    height: auto;
+    font-size: 30px;
+}
+
+.screen-1 .password {
+    background: #fff;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+}
+
+.screen-1 .password input {
+    outline: none;
+    border: none;
+    height: auto;
+    font-size: 30px;
+}
+
+.label {
+    color: #11111a;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.screen-1 .login {
+    padding: 15px;
+    background: #4b5383;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+button {
+    cursor: pointer;
+    color:inherit;
+    text-decoration: none;
+    display: block;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}

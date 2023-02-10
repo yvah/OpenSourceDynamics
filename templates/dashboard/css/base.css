@@ -1,0 +1,33 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #11111a;
+}
+
+header {
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    color: #dfdfdf;
+    margin-top: 50px;
+}
+
+.title {
+    font-size: x-large;
+    font-weight: 400;
+    margin-right: auto;
+    margin-left: 3rem;
+}
+
+.logout a {
+    color:inherit;
+    text-decoration: none;
+}
+
+.logout {
+    margin-right: 5rem;
+    font-size: x-large;
+}
+
+.headbar {
+    display: flex;
+}

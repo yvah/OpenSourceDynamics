@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block style %}
+    {% endblock style %}
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='css/base.css') }}">
+
+    <title>{% block title %}My Page{%endblock%}</title>
+</head>
+<body>
+    <header>
+        <div class="headbar">
+        {% include "header.html" %}
+        </div>
+        {% block sidebar %}
+        {% endblock sidebar %}
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

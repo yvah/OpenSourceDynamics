@@ -24,21 +24,21 @@ def run_query(owner, repo, auth):
         # gets the query and performs call, on subsequent call passes in end_cursor for pagination
         query = get_issue_query(owner, repo, end_cursor)
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
-        # trims the result of the api call to remove unneeded nesting
-        trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
-        pprint(trimmed_request)
-
-        # determines if all comments have been fetched
-        has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
-        if has_next_page:
-            end_cursor = trimmed_request["pageInfo"]["endCursor"]
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
+            # trims the result of the api call to remove unneeded nesting
+            trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
+            pprint(trimmed_request)
+
+            # determines if all comments have been fetched
+            has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
+            if has_next_page:
+                end_cursor = trimmed_request["pageInfo"]["endCursor"]
             for edge in trimmed_request["edges"]:
                 comments.append(edge["node"])
         else:
-            raise Exception("Query failed to run by returning code of {}. {}".format(request.status_code, query))
+            raise Exception("Query failed to run by returning code of {}.".format(request.status_code))
 
     # todo: store comments in objects
 
@@ -88,7 +88,9 @@ if __name__ == '__main__':
     owner = "flutter"
     repo = "flutter"
     branch = "master"
-    auth = "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"
+
+    print("Enter access token: ")
+    auth = input()
 
     test = run_query(owner, repo, auth)
-    pprint(test[0])
+    # pprint(test[0])

@@ -26,7 +26,7 @@ def run_query(owner, repo, auth):
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
         # trims the result of the api call to remove unneeded nesting
         trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
-        # pprint(trimmed_request)
+        pprint(trimmed_request)
 
         # determines if all comments have been fetched
         has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     owner = "flutter"
     repo = "flutter"
     branch = "master"
-    auth = "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"
+    auth = "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"
 
     test = run_query(owner, repo, auth)
     pprint(test[0])

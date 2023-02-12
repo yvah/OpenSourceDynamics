@@ -29,7 +29,7 @@ def run_query(owner, repo, auth):
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
             trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
-            pprint(trimmed_request)
+            # pprint(trimmed_request)
 
             # determines if all comments have been fetched
             has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
@@ -93,4 +93,4 @@ if __name__ == '__main__':
     auth = input()
 
     test = run_query(owner, repo, auth)
-    # pprint(test[0])
+    pprint(test)

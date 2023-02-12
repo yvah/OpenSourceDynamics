@@ -1,4 +1,4 @@
-
+from classes import Comment, newComment
 from pprint import pprint
 from requests import post
 
@@ -36,7 +36,7 @@ def run_query(owner, repo, auth):
             if has_next_page:
                 end_cursor = trimmed_request["pageInfo"]["endCursor"]
             for edge in trimmed_request["edges"]:
-                comments.append(edge["node"])
+                comments.append(newComment(edge["node"]))
         else:
             raise Exception("Query failed to run by returning code of {}.".format(request.status_code))
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
     repo = "flutter"
     branch = "master"
 
-    print("Enter access token: ")
+    print("Enter access token: ", end="")
     auth = input()
 
     test = run_query(owner, repo, auth)

@@ -1,0 +1,40 @@
+{
+    "contributors": [
+      {
+        "username": "John Doe",
+        "email": "johndoe@tcd.ie",
+        "location": "Dublin, IR",
+        "commits": 13
+      },
+      {
+        "username": "Mary Jane",
+        "email": "maryjane@ibm.com",
+        "location": "London, UK",
+        "commits": 20
+      },
+      {
+        "username": "Bob Smith",
+        "email": "bobsmith@ibm.com",
+        "location": "San Fransico, USA",
+        "commits": 41
+      },
+      {
+        "username": "Sara Armstrong",
+        "email": "saraarmstorng@amazon.com",
+        "location": "Palo Alto, USA",
+        "commits": 18
+      },
+      {
+        "username": "Joe Biden",
+        "email": "joebiden@ibm.com",
+        "location": "Tokyo, JP",
+        "commits": 3
+      },
+      {
+        "username": "David Leonard",
+        "email": "daviedle@gmail.com",
+        "location": "Rome, IT",
+        "commits": 54
+      }
+    ]
+  }

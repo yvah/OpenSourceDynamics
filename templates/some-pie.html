@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+    <style>
+      body {
+        background-color: lightgray;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        color: navy;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 215vh;
+      }
+      .box {
+        flex: 1;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        border: 2px solid navy;
+        border-radius: 5px;
+      }
+      h2 {
+        color: navy;
+      }
+      p {
+        color: gray;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+        color: gray;
+      }
+      .chart-container {
+        position: relative;
+        height: 20vh;
+        width: 100%;
+      }
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <h1>Dashboard</h1>
+        <div style="display: flex;">
+          <div class="box">
+            <h2>Statistics</h2>
+            <p>Number of users: 1000</p>
+            <p>Number of visits: 2000</p>
+          </div>
+          <div class="box">
+            <h2>Recent Activity</h2>
+            <ul>
+              <li>User X signed up</li>
+              <li>User Y visited the site</li>
+              <li>User Z made a purchase</li>
+            </ul>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div style="margin-top: 10px; margin-bottom: 10px;">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var pieCtx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: [
+          'Red',
+          'Blue',
+          'Yellow'
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [300, 50, 100],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</html>

@@ -16,7 +16,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 150vh;
       }
       .box {
         flex: 1;
@@ -42,8 +42,9 @@
       }
       .chart-container {
         position: relative;
-        height: 300px;
+        height: 0;
         width: 100%;
+        padding-bottom: 50%;
       }
       canvas {
         position: absolute;
@@ -72,16 +73,16 @@
           </div>
         </div>
         <div class="chart-container">
-        <div style="margin-top: 10px;">
-          <canvas id="barChart"></canvas>
+          <div style="margin-top: 10px;">
+            <canvas id="barChart"></canvas>
+          </div>
         </div>
-    </div>
         <br>
         <div class="chart-container">
-        <div style="margin-bottom: 200px;">
-          <canvas id="lineChart"></canvas>
-        </div>
-    </div>
+          <div style="margin-bottom: 50px;">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>  
       </div>
     </div>
   </body>
@@ -117,6 +118,38 @@ var barChart = new Chart(barCtx, {
     }
   }
 });
+</script>
+<script>
+  var pieCtx = document.getElementById('pieChart').getContext('2d');
+  var pieChart = new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+      labels: [
+        'Red',
+        'Blue',
+        'Yellow'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [300, 50, 100],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
 </script>
 <script>
     // Line chart

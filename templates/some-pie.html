@@ -15,7 +15,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 215vh;
+        height: 130vh;
+        margin: 10px;
       }
       .box {
         flex: 1;
@@ -41,8 +42,9 @@
       }
       .chart-container {
         position: relative;
-        height: 20vh;
+        height: 0;
         width: 100%;
+        padding-bottom: 50%;
       }
       canvas {
         position: absolute;
@@ -71,13 +73,14 @@
           </div>
         </div>
         <div class="chart-container">
-          <div style="margin-top: 10px; margin-bottom: 10px;">
-            <canvas id="barChart"></canvas>
+          <div style="margin-top: 10px;">
+            <canvas id="pieChart"></canvas>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script>
     var pieCtx = document.getElementById('pieChart').getContext('2d');
     var pieChart = new Chart(pieCtx, {

@@ -1,4 +1,4 @@
-from classes import Comment, newComment
+from classes import *
 from pprint import pprint
 from requests import post
 
@@ -6,7 +6,7 @@ from requests import post
 def run_query(owner, repo, auth):
 
     # list to store each comment
-    comments = []
+    issues = []
 
     # stores the authorisation token and accept
     headers = {
@@ -23,26 +23,27 @@ def run_query(owner, repo, auth):
 
         # gets the query and performs call, on subsequent call passes in end_cursor for pagination
         query = get_issue_query(owner, repo, end_cursor)
+        print("Gathering issues...")
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
-            trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
+            # pprint(request.json())
+            trimmed_request = request.json()["data"]["repository"]["issues"]
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
             has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
+            has_next_page = False  # TODO remove for pagination
             if has_next_page:
                 end_cursor = trimmed_request["pageInfo"]["endCursor"]
             for edge in trimmed_request["edges"]:
-                comments.append(newComment(edge["node"]))
+                issues.append(newIssue(edge["node"]))
         else:
             raise Exception("Query failed to run by returning code of {}.".format(request.status_code))
 
-    # todo: store comments in objects
-
-    return comments
+    return issues
 
 
 # returns query for issue comments
@@ -57,28 +58,36 @@ def get_issue_query(repo, owner, end_cursor=None):
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            issueOrPullRequest(number:120223) {
-                ... on Issue {
-                    comments(first:100%s) {
-                        pageInfo {
-                            hasNextPage
-                            endCursor
+            issues(last:100%s) {
+                edges {
+                    node {
+                        number
+                        title
+                        author {
+                            login
                         }
-                        edges {
-                            node {
-                                author {
-                                    login
+                        state
+                        comments(first:100) {
+                            edges {
+                                node {
+                                    author {
+                                        login
+                                    }
+                                    bodyText
+                                    createdAt
                                 }
-                                bodyText
-                                createdAt
                             }
                         }
                     }
                 }
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                }
             }
         }
     }
-    """ % (owner, repo, after)
+    """ % (repo, owner, after)
 
     return query
 
@@ -94,3 +103,4 @@ if __name__ == '__main__':
 
     test = run_query(owner, repo, auth)
     pprint(test)
+    print(len(test))

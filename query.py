@@ -39,7 +39,7 @@ def run_query(auth, owner, repo, pull_type):
 
             # determines if all comments have been fetched
             has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
-            has_next_page = False  # TODO remove for pagination
+            has_prev_page = False  # TODO remove for pagination
             if has_prev_page:
                 cursor = trimmed_request["pageInfo"]["startCursor"]
             for edge in trimmed_request["edges"]:
@@ -52,7 +52,7 @@ def run_query(auth, owner, repo, pull_type):
 
 
 # returns query for issue comments
-def get_issue_query(repo, owner, type, cursor=None):
+def get_issue_query(repo, owner, pull_type, cursor=None):
 
     # for pagination
     if cursor is not None:
@@ -92,7 +92,7 @@ def get_issue_query(repo, owner, type, cursor=None):
             }
         }
     }
-    """ % (repo, owner, type, after)
+    """ % (repo, owner, pull_type, after)
 
     return query
 
@@ -106,6 +106,8 @@ if __name__ == '__main__':
     print("Enter a repo (owner/repo): ", end="")
     temp = input()
     owner_repo = temp.split("/")
+
+    pull_type = ""
     if len(owner_repo) != 2:
         print("Invalid input")
         valid = False

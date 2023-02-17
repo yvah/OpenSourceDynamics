@@ -3,7 +3,7 @@ from pprint import pprint
 from requests import post
 
 
-def run_query(auth, owner, repo, type):
+def run_query(auth, owner, repo, pull_type):
 
     # list to store each comment
     issues = []
@@ -16,16 +16,14 @@ def run_query(auth, owner, repo, type):
 
     # for pagination
     has_prev_page = True
-    end_cursor = None
+    cursor = None
 
-    print("Gathering issues...")
-    # query can only fetch 100 comments, so keeps fetching until all fetched
-    i = 0
-    while has_prev_page and i < 5:
-        i += 1
+    print(f"Gathering {pull_type}...")
+    # query can only fetch 100 at a time, so keeps fetching until all fetched
+    while has_prev_page:
 
-        # gets the query and performs call, on subsequent call passes in end_cursor for pagination
-        query = get_issue_query(owner, repo, type, end_cursor)
+        # gets the query and performs call, on subsequent call passes in cursor for pagination
+        query = get_issue_query(owner, repo, pull_type, cursor)
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
@@ -33,7 +31,7 @@ def run_query(auth, owner, repo, type):
             # trims the result of the api call to remove unneeded nesting
             # pprint(request.json())
             try:
-                trimmed_request = request.json()["data"]["repository"][type]
+                trimmed_request = request.json()["data"]["repository"][pull_type]
             except TypeError:
                 print("Invalid information provided")
                 break
@@ -103,7 +101,6 @@ def get_issue_query(repo, owner, type, cursor=None):
 if __name__ == '__main__':
 
     valid = True
-
     print("Enter an access token: ", end="")
     auth = input()
     print("Enter a repo (owner/repo): ", end="")
@@ -128,4 +125,4 @@ if __name__ == '__main__':
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
-            print(len(test))
+            # print(len(test))

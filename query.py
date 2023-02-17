@@ -29,7 +29,7 @@ def run_query(owner, repo, auth):
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
-            # pprint(request.json())
+            pprint(request.json())
             trimmed_request = request.json()["data"]["repository"]["issues"]
             # pprint(trimmed_request)
 
@@ -41,7 +41,8 @@ def run_query(owner, repo, auth):
             for edge in trimmed_request["edges"]:
                 issues.append(newIssue(edge["node"]))
         else:
-            raise Exception("Query failed to run by returning code of {}.".format(request.status_code))
+            print("Invalid information provided")
+            break
 
     return issues
 
@@ -94,13 +95,14 @@ def get_issue_query(repo, owner, end_cursor=None):
 
 # main function for testing code
 if __name__ == '__main__':
-    owner = "flutter"
-    repo = "flutter"
-    branch = "master"
 
+    print("Enter a repo: ", end="")
+    repo = input()
+    print("Enter the owner of repo: ", end="")
+    owner = input()
     print("Enter access token: ", end="")
     auth = input()
 
-    test = run_query(owner, repo, auth)
-    pprint(test)
-    print(len(test))
+    test = run_query(repo, owner, auth)
+    if test:
+        pprint(test)

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Issue:
+class IssueOrPullRequest:
     title: str
     number: int
     state: str
@@ -10,7 +10,7 @@ class Issue:
     comments: []
 
 
-def newIssue(raw):
+def newIssueOrPullRequest(raw):
     title = raw["title"]
     number = raw["number"]
     state = raw["state"]
@@ -20,7 +20,7 @@ def newIssue(raw):
     for edge in raw["comments"]["edges"]:
         comments.append(newComment(edge["node"]))
 
-    return Issue(title,number,state,author,comments)
+    return IssueOrPullRequest(title,number,state,author,comments)
 
 
 @dataclass

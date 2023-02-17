@@ -1,9 +1,9 @@
-from classes import *
+from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
 
 
-def run_query(owner, repo, auth):
+def run_query(auth, owner, repo, type):
 
     # list to store each comment
     issues = []
@@ -22,15 +22,19 @@ def run_query(owner, repo, auth):
     while has_next_page:
 
         # gets the query and performs call, on subsequent call passes in end_cursor for pagination
-        query = get_issue_query(owner, repo, end_cursor)
+        query = get_issue_query(owner, repo, type, end_cursor)
         print("Gathering issues...")
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
-            pprint(request.json())
-            trimmed_request = request.json()["data"]["repository"]["issues"]
+            # pprint(request.json())
+            try:
+                trimmed_request = request.json()["data"]["repository"][type]
+            except TypeError:
+                print("Invalid information provided")
+                break
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
@@ -39,7 +43,7 @@ def run_query(owner, repo, auth):
             if has_next_page:
                 end_cursor = trimmed_request["pageInfo"]["endCursor"]
             for edge in trimmed_request["edges"]:
-                issues.append(newIssue(edge["node"]))
+                issues.append(newIssueOrPullRequest(edge["node"]))
         else:
             print("Invalid information provided")
             break
@@ -48,7 +52,7 @@ def run_query(owner, repo, auth):
 
 
 # returns query for issue comments
-def get_issue_query(repo, owner, end_cursor=None):
+def get_issue_query(repo, owner, type, end_cursor=None):
 
     # for pagination
     if end_cursor is not None:
@@ -59,7 +63,7 @@ def get_issue_query(repo, owner, end_cursor=None):
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            issues(last:100%s) {
+            %s(last:100%s) {
                 edges {
                     node {
                         number
@@ -88,7 +92,7 @@ def get_issue_query(repo, owner, end_cursor=None):
             }
         }
     }
-    """ % (repo, owner, after)
+    """ % (repo, owner, type, after)
 
     return query
 
@@ -96,13 +100,29 @@ def get_issue_query(repo, owner, end_cursor=None):
 # main function for testing code
 if __name__ == '__main__':
 
-    print("Enter a repo: ", end="")
-    repo = input()
-    print("Enter the owner of repo: ", end="")
-    owner = input()
-    print("Enter access token: ", end="")
-    auth = input()
+    valid = True
 
-    test = run_query(repo, owner, auth)
-    if test:
-        pprint(test)
+    print("Enter an access token: ", end="")
+    auth = input()
+    print("Enter a repo (owner/repo): ", end="")
+    temp = input()
+    owner_repo = temp.split("/")
+    if len(owner_repo) != 2:
+        print("Invalid input")
+        valid = False
+    else:
+        print("Get issues or pull requests? (i or p): ", end="")
+        letter = input()
+
+        if letter == "i":
+            pull_type = "issues"
+        elif letter == "p":
+            pull_type = "pullRequests"
+        else:
+            print("Invalid input")
+            valid = False
+
+    if valid:
+        test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
+        if test:
+            pprint(test)

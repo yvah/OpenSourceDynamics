@@ -28,8 +28,8 @@ def test_newIssue():
     "title": "hi"
     }"""
 
-    issue1 = classes.newIssue(json.loads(string))
-    issue2 = classes.Issue("hi", 13, "CLOSED", "Fredrick",
+    issue1 = classes.newIssueOrPullRequest(json.loads(string))
+    issue2 = classes.IssueOrPullRequest("hi", 13, "CLOSED", "Fredrick",
                            [classes.Comment("this is a comment", "Frankie", "2023-02-16", "17:20:39")])
 
     assert issue1 == issue2

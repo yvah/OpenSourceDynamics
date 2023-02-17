@@ -15,15 +15,17 @@ def run_query(auth, owner, repo, type):
     }
 
     # for pagination
-    has_next_page = True
+    has_prev_page = True
     end_cursor = None
 
+    print("Gathering issues...")
     # query can only fetch 100 comments, so keeps fetching until all fetched
-    while has_next_page:
+    i = 0
+    while has_prev_page and i < 5:
+        i += 1
 
         # gets the query and performs call, on subsequent call passes in end_cursor for pagination
         query = get_issue_query(owner, repo, type, end_cursor)
-        print("Gathering issues...")
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
@@ -38,10 +40,10 @@ def run_query(auth, owner, repo, type):
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
-            has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
+            has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
             has_next_page = False  # TODO remove for pagination
-            if has_next_page:
-                end_cursor = trimmed_request["pageInfo"]["endCursor"]
+            if has_prev_page:
+                cursor = trimmed_request["pageInfo"]["startCursor"]
             for edge in trimmed_request["edges"]:
                 issues.append(newIssueOrPullRequest(edge["node"]))
         else:
@@ -52,11 +54,11 @@ def run_query(auth, owner, repo, type):
 
 
 # returns query for issue comments
-def get_issue_query(repo, owner, type, end_cursor=None):
+def get_issue_query(repo, owner, type, cursor=None):
 
     # for pagination
-    if end_cursor is not None:
-        after = f', after:"{end_cursor}"'
+    if cursor is not None:
+        after = f', after:"{cursor}"'
     else:
         after = ""
 
@@ -86,8 +88,8 @@ def get_issue_query(repo, owner, type, end_cursor=None):
                     }
                 }
                 pageInfo {
-                    hasNextPage
-                    endCursor
+                    hasPreviousPage
+                    startCursor
                 }
             }
         }
@@ -126,3 +128,4 @@ if __name__ == '__main__':
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
+            print(len(test))

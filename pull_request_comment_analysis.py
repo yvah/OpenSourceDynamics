@@ -4,13 +4,13 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 import numpy as np
 
-authenticator = IAMAuthenticator('BOueFOR-QVs2qlVTKs7xbPGO_GoJHetXi5_-vCNz4sMP')
+authenticator = IAMAuthenticator('insert key here')
 natural_language_understanding = NaturalLanguageUnderstandingV1(
     version='2022-04-07',
     authenticator=authenticator
 )
 
-natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/92f44b5f-c5e7-4010-bbea-f8797a6a8757')
+natural_language_understanding.set_service_url('insert url here')
 
 class Pull_Request:
     def __init__(self, pr):

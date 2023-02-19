@@ -1,12 +1,12 @@
-from classes import Comment, newComment
+from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
 
 
-def run_query(owner, repo, auth):
+def run_query(auth, owner, repo, pull_type):
 
     # list to store each comment
-    comments = []
+    issues = []
 
     # stores the authorisation token and accept
     headers = {
@@ -15,82 +15,116 @@ def run_query(owner, repo, auth):
     }
 
     # for pagination
-    has_next_page = True
-    end_cursor = None
+    has_prev_page = True
+    cursor = None
 
-    # query can only fetch 100 comments, so keeps fetching until all fetched
-    while has_next_page:
+    print(f"Gathering {pull_type}...")
+    # query can only fetch 100 at a time, so keeps fetching until all fetched
+    while has_prev_page:
 
-        # gets the query and performs call, on subsequent call passes in end_cursor for pagination
-        query = get_issue_query(owner, repo, end_cursor)
+        # gets the query and performs call, on subsequent call passes in cursor for pagination
+        query = get_issue_query(owner, repo, pull_type, cursor)
         request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
-            trimmed_request = request.json()["data"]["repository"]["issueOrPullRequest"]["comments"]
+            # pprint(request.json())
+            try:
+                trimmed_request = request.json()["data"]["repository"][pull_type]
+            except TypeError:
+                print("Invalid information provided")
+                break
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
-            has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
-            if has_next_page:
-                end_cursor = trimmed_request["pageInfo"]["endCursor"]
+            has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
+            has_prev_page = False  # TODO remove for pagination
+            if has_prev_page:
+                cursor = trimmed_request["pageInfo"]["startCursor"]
             for edge in trimmed_request["edges"]:
-                comments.append(newComment(edge["node"]))
+                issues.append(newIssueOrPullRequest(edge["node"]))
         else:
-            raise Exception("Query failed to run by returning code of {}.".format(request.status_code))
+            print("Invalid information provided")
+            break
 
-    # todo: store comments in objects
-
-    return comments
+    return issues
 
 
 # returns query for issue comments
-def get_issue_query(repo, owner, end_cursor=None):
+def get_issue_query(repo, owner, pull_type, cursor=None):
 
     # for pagination
-    if end_cursor is not None:
-        after = f', after:"{end_cursor}"'
+    if cursor is not None:
+        after = f', after:"{cursor}"'
     else:
         after = ""
 
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            issueOrPullRequest(number:120223) {
-                ... on Issue {
-                    comments(first:100%s) {
-                        pageInfo {
-                            hasNextPage
-                            endCursor
+            %s(last:100%s) {
+                edges {
+                    node {
+                        number
+                        title
+                        author {
+                            login
                         }
-                        edges {
-                            node {
-                                author {
-                                    login
+                        state
+                        comments(first:100) {
+                            edges {
+                                node {
+                                    author {
+                                        login
+                                    }
+                                    bodyText
+                                    createdAt
                                 }
-                                bodyText
-                                createdAt
                             }
                         }
                     }
                 }
+                pageInfo {
+                    hasPreviousPage
+                    startCursor
+                }
             }
         }
     }
-    """ % (owner, repo, after)
+    """ % (repo, owner, pull_type, after)
 
     return query
 
 
 # main function for testing code
 if __name__ == '__main__':
-    owner = "flutter"
-    repo = "flutter"
-    branch = "master"
 
-    print("Enter access token: ", end="")
+    valid = True
+    print("Enter an access token: ", end="")
     auth = input()
+    print("Enter a repo (owner/repo): ", end="")
+    temp = input()
+    owner_repo = temp.split("/")
 
-    test = run_query(owner, repo, auth)
-    pprint(test)
+    pull_type = ""
+    if len(owner_repo) != 2:
+        print("Invalid input")
+        valid = False
+    else:
+        print("Get issues or pull requests? (i or p): ", end="")
+        letter = input()
+
+        if letter == "i":
+            pull_type = "issues"
+        elif letter == "p":
+            pull_type = "pullRequests"
+        else:
+            print("Invalid input")
+            valid = False
+
+    if valid:
+        test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
+        if test:
+            pprint(test)
+            # print(len(test))

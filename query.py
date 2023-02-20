@@ -55,7 +55,7 @@ def run_query(auth, owner, repo, pull_type):
                 os.makedirs(filepath)
             # creating json object
             # writing data into repoName_pullType.json in cwd/fetched_data directory
-            json_object = json.dumps(trimmed_request, indent=4)
+            json_object = json.dumps(trimmed_request["edges"], indent=4)
             with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
                 outfile.write(json_object)
         else:

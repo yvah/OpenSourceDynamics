@@ -2,12 +2,13 @@ from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
 import json
+import os
 
 
 def run_query(auth, owner, repo, pull_type):
 
     # list to store each comment
-    issues = []
+    # issues = []
     # stores the authorisation token and accept
     headers = {
         "Authorization": "token " + auth,
@@ -46,10 +47,16 @@ def run_query(auth, owner, repo, pull_type):
             # if want to get a list instead of a dictionary:
             # for edge in trimmed_request["edges"]:
             #     issues.append(newIssueOrPullRequest(edge["node"]))
+            # gets current working directory
+            # creates a folder to store json files, if such doesn't exist
+            cwd = os.getcwd()
+            filepath = cwd + "/fetched_data"
+            if not os.path.exists(filepath):
+                os.makedirs(filepath)
             # creating json object
+            # writing data into repoName_pullType.json in cwd/fetched_data directory
             json_object = json.dumps(trimmed_request, indent=4)
-            # writing to repo_pullType.json
-            with open(f"{repo}_{pull_type}.json", "w") as outfile:
+            with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
                 outfile.write(json_object)
         else:
             print("Invalid information provided")

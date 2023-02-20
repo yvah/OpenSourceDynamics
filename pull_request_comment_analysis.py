@@ -39,10 +39,25 @@ def list_of_pr(data):
 class main:
     f = open('pr_comments.json')
     data = json.load(f)
-
+    
+    merged = 0
+    merged_sum = 0
+    closed = 0
+    closed_sum = 0
     pull_requests = list_of_pr(data)
-    for i in pull_requests:
-        print(i)
+    for pr in pull_requests:
+        print(pr)
+
+        if (pr.state == "MERGED"):
+            merged_sum += pr.sentiment
+            merged+=1
+        if (pr.state == "CLOSED"):
+            closed_sum += pr.sentiment
+            closed+=1
+
+    print('Average sentiment for merged PR:', merged_sum/merged)
+    print('Average sentiment for closed PR:', closed_sum/closed)
+
 
 '''
 response = natural_language_understanding.analyze(

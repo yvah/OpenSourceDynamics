@@ -1,13 +1,13 @@
 from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
+import json
 
 
 def run_query(auth, owner, repo, pull_type):
 
     # list to store each comment
     issues = []
-
     # stores the authorisation token and accept
     headers = {
         "Authorization": "token " + auth,
@@ -24,7 +24,7 @@ def run_query(auth, owner, repo, pull_type):
 
         # gets the query and performs call, on subsequent call passes in cursor for pagination
         query = get_issue_query(owner, repo, pull_type, cursor)
-        request = post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+        request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
@@ -42,13 +42,19 @@ def run_query(auth, owner, repo, pull_type):
             has_prev_page = False  # TODO remove for pagination
             if has_prev_page:
                 cursor = trimmed_request["pageInfo"]["startCursor"]
-            for edge in trimmed_request["edges"]:
-                issues.append(newIssueOrPullRequest(edge["node"]))
+
+            # if want to get a list instead of a dictionary:
+            # for edge in trimmed_request["edges"]:
+            #     issues.append(newIssueOrPullRequest(edge["node"]))
+            # creating json object
+            json_object = json.dumps(trimmed_request, indent=4)
+            # writing to repo_pullType.json
+            with open(f"{repo}_{pull_type}.json", "w") as outfile:
+                outfile.write(json_object)
         else:
             print("Invalid information provided")
             break
-
-    return issues
+    return json_object
 
 
 # returns query for issue comments
@@ -56,7 +62,7 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
 
     # for pagination
     if cursor is not None:
-        after = f', after:"{cursor}"'
+        after = f"', after:'{cursor}'"
     else:
         after = ""
 
@@ -127,4 +133,3 @@ if __name__ == '__main__':
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
-            # print(len(test))

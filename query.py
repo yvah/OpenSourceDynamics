@@ -36,7 +36,7 @@ def run_query(auth, owner, repo, pull_type):
             except TypeError:
                 print("Invalid information provided")
                 break
-            # pprint(trimmed_request)
+            pprint(trimmed_request)
 
             # determines if all comments have been fetched
             has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
@@ -49,15 +49,17 @@ def run_query(auth, owner, repo, pull_type):
             #     issues.append(newIssueOrPullRequest(edge["node"]))
             # gets current working directory
             # creates a folder to store json files, if such doesn't exist
-            cwd = os.getcwd()
-            filepath = cwd + "/fetched_data"
-            if not os.path.exists(filepath):
-                os.makedirs(filepath)
-            # creating json object
-            # writing data into repoName_pullType.json in cwd/fetched_data directory
-            json_object = json.dumps(trimmed_request["edges"], indent=4)
-            with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
-                outfile.write(json_object)
+            # if trimmed_request["totalCount"] >= 10:
+            if True:
+                cwd = os.getcwd()
+                filepath = cwd + "/fetched_data"
+                if not os.path.exists(filepath):
+                    os.makedirs(filepath)
+                # creating json object
+                # writing data into repoName_pullType.json in cwd/fetched_data directory
+                json_object = json.dumps(trimmed_request["edges"], indent=4)
+                with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
+                    outfile.write(json_object)
         else:
             print("Invalid information provided")
             break
@@ -76,13 +78,14 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            %s(last:100%s) {
+            %s(last:10, states:CLOSED%s) {
                 edges {
                     node {
                         number
                         title
                         author {
                             login
+                            isViewer
                         }
                         state
                         comments(first:100) {
@@ -95,6 +98,7 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
                                     createdAt
                                 }
                             }
+                            totalCount
                         }
                     }
                 }
@@ -140,3 +144,5 @@ if __name__ == '__main__':
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
+            print(len(test))
+

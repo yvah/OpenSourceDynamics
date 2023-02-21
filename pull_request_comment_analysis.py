@@ -1,16 +1,21 @@
+##############################
+# Please put the IBM NLU API key and URL here:
+api_key = 'Q4X0jU15o08HYES8jiLwuznIp897uPWzjRiv02CQLu9B'
+url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/9aebc290-96c3-478c-8e95-4c250ff5153c'
+##############################
+
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
-import numpy as np
 
-authenticator = IAMAuthenticator('insert key here')
+authenticator = IAMAuthenticator(api_key)
 natural_language_understanding = NaturalLanguageUnderstandingV1(
     version='2022-04-07',
     authenticator=authenticator
 )
 
-natural_language_understanding.set_service_url('insert url here')
+natural_language_understanding.set_service_url(url)
 
 class Pull_Request:
     def __init__(self, pr):
@@ -31,9 +36,9 @@ class Pull_Request:
         return "<comments: " + str(self.number_of_comments) + "; state: " + self.state + "; sentiment: " + str(self.sentiment) + ">"
 
 def list_of_pr(data):
-    pull_requests = np.array([])
+    pull_requests = []
     for pr in data['data']['repository']['pullRequests']['nodes']:
-        pull_requests = np.append(pull_requests, Pull_Request(pr))
+        pull_requests.append(Pull_Request(pr))
     return pull_requests
 
 class main:
@@ -57,12 +62,3 @@ class main:
 
     print('Average sentiment for merged PR:', merged_sum/merged)
     print('Average sentiment for closed PR:', closed_sum/closed)
-
-
-'''
-response = natural_language_understanding.analyze(
-    url='https://github.com/flutter/flutter/pull/120984',
-    features=Features(sentiment=SentimentOptions(targets=['Pull Request']))).get_result()
-
-print(json.dumps(response, indent=2))
-'''

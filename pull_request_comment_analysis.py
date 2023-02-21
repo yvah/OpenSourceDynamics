@@ -1,13 +1,12 @@
-##############################
-# Please put the IBM NLU API key and URL here:
-api_key = 'Q4X0jU15o08HYES8jiLwuznIp897uPWzjRiv02CQLu9B'
-url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/9aebc290-96c3-478c-8e95-4c250ff5153c'
-##############################
-
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+
+keys = open("keys.txt", "r")
+api_key = keys.readline().rstrip('\n')
+url = keys.readline().strip('\n')
+keys.close()
 
 authenticator = IAMAuthenticator(api_key)
 natural_language_understanding = NaturalLanguageUnderstandingV1(

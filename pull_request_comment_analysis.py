@@ -10,6 +10,8 @@ keys = open("keys.txt", "r")
 api_key = keys.readline().rstrip('\n')
 url = keys.readline().strip('\n')
 keys.close()
+if api_key == "apikey" or url == "url":
+    print("ERROR: need to put api key in keys.txt file")
 
 # IBM NLU authentication
 authenticator = IAMAuthenticator(api_key)
@@ -84,10 +86,10 @@ else:
 if valid:
     data = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
 
-if (pull_type == "issues"):
+if pull_type == "issues":
     pprint(data)
 
-if (pull_type == "pullRequests"):
+if pull_type == "pullRequests":
     data = json.loads(data)
     print("Performing sentiment analysis...")
     pull_requests = list_of_pr(data)
@@ -98,22 +100,22 @@ if (pull_type == "pullRequests"):
     closed_sum = 0
     for pr in pull_requests:
         print(pr)
-        if (pr.state == "MERGED"):
+        if pr.state == "MERGED":
             merged_sum += pr.sentiment
             merged+=1
-        elif (pr.state == "CLOSED"):
+        elif pr.state == "CLOSED":
             closed_sum += pr.sentiment
             closed+=1
         else: 
             continue
 
     # Prints average PR sentiment
-    if(merged == 0):
+    if merged == 0:
         print('No merged PR')
     else:
         print('Average sentiment for merged PR:', merged_sum/merged)
 
-    if(closed == 0):
+    if closed == 0:
         print('No closed PR')
     else:
         print('Average sentiment for closed PR:', closed_sum/closed)

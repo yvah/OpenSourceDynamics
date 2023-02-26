@@ -4,6 +4,7 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 from query import pprint
 from query import run_query
+import scipy.stats as stats
 
 # Pulls API Keys from keys.txt file
 keys = open("keys.txt", "r")
@@ -59,6 +60,27 @@ def list_of_pr(data):
            pass
     return pull_requests
 
+# Preforms a Point-Biserial Correlation test and prints the result
+def correlation_test(prs):
+    state = []
+    sentiment = []
+    for pr in prs:
+        if pr.state == 'CLOSED':
+            s = 0
+        elif pr.state == 'MERGED':
+            s = 1
+        else:
+            continue
+        state.append(s)
+        sentiment.append(pr.sentiment)
+    point_biserial = stats.pointbiserialr(state, sentiment)
+    pvalue = round(point_biserial.pvalue, 4)
+    rvalue = round(point_biserial.statistic, 4)
+    print("State and sentiment are", end=" ")
+    if pvalue > 0.05:
+        print("not", end=" ")
+    print("statisiticaly significant: p-value of", pvalue, "and R-value of", rvalue)      
+
 # Promts user for query
 valid = True
 print("Enter an access token: ", end="")
@@ -109,6 +131,7 @@ if pull_type == "pullRequests":
         else: 
             continue
 
+    print()
     # Prints average PR sentiment
     if merged == 0:
         print('No merged PR')
@@ -119,3 +142,7 @@ if pull_type == "pullRequests":
         print('No closed PR')
     else:
         print('Average sentiment for closed PR:', closed_sum/closed)
+
+    print()
+    # Preform a Point-Biserial Correlation test
+    correlation_test(pull_requests)

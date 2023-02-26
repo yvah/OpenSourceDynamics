@@ -2,7 +2,7 @@ import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
-from query import pprint
+from pprint import pprint
 from query import run_query
 
 # Pulls API Keys from keys.txt file
@@ -20,6 +20,7 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
     authenticator=authenticator
 )
 natural_language_understanding.set_service_url(url)
+
 
 # Defines pull requests as objects
 class Pull_Request:
@@ -45,6 +46,7 @@ class Pull_Request:
     def __str__(self):
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + ">"
 
+
 # Takes a json file and parses it into a list of Pull_Request objects
 def list_of_pr(data):
     pull_requests = []
@@ -59,32 +61,34 @@ def list_of_pr(data):
            pass
     return pull_requests
 
+
 # Promts user for query
-valid = True
 print("Enter an access token: ", end="")
 auth = input()
-print("Enter a repo (owner/repo): ", end="")
-temp = input()
-owner_repo = temp.split("/")
 
 pull_type = ""
-if len(owner_repo) != 2:
-    print("Invalid input")
-    valid = False
-else:
-    print("Get issues or pull requests? (i or p): ", end="")
-    letter = input()
+valid = False
 
-    if letter == "i":
-        pull_type = "issues"
-    elif letter == "p":
-        pull_type = "pullRequests"
-    else:
+while not valid:
+    print("Enter a repo (owner/repo): ", end="")
+    owner_repo = input().split("/")
+    if len(owner_repo) != 2:
         print("Invalid input")
-        valid = False
+    else:
+        print("Get issues or pull requests? (i or p): ", end="")
+        letter = input()
 
-if valid:
-    data = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
+        if letter == "i":
+            pull_type = "issues"
+            valid = True
+        elif letter == "p":
+            pull_type = "pullRequests"
+            valid = True
+        else:
+            print("Invalid input")
+
+    if valid:
+        data = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
 
 if pull_type == "issues":
     pprint(data)

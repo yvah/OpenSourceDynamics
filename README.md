@@ -7,4 +7,4 @@ Enter a GitHub Access Token and enter the name and owner of the repo you want to
 Finally, specify whether you want to get issue or pull requests.
 
 JSON files with extracted information will be stored in `cwd/fetched_data` folder.
-To run API Queries independetly from NL processing, open `query.py` and run the main function.
+To run API Queries independently from NL processing, open `query.py` and run the main function.

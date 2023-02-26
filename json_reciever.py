@@ -10,7 +10,6 @@ class Log:
         self.comments = comments
 
 
-
 class LogEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, Log):
@@ -25,6 +24,7 @@ class LogEncoder(json.JSONEncoder):
         else:
             # Base class will raise the TypeError.
             return super().default(o)
+
 
 class LogDecoder(json.JSONDecoder):
     def __init__(self, object_hook=None, *args, **kwargs):

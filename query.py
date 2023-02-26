@@ -2,6 +2,7 @@ from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
 import json
+from jsonmerge import merge
 import os
 
 
@@ -18,11 +19,13 @@ def run_query(auth, owner, repo, pull_type):
     # for pagination
     has_prev_page = True
     cursor = None
+    json_list = []
 
     print(f"Gathering {pull_type}...")
     # query can only fetch 100 at a time, so keeps fetching until all fetched
-    while has_prev_page:
-
+    i = 0  # grabs up to 500 queries
+    while has_prev_page and i < 1000:
+        i += 100
         # gets the query and performs call, on subsequent call passes in cursor for pagination
         query = get_issue_query(owner, repo, pull_type, cursor)
         request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
@@ -36,11 +39,11 @@ def run_query(auth, owner, repo, pull_type):
             except TypeError:
                 print("Invalid information provided")
                 break
-            pprint(trimmed_request)
+            # pprint(trimmed_request)
 
             # determines if all comments have been fetched
             has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
-            has_prev_page = False  # TODO remove for pagination
+            # has_prev_page = False  # TODO remove for pagination
             if has_prev_page:
                 cursor = trimmed_request["pageInfo"]["startCursor"]
 
@@ -50,20 +53,24 @@ def run_query(auth, owner, repo, pull_type):
             # gets current working directory
             # creates a folder to store json files, if such doesn't exist
             # if trimmed_request["totalCount"] >= 10:
-            if True:
-                cwd = os.getcwd()
-                filepath = cwd + "/fetched_data"
-                if not os.path.exists(filepath):
-                    os.makedirs(filepath)
-                # creating json object
-                # writing data into repoName_pullType.json in cwd/fetched_data directory
-                json_object = json.dumps(trimmed_request["edges"], indent=4)
-                with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
-                    outfile.write(json_object)
+            json_list += trimmed_request["edges"]
+
         else:
             print("Invalid information provided")
-            break
-    return json_object
+            return None
+        
+    cwd = os.getcwd()
+    filepath = cwd + "/fetched_data"
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
+    # creating json object
+    # writing data into repoName_pullType.json in cwd/fetched_data directory
+    json_string = json.dumps(json_list, indent=4)
+    with open(filepath + "/" + f"{repo}_{pull_type}.json", "w") as outfile:
+        outfile.write(json_string)
+    pprint(json_string)
+        
+    return json_string
 
 
 # returns query for issue comments
@@ -71,25 +78,23 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
 
     # for pagination
     if cursor is not None:
-        after = f"', after:'{cursor}'"
+        before = f', before: "{cursor}"'
     else:
-        after = ""
+        before = ""
 
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            %s(last:10, states:CLOSED%s) {
+            %s(last:100,%s states:CLOSED) {
                 edges {
                     node {
                         number
                         title
                         author {
                             login
-                            isViewer
                         }
                         state
                         comments(first:100) {
-                            totalCount
                             edges {
                                 node {
                                     author {
@@ -110,7 +115,7 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
             }
         }
     }
-    """ % (repo, owner, pull_type, after)
+    """ % (repo, owner, pull_type, before)
 
     return query
 
@@ -118,32 +123,31 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
 # main function for testing code
 if __name__ == '__main__':
 
-    valid = True
     print("Enter an access token: ", end="")
     auth = input()
-    print("Enter a repo (owner/repo): ", end="")
-    temp = input()
-    owner_repo = temp.split("/")
 
     pull_type = ""
-    if len(owner_repo) != 2:
-        print("Invalid input")
-        valid = False
-    else:
-        print("Get issues or pull requests? (i or p): ", end="")
-        letter = input()
+    valid = False
 
-        if letter == "i":
-            pull_type = "issues"
-        elif letter == "p":
-            pull_type = "pullRequests"
-        else:
+    while not valid:
+        print("Enter a repo (owner/repo): ", end="")
+        owner_repo = input().split("/")
+        if len(owner_repo) != 2:
             print("Invalid input")
-            valid = False
+        else:
+            print("Get issues or pull requests? (i or p): ", end="")
+            letter = input()
+
+            if letter == "i":
+                pull_type = "issues"
+                valid = True
+            elif letter == "p":
+                pull_type = "pullRequests"
+                valid = True
+            else:
+                print("Invalid input")
 
     if valid:
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
-            print(len(test))
-

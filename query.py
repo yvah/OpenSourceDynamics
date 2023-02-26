@@ -89,6 +89,7 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
                         }
                         state
                         comments(first:100) {
+                            totalCount
                             edges {
                                 node {
                                     author {

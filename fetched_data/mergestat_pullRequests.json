@@ -1,1424 +1,1418 @@
-{
-    "edges": [
-        {
-            "node": {
-                "number": 681,
-                "title": "chore: bump to `v1.8.0-beta` in `docker-compose.yaml`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 695,
-                "title": "fix(deps): update github.com/shurcool/githubv4 digest to a8d4a56",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 696,
-                "title": "fix: remove extraneous button for clarity",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 697,
-                "title": "fix: replace `No data available!`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 698,
-                "title": "feat: add link to docs in the `GitHub Authentication Token`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 699,
-                "title": "chore(deps): bump json5 from 1.0.1 to 1.0.2 in /ui",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 700,
-                "title": "chore(deps): bump jsonwebtoken and @graphql-tools/prisma-loader in /ui",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 701,
-                "title": "fix: add a link to `/settings/repo-auto-imports` in the auto import error message",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 703,
-                "title": "chore: bump version to `v1.8.1-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 706,
-                "title": "feat: implement support for `INSECURE_SESSION_COOKIE` env var in the UI",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 707,
-                "title": "chore: bump versions in `docker-compose.yaml` to `v1.8.2-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 709,
-                "title": "feat(sync-warnings): Implementing sync warnings experience",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 711,
-                "title": "fix(connect): Showing current username in connect page",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 713,
-                "title": "fix(repos): Show default page instead of the empty page",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 714,
-                "title": "feat(syncer): add new sync type for gosec",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "patrickdevivo"
-                                },
-                                "bodyText": "@riyaz-ali looks great - but I was testing against this repo: https://github.com/mergestat/gosec-issue which I setup to have a gosec issue:\ngosec-issue git:(main) gosec -fmt json .\n[gosec] 2023/01/12 23:15:13 Including rules: default\n[gosec] 2023/01/12 23:15:13 Excluding rules: default\n[gosec] 2023/01/12 23:15:13 Import directory: /Users/patrickdevivo/Desktop/mergestat/gosec-issue\n[gosec] 2023/01/12 23:15:13 Checking package: main\n[gosec] 2023/01/12 23:15:13 Checking file: /Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\n{\n\t\"Golang errors\": {},\n\t\"Issues\": [\n\t\t{\n\t\t\t\"severity\": \"MEDIUM\",\n\t\t\t\"confidence\": \"HIGH\",\n\t\t\t\"cwe\": {\n\t\t\t\t\"id\": \"326\",\n\t\t\t\t\"url\": \"https://cwe.mitre.org/data/definitions/326.html\"\n\t\t\t},\n\t\t\t\"rule_id\": \"G401\",\n\t\t\t\"details\": \"Use of weak cryptographic primitive\",\n\t\t\t\"file\": \"/Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\",\n\t\t\t\"code\": \"5: func main() {\\n6: \\th := md5.New()\\n7: \\th.Write([]byte(\\\"hello\\\"))\\n\",\n\t\t\t\"line\": \"6\",\n\t\t\t\"column\": \"7\",\n\t\t\t\"nosec\": false,\n\t\t\t\"suppressions\": null\n\t\t},\n\t\t{\n\t\t\t\"severity\": \"MEDIUM\",\n\t\t\t\"confidence\": \"HIGH\",\n\t\t\t\"cwe\": {\n\t\t\t\t\"id\": \"327\",\n\t\t\t\t\"url\": \"https://cwe.mitre.org/data/definitions/327.html\"\n\t\t\t},\n\t\t\t\"rule_id\": \"G501\",\n\t\t\t\"details\": \"Blocklisted import crypto/md5: weak cryptographic primitive\",\n\t\t\t\"file\": \"/Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\",\n\t\t\t\"code\": \"2: \\n3: import \\\"crypto/md5\\\"\\n4: \\n\",\n\t\t\t\"line\": \"3\",\n\t\t\t\"column\": \"8\",\n\t\t\t\"nosec\": false,\n\t\t\t\"suppressions\": null\n\t\t}\n\t],\n\t\"Stats\": {\n\t\t\"files\": 1,\n\t\t\"lines\": 8,\n\t\t\"nosec\": 0,\n\t\t\"found\": 2\n\t},\n\t\"GosecVersion\": \"dev\"\n}%\n\nBut when I ran the syncer I didn't see any detected issues in the DB:\n\n\nSo I wonder if something is not getting executed as expected?",
-                                "createdAt": "2023-01-13T04:16:59Z"
-                            }
-                        },
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "riyaz-ali"
-                                },
-                                "bodyText": "@patrickdevivo seems to work for me \ud83d\ude44",
-                                "createdAt": "2023-01-13T08:02:54Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 719,
-                "title": "feat(query-tabs): Implementing new query visualization",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 720,
-                "title": "fix: spacing issue in repos table. Closes #715",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 721,
-                "title": "chore: bump to version `v1.9.2-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 723,
-                "title": "fix: correct version",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 724,
-                "title": "feat: implement first pass at backend for query history functionality",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 726,
-                "title": "Update global nav new",
-                "author": {
-                    "login": "emilyvandewalle"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 728,
-                "title": "Fix typo in examples",
-                "author": {
-                    "login": "robinbraemer"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "patrickdevivo"
-                                },
-                                "bodyText": "@robinbraemer thanks for finding this!",
-                                "createdAt": "2023-01-18T18:58:44Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 729,
-                "title": "feat: implement repo auto-import job using sqlq backend",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 730,
-                "title": "chore(deps): bump jsonwebtoken and graphile-build-pg in /graphql/exec-sql",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 731,
-                "title": "chore(deps): bump jsonwebtoken and graphile-build-pg in /graphql/service-credentials",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 732,
-                "title": "chore(deps): bump github.com/containerd/containerd from 1.6.8 to 1.6.12",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 733,
-                "title": "fix(deps): update go.riyazali.net/sqlite digest to 0e640ca",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "OPEN",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 735,
-                "title": "feat: send back `queryRunningTimeMs` in the `execSQL` call",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 736,
-                "title": "chore: bump to `v1.10.0-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 737,
-                "title": "fix: typo in the `docker-compose` file, `::` -> `:`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 738,
-                "title": "Line chart",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 739,
-                "title": "feat(import): Switch From GitHub GraphGQL API to REST API for auto imports",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "riyaz-ali"
-                                },
-                                "bodyText": "Shouldn't we have patched this in mergestat-lite by updating the github_org_repos and github_user_repos virtual table \ud83d\ude05 ?",
-                                "createdAt": "2023-01-24T04:57:07Z"
-                            }
-                        },
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "amenowanna"
-                                },
-                                "bodyText": "We know that syncs that use graphql will still be a token so this is expected. @ramiroJCB as you noted this sync does not respect the rate limit. This helps IMO to make a case for making this a generic sync type so we can leverage the queue concurrency. cc @patrickdevivo",
-                                "createdAt": "2023-01-24T05:20:02Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 740,
-                "title": "Examples update",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 741,
-                "title": "feat(bar-chart): Implementing first approach for Bar chart",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 742,
-                "title": "chore: update the phrase `No data available!` to be more specific",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "CLOSED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 744,
-                "title": "feat: implement an additional experimental syncer, the `ossf/scorecard` project",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 745,
-                "title": "chore: bump to `1.11.0-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 748,
-                "title": "feat: implement vendor and provider constructs",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "riyaz-ali"
-                                },
-                                "bodyText": "This also addresses #747",
-                                "createdAt": "2023-01-31T13:22:03Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 751,
-                "title": "fix(migrations): gosec table schema",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 754,
-                "title": "fix(deps): update github.com/mergestat/sqlq digest to 1655674",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 755,
-                "title": "chore: update to node `19`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 756,
-                "title": "chore(deps): update dependency prettier to v2.8.3",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 757,
-                "title": "fix: run `sqlc generate` as a part of CI for the worker",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 759,
-                "title": "chore(deps): update graphqlcodegenerator monorepo",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 760,
-                "title": "chore(deps): bump ua-parser-js from 0.7.31 to 0.7.33 in /ui",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 761,
-                "title": "chore(deps): update zricethezav/gitleaks docker tag to v8.15.3",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 762,
-                "title": "fix: broken URL, new auto imports page is under `/repos/...` now",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 764,
-                "title": "fix: typos in some struct/json handling in the `GITHUB_REPO_METADATA` syncer",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 765,
-                "title": "chore: bump version to `v1.12.0-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 766,
-                "title": "fix(deps): update module github.com/go-git/go-git/v5 to v5.5.2",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 767,
-                "title": "Revert \"fix(deps): update github.com/mergestat/sqlq digest to 1655674\"",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 768,
-                "title": "fix: bump up the default `jest` timeout in the UI tests",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 770,
-                "title": "feat: start tracking query history from SQL run from the UI",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 773,
-                "title": "Fix broken migration for gosec_repo_scans",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 774,
-                "title": "fix(deps): update module github.com/mergestat/mergestat-lite to v0.6.0",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "OPEN",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 775,
-                "title": "fix(deps): update module github.com/migueleliasweb/go-github-mock to v0.0.16",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "OPEN",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 777,
-                "title": "fix(syncer): Failing syncs when pat is not present",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 779,
-                "title": "chore: update help text in the default sync selection for auto imports",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 780,
-                "title": "chore(charts): Refactoring bar and line charts",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 781,
-                "title": "fix(sqlq): update sqlq to digest 60eb8f6d4b0d",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "patrickdevivo"
-                                },
-                                "bodyText": "@ramiroJCB I had some trouble running this on a local db that has existing data in it - saw a bunch of error output but wasn't able to get more detail. Can help debug more tomorrow",
-                                "createdAt": "2023-01-30T03:52:12Z"
-                            }
-                        },
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "ramiroJCB"
-                                },
-                                "bodyText": "@patrickdevivo  I tried to replicate this behavior on my local (applying this changes data in the db) and was not able to replicate .\nCould you please share the steps you did to make this happen ?",
-                                "createdAt": "2023-01-30T15:29:15Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 785,
-                "title": "Persist charts",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 786,
-                "title": "feat(syncer): Adding grype scanner sync",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 787,
-                "title": "chore: bump version to v1.14.0-beta",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 788,
-                "title": "chore: bump version to v1.15.0-beta",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 789,
-                "title": "fix: call `SetMaxOpenConns` with the same number used in the `pgxpool` setup",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 794,
-                "title": "feat: implement `GIT_REMOTES` repo syncer",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 795,
-                "title": "feat: bitbucket initial implementation",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "riyaz-ali"
-                                },
-                                "bodyText": "Builds on #748",
-                                "createdAt": "2023-02-03T11:16:03Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 796,
-                "title": "chore: bump version to v1.16.0-beta",
-                "author": {
-                    "login": "amenowanna"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 797,
-                "title": "chore(migrations): Adding synced_at and comments on grype table",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 802,
-                "title": "feat(migrations): Adding saved_queries schema",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 803,
-                "title": "fix: typo in table comments breaking `sqlc generate`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 804,
-                "title": "feat: first pass adding labels as badges to repo sync type listing page",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 806,
-                "title": "fix: add a migration to run `GRANT mergestat_anonymous TO mergestat_admin;`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 807,
-                "title": "feat(saved-queries): Starting implementation for Saved Queries",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "emilyvandewalle"
-                                },
-                                "bodyText": "Looks good! I would keep the icons on the top right the same size (20 by 20 pixels), maybe we could use muted borderless isIconOnly buttons?",
-                                "createdAt": "2023-02-07T13:19:25Z"
-                            }
-                        },
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "german-mergestat"
-                                },
-                                "bodyText": "@emilyvandewalle you're right, I will change them then... thanks :) \ud83d\udc4d",
-                                "createdAt": "2023-02-07T23:56:13Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 808,
-                "title": "feat: initial implementation for Gitlab-based repositories",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": [
-                        {
-                            "node": {
-                                "author": {
-                                    "login": "patrickdevivo"
-                                },
-                                "bodyText": "looks good to me, though I had some trouble running the GIT_COMMITS syncer on a gitlab repo brought in by the auto import.",
-                                "createdAt": "2023-02-14T17:05:53Z"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 813,
-                "title": "chore(deps): update dependency prettier to v2.8.4",
-                "author": {
-                    "login": "renovate"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 816,
-                "title": "fix: rename latest migration to address numbering collision",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 817,
-                "title": "feat(migrations): sqlq schema support",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 818,
-                "title": "feat(migrations): Adding fk to orphan tables",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 819,
-                "title": "feat(migrations):sql and name not null",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 820,
-                "title": "chore: move `SetMaxOpenConns` call to right after `upstream` is defined",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 822,
-                "title": "feat(sqlq):Upgrade sqlq library",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 823,
-                "title": "[Snyk] Upgrade pg-cursor from 2.7.3 to 2.7.4",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 825,
-                "title": "chore: update to `v1.17.0-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 827,
-                "title": "chore: just use `{query.createdBy}` when showing creator of saved query",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 831,
-                "title": "feat(importer):Adding rate limit and handling syncs to respect imports in progress",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "OPEN",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 832,
-                "title": "chore(schema): Implementing schema info for query editor",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 834,
-                "title": "UI improvements",
-                "author": {
-                    "login": "emilyvandewalle"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 836,
-                "title": "fix(migrations):Deleting orphan records",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 837,
-                "title": "chore(versions):bump version to v1.18.0-beta",
-                "author": {
-                    "login": "ramiroJCB"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 838,
-                "title": "fix: Add loading state for removing a repo auto import",
-                "author": {
-                    "login": "gitstart"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 839,
-                "title": "chore(deps): bump github.com/containerd/containerd from 1.6.12 to 1.6.18",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 841,
-                "title": "feat(editor): Adding autocomplete keywords from schema",
-                "author": {
-                    "login": "german-mergestat"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 842,
-                "title": "fix: Adding a repo by URL - if a repo has a GitHub URL, can we extract the owner/name and display it without the `https://github.com/` prefix for brevity",
-                "author": {
-                    "login": "gitstart"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 845,
-                "title": "chore: bump to `v1.19.0-beta`",
-                "author": {
-                    "login": "patrickdevivo"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 847,
-                "title": "fix: update vendor-provider schema",
-                "author": {
-                    "login": "riyaz-ali"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 848,
-                "title": "[Snyk] Upgrade pg-cursor from 2.7.4 to 2.8.0",
-                "author": {
-                    "login": "snyk-bot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 849,
-                "title": "chore(deps): bump golang.org/x/net from 0.5.0 to 0.7.0",
-                "author": {
-                    "login": "dependabot"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 850,
-                "title": "fix: `Copy` button no longer works on `Queries` page",
-                "author": {
-                    "login": "gitstart"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
-            }
-        },
-        {
-            "node": {
-                "number": 851,
-                "title": "feat: Add user feedback when the repo sync schedule toggle is used/modified",
-                "author": {
-                    "login": "gitstart"
-                },
-                "state": "MERGED",
-                "comments": {
-                    "edges": []
-                }
+[
+    {
+        "node": {
+            "number": 695,
+            "title": "fix(deps): update github.com/shurcool/githubv4 digest to a8d4a56",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
             }
         }
-    ],
-    "pageInfo": {
-        "hasPreviousPage": true,
-        "startCursor": "Y3Vyc29yOnYyOpHORhc9WA=="
+    },
+    {
+        "node": {
+            "number": 696,
+            "title": "fix: remove extraneous button for clarity",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 697,
+            "title": "fix: replace `No data available!`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 698,
+            "title": "feat: add link to docs in the `GitHub Authentication Token`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 699,
+            "title": "chore(deps): bump json5 from 1.0.1 to 1.0.2 in /ui",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 700,
+            "title": "chore(deps): bump jsonwebtoken and @graphql-tools/prisma-loader in /ui",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 701,
+            "title": "fix: add a link to `/settings/repo-auto-imports` in the auto import error message",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 703,
+            "title": "chore: bump version to `v1.8.1-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 706,
+            "title": "feat: implement support for `INSECURE_SESSION_COOKIE` env var in the UI",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 707,
+            "title": "chore: bump versions in `docker-compose.yaml` to `v1.8.2-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 709,
+            "title": "feat(sync-warnings): Implementing sync warnings experience",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 711,
+            "title": "fix(connect): Showing current username in connect page",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 713,
+            "title": "fix(repos): Show default page instead of the empty page",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 714,
+            "title": "feat(syncer): add new sync type for gosec",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@riyaz-ali looks great - but I was testing against this repo: https://github.com/mergestat/gosec-issue which I setup to have a gosec issue:\ngosec-issue git:(main) gosec -fmt json .\n[gosec] 2023/01/12 23:15:13 Including rules: default\n[gosec] 2023/01/12 23:15:13 Excluding rules: default\n[gosec] 2023/01/12 23:15:13 Import directory: /Users/patrickdevivo/Desktop/mergestat/gosec-issue\n[gosec] 2023/01/12 23:15:13 Checking package: main\n[gosec] 2023/01/12 23:15:13 Checking file: /Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\n{\n\t\"Golang errors\": {},\n\t\"Issues\": [\n\t\t{\n\t\t\t\"severity\": \"MEDIUM\",\n\t\t\t\"confidence\": \"HIGH\",\n\t\t\t\"cwe\": {\n\t\t\t\t\"id\": \"326\",\n\t\t\t\t\"url\": \"https://cwe.mitre.org/data/definitions/326.html\"\n\t\t\t},\n\t\t\t\"rule_id\": \"G401\",\n\t\t\t\"details\": \"Use of weak cryptographic primitive\",\n\t\t\t\"file\": \"/Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\",\n\t\t\t\"code\": \"5: func main() {\\n6: \\th := md5.New()\\n7: \\th.Write([]byte(\\\"hello\\\"))\\n\",\n\t\t\t\"line\": \"6\",\n\t\t\t\"column\": \"7\",\n\t\t\t\"nosec\": false,\n\t\t\t\"suppressions\": null\n\t\t},\n\t\t{\n\t\t\t\"severity\": \"MEDIUM\",\n\t\t\t\"confidence\": \"HIGH\",\n\t\t\t\"cwe\": {\n\t\t\t\t\"id\": \"327\",\n\t\t\t\t\"url\": \"https://cwe.mitre.org/data/definitions/327.html\"\n\t\t\t},\n\t\t\t\"rule_id\": \"G501\",\n\t\t\t\"details\": \"Blocklisted import crypto/md5: weak cryptographic primitive\",\n\t\t\t\"file\": \"/Users/patrickdevivo/Desktop/mergestat/gosec-issue/main.go\",\n\t\t\t\"code\": \"2: \\n3: import \\\"crypto/md5\\\"\\n4: \\n\",\n\t\t\t\"line\": \"3\",\n\t\t\t\"column\": \"8\",\n\t\t\t\"nosec\": false,\n\t\t\t\"suppressions\": null\n\t\t}\n\t],\n\t\"Stats\": {\n\t\t\"files\": 1,\n\t\t\"lines\": 8,\n\t\t\"nosec\": 0,\n\t\t\"found\": 2\n\t},\n\t\"GosecVersion\": \"dev\"\n}%\n\nBut when I ran the syncer I didn't see any detected issues in the DB:\n\n\nSo I wonder if something is not getting executed as expected?",
+                            "createdAt": "2023-01-13T04:16:59Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "@patrickdevivo seems to work for me \ud83d\ude44",
+                            "createdAt": "2023-01-13T08:02:54Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 719,
+            "title": "feat(query-tabs): Implementing new query visualization",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 720,
+            "title": "fix: spacing issue in repos table. Closes #715",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 721,
+            "title": "chore: bump to version `v1.9.2-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 723,
+            "title": "fix: correct version",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 724,
+            "title": "feat: implement first pass at backend for query history functionality",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 726,
+            "title": "Update global nav new",
+            "author": {
+                "login": "emilyvandewalle"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 728,
+            "title": "Fix typo in examples",
+            "author": {
+                "login": "robinbraemer"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@robinbraemer thanks for finding this!",
+                            "createdAt": "2023-01-18T18:58:44Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 729,
+            "title": "feat: implement repo auto-import job using sqlq backend",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 730,
+            "title": "chore(deps): bump jsonwebtoken and graphile-build-pg in /graphql/exec-sql",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 731,
+            "title": "chore(deps): bump jsonwebtoken and graphile-build-pg in /graphql/service-credentials",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 732,
+            "title": "chore(deps): bump github.com/containerd/containerd from 1.6.8 to 1.6.12",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 733,
+            "title": "fix(deps): update go.riyazali.net/sqlite digest to 0e640ca",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 735,
+            "title": "feat: send back `queryRunningTimeMs` in the `execSQL` call",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 736,
+            "title": "chore: bump to `v1.10.0-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 737,
+            "title": "fix: typo in the `docker-compose` file, `::` -> `:`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 738,
+            "title": "Line chart",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 739,
+            "title": "feat(import): Switch From GitHub GraphGQL API to REST API for auto imports",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "Shouldn't we have patched this in mergestat-lite by updating the github_org_repos and github_user_repos virtual table \ud83d\ude05 ?",
+                            "createdAt": "2023-01-24T04:57:07Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "We know that syncs that use graphql will still be a token so this is expected. @ramiroJCB as you noted this sync does not respect the rate limit. This helps IMO to make a case for making this a generic sync type so we can leverage the queue concurrency. cc @patrickdevivo",
+                            "createdAt": "2023-01-24T05:20:02Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 740,
+            "title": "Examples update",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 741,
+            "title": "feat(bar-chart): Implementing first approach for Bar chart",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 742,
+            "title": "chore: update the phrase `No data available!` to be more specific",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 744,
+            "title": "feat: implement an additional experimental syncer, the `ossf/scorecard` project",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 745,
+            "title": "chore: bump to `1.11.0-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 748,
+            "title": "feat: implement vendor and provider constructs",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "This also addresses #747",
+                            "createdAt": "2023-01-31T13:22:03Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 751,
+            "title": "fix(migrations): gosec table schema",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 754,
+            "title": "fix(deps): update github.com/mergestat/sqlq digest to 1655674",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 755,
+            "title": "chore: update to node `19`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 756,
+            "title": "chore(deps): update dependency prettier to v2.8.3",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 757,
+            "title": "fix: run `sqlc generate` as a part of CI for the worker",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 759,
+            "title": "chore(deps): update graphqlcodegenerator monorepo",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 760,
+            "title": "chore(deps): bump ua-parser-js from 0.7.31 to 0.7.33 in /ui",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 761,
+            "title": "chore(deps): update zricethezav/gitleaks docker tag to v8.15.3",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 762,
+            "title": "fix: broken URL, new auto imports page is under `/repos/...` now",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 764,
+            "title": "fix: typos in some struct/json handling in the `GITHUB_REPO_METADATA` syncer",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 765,
+            "title": "chore: bump version to `v1.12.0-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 766,
+            "title": "fix(deps): update module github.com/go-git/go-git/v5 to v5.5.2",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 767,
+            "title": "Revert \"fix(deps): update github.com/mergestat/sqlq digest to 1655674\"",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 768,
+            "title": "fix: bump up the default `jest` timeout in the UI tests",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 770,
+            "title": "feat: start tracking query history from SQL run from the UI",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 773,
+            "title": "Fix broken migration for gosec_repo_scans",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 774,
+            "title": "fix(deps): update module github.com/mergestat/mergestat-lite to v0.6.0",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 775,
+            "title": "fix(deps): update module github.com/migueleliasweb/go-github-mock to v0.0.16",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 777,
+            "title": "fix(syncer): Failing syncs when pat is not present",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 779,
+            "title": "chore: update help text in the default sync selection for auto imports",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 780,
+            "title": "chore(charts): Refactoring bar and line charts",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 781,
+            "title": "fix(sqlq): update sqlq to digest 60eb8f6d4b0d",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@ramiroJCB I had some trouble running this on a local db that has existing data in it - saw a bunch of error output but wasn't able to get more detail. Can help debug more tomorrow",
+                            "createdAt": "2023-01-30T03:52:12Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "ramiroJCB"
+                            },
+                            "bodyText": "@patrickdevivo  I tried to replicate this behavior on my local (applying this changes data in the db) and was not able to replicate .\nCould you please share the steps you did to make this happen ?",
+                            "createdAt": "2023-01-30T15:29:15Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 785,
+            "title": "Persist charts",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 786,
+            "title": "feat(syncer): Adding grype scanner sync",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 787,
+            "title": "chore: bump version to v1.14.0-beta",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 788,
+            "title": "chore: bump version to v1.15.0-beta",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 789,
+            "title": "fix: call `SetMaxOpenConns` with the same number used in the `pgxpool` setup",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 794,
+            "title": "feat: implement `GIT_REMOTES` repo syncer",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 795,
+            "title": "feat: bitbucket initial implementation",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "Builds on #748",
+                            "createdAt": "2023-02-03T11:16:03Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 796,
+            "title": "chore: bump version to v1.16.0-beta",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 797,
+            "title": "chore(migrations): Adding synced_at and comments on grype table",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 802,
+            "title": "feat(migrations): Adding saved_queries schema",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 803,
+            "title": "fix: typo in table comments breaking `sqlc generate`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 804,
+            "title": "feat: first pass adding labels as badges to repo sync type listing page",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 806,
+            "title": "fix: add a migration to run `GRANT mergestat_anonymous TO mergestat_admin;`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 807,
+            "title": "feat(saved-queries): Starting implementation for Saved Queries",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "emilyvandewalle"
+                            },
+                            "bodyText": "Looks good! I would keep the icons on the top right the same size (20 by 20 pixels), maybe we could use muted borderless isIconOnly buttons?",
+                            "createdAt": "2023-02-07T13:19:25Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "german-mergestat"
+                            },
+                            "bodyText": "@emilyvandewalle you're right, I will change them then... thanks :) \ud83d\udc4d",
+                            "createdAt": "2023-02-07T23:56:13Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 808,
+            "title": "feat: initial implementation for Gitlab-based repositories",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "looks good to me, though I had some trouble running the GIT_COMMITS syncer on a gitlab repo brought in by the auto import.",
+                            "createdAt": "2023-02-14T17:05:53Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 813,
+            "title": "chore(deps): update dependency prettier to v2.8.4",
+            "author": {
+                "login": "renovate"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 816,
+            "title": "fix: rename latest migration to address numbering collision",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 817,
+            "title": "feat(migrations): sqlq schema support",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 818,
+            "title": "feat(migrations): Adding fk to orphan tables",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 819,
+            "title": "feat(migrations):sql and name not null",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 820,
+            "title": "chore: move `SetMaxOpenConns` call to right after `upstream` is defined",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 822,
+            "title": "feat(sqlq):Upgrade sqlq library",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 823,
+            "title": "[Snyk] Upgrade pg-cursor from 2.7.3 to 2.7.4",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 825,
+            "title": "chore: update to `v1.17.0-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 827,
+            "title": "chore: just use `{query.createdBy}` when showing creator of saved query",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 831,
+            "title": "feat(importer):Adding rate limit and handling syncs to respect imports in progress",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 832,
+            "title": "chore(schema): Implementing schema info for query editor",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 834,
+            "title": "UI improvements",
+            "author": {
+                "login": "emilyvandewalle"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 836,
+            "title": "fix(migrations):Deleting orphan records",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 837,
+            "title": "chore(versions):bump version to v1.18.0-beta",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 838,
+            "title": "fix: Add loading state for removing a repo auto import",
+            "author": {
+                "login": "gitstart"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 839,
+            "title": "chore(deps): bump github.com/containerd/containerd from 1.6.12 to 1.6.18",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 841,
+            "title": "feat(editor): Adding autocomplete keywords from schema",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 842,
+            "title": "fix: Adding a repo by URL - if a repo has a GitHub URL, can we extract the owner/name and display it without the `https://github.com/` prefix for brevity",
+            "author": {
+                "login": "gitstart"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 845,
+            "title": "chore: bump to `v1.19.0-beta`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 847,
+            "title": "fix: update vendor-provider schema",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 848,
+            "title": "[Snyk] Upgrade pg-cursor from 2.7.4 to 2.8.0",
+            "author": {
+                "login": "snyk-bot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 849,
+            "title": "chore(deps): bump golang.org/x/net from 0.5.0 to 0.7.0",
+            "author": {
+                "login": "dependabot"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 850,
+            "title": "fix: `Copy` button no longer works on `Queries` page",
+            "author": {
+                "login": "gitstart"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 851,
+            "title": "feat: Add user feedback when the repo sync schedule toggle is used/modified",
+            "author": {
+                "login": "gitstart"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 853,
+            "title": "fix(importer): Disabling button whe no input is given",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "MERGED",
+            "comments": {
+                "edges": []
+            }
+        }
     }
-}
+]

@@ -19,7 +19,7 @@
         align-items: center;
         height: 100%;
       }
-      .logo {
+      .banner {
         display: flex;
         align-items: center;
         height: 100px;
@@ -64,18 +64,19 @@
   </head>
   <body>
     <div class="container">
-      <div class="logo">
-        <div style="display: flex;">
-          <img src="../images/tcd.png" alt="SWENG 13" width="100" height="100">
-          <h1>Group 13</h1>
-        </div>
+      <div class="banner">
+        <a href="/templates/headder.html">
+          <img src="/images/tcd.png" alt="SWENG 13" width="100" height="100">
+        </a>
+        <h1>Understanding Open-Source Community
+          dynamics with AI</h1>
       </div>
       <div class="box">
 
         <!-- add content here -->
-        
-          <input placeholder="Enter a github repository" type="text"dir="ltr" style="outline: none;">
-        
+        <div class="box" padding-left="200px" padding-right="20%" height="20px">
+          <input placeholder="Enter a github repository {user/repo}" type="text"dir="ltr" style="outline: none;">
+        </div>
       </div>
     </div>
   </body>

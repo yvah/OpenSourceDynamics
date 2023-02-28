@@ -6,5 +6,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/some-pie.html")
+def pie():
+    return render_template("some-pie.html")
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

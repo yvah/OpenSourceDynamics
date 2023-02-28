@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script src="node_modules/chart.js/dist/Chart.js"></script> -->
+    <title>Dashboard</title>
+    <style>
+      body {
+        background-color: lightgray;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        color: navy;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .box {
+        flex: 1;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        border: 2px solid navy;
+        border-radius: 5px;
+      }
+      h2 {
+        color: navy;
+      }
+      p {
+        color: gray;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+        color: gray;
+      }
+      .chart-container {
+        position: relative;
+        height: 0;
+        width: 100%;
+        padding-bottom: 50%;
+      }
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <a href="some-pie.html">
+          <h1>Dashboard</h1>
+        </a>
+        <div style="display: flex;">
+          <div class="box">
+            <h2>Statistics</h2>
+            <p>Number of users: 1000</p>
+            <p>Number of visits: 2000</p>
+          </div>
+          <div class="box">
+            <h2>Recent Activity</h2>
+            <ul>
+              <li>User X signed up</li>
+              <li>User Y visited the site</li>
+              <li>User Z made a purchase</li>
+            </ul>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div style="margin-top: 10px;">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+        <br>
+        <div class="chart-container">
+          <div style="margin-bottom: 50px;">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    // Bar chart
+    var barCtx = document.getElementById('barChart').getContext('2d');
+var barChart = new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [{
+      label: 'Users',
+      data: [100, 200, 300, 400, 500, 600],
+      backgroundColor: [
+        'navy',
+        'navy',
+        'navy',
+        'navy',
+        'navy',
+        'navy'
+      ]
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+</script>
+<script>
+  var pieCtx = document.getElementById('pieChart').getContext('2d');
+  var pieChart = new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+      labels: [
+        'Red',
+        'Blue',
+        'Yellow'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [300, 50, 100],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>
+<script>
+    // Line chart
+    var lineCtx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+          label: 'Visits',
+          data: [20, 120, 130, 200, 210, 240],
+          backgroundColor: 'transparent',
+          borderColor: 'navy',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+    </script>
+
+
+
+
+
+ <!-- <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Sample Home Page</title>
+  </head>
+  <body>
+  < !--Calls a function on the page load. -- >
+  <element onload="myfunction_onload">
+  <button type="submit" onclick='myfunction_clickevent()'>Run my Python!</button>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  < !-- This script runs the python script on the page load -- >
+  <script>
+      function myfunction_onload(){
+          $.ajax({
+              url: "app.py",
+              context: document.body
+              })
+          }
+      </script>
+  < !-- This script runs the python script when the button is clicked -- >
+  <script>
+      function myfunction_clickevent(){
+          $.ajax({
+              url:"/test",
+              context: document.body});}
+  </script>
+
+
+  </body>
+</html> -->

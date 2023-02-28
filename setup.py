@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="assets", static_url_path="")
 
 @app.route("/")
 def index():
@@ -12,4 +12,4 @@ def pie():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

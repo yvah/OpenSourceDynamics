@@ -185,23 +185,56 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Form</h6>
-                            <form>
+                            <h6 class="mb-4">Github Repository</h6>
+                            <!-- <form>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <label for="exampleInputEmail1" class="form-label">Github owner</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">
                                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <label for="exampleInputPassword1" class="form-label">Github project</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            </form> -->
+                            <form method="RETRIEVE" action="" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Github owner</label>
+                                    <input type="text" class="form-control" id="basic-addon2"
+                                        aria-describedby="emailHelp" name="owner" enctype="multipart/form-data">
+                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Github project</label>
+                                    <input type="text" class="form-control" id="basic-addon2" name="repo" enctype="multipart/form-data">
+                                </div>
+                                <fieldset class="row mb-3" enctype="multipart/form-data">
+                                    <legend class="col-form-label col-sm-2 pt-0">Pull from</legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="issues" value="issues" checked>
+                                            <label class="form-check-label" for="issues">
+                                                issues
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="pullRequests" value="pullRequests">
+                                            <label class="form-check-label" for="pullRequests">
+                                                pull requests
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
                                 <button type="submit" class="btn btn-primary">Sign in</button>
                             </form>
                         </div>
@@ -491,7 +524,7 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->

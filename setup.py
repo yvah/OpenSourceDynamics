@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__, static_folder="templates", static_url_path="")
 
@@ -6,7 +6,7 @@ app = Flask(__name__, static_folder="templates", static_url_path="")
 def index():
     return render_template("index.html")
 
-
+# use https://raw.githubusercontent.com/yvah/SwEng-group13/API/query.py as source for query
 
 @app.route("/404")
 def error ():
@@ -28,8 +28,18 @@ def chart ():
 def Element ():
     return render_template("element.html")
 
-@app.route("/form")
-def form ():
+# @app.route("/form")
+# def form ():
+#     return render_template("form.html")
+
+@app.route("/form", methods=["RETRIEVE"])
+def retrieve():
+    owner = request.data["owner"]
+    repo = request.data["repo"]
+    source = request.form.get("gridRadios")
+    print(owner, repo, source, file='sys.stdout')
+    # if issues
+        # run_query(auth, owner, repo, pull_type)
     return render_template("form.html")
 
 @app.route("/signin")

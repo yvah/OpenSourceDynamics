@@ -1,8 +1,6 @@
-from classes import newIssueOrPullRequest
 from pprint import pprint
 from requests import post
 import json
-from jsonmerge import merge
 import os
 
 
@@ -17,17 +15,19 @@ def run_query(auth, owner, repo, pull_type):
     }
 
     # for pagination
-    has_prev_page = True
+    has_next_page = True
     cursor = None
     json_list = []
-
     print(f"Gathering {pull_type}...")
+
     # query can only fetch 100 at a time, so keeps fetching until all fetched
-    i = 0  # grabs up to 500 queries
-    while has_prev_page and i < 1000:
+    # inner loop does the same with comments
+    i = 0  # grabs up to 1000 queries
+    while has_next_page and i < 1000:
         i += 100
-        # gets the query and performs call, on subsequent call passes in cursor for pagination
-        query = get_issue_query(owner, repo, pull_type, cursor)
+
+        # forms the query and performs call, on subsequent iterations passes in cursor for pagination
+        query = get_query(owner, repo, pull_type, "CLOSED", cursor)
         request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
@@ -42,18 +42,20 @@ def run_query(auth, owner, repo, pull_type):
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
-            has_prev_page = trimmed_request["pageInfo"]["hasPreviousPage"]
-            # has_prev_page = False  # TODO remove for pagination
-            if has_prev_page:
-                cursor = trimmed_request["pageInfo"]["startCursor"]
+            has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
+            if has_next_page:
+                cursor = trimmed_request["pageInfo"]["endCursor"]
 
             # if want to get a list instead of a dictionary:
             # for edge in trimmed_request["edges"]:
-            #     issues.append(newIssueOrPullRequest(edge["node"]))
+            # issues.append(newIssueOrPullRequest(edge["node"]))
             # gets current working directory
             # creates a folder to store json files, if such doesn't exist
             # if trimmed_request["totalCount"] >= 10:
-            json_list += trimmed_request["edges"]
+
+            for node in trimmed_request["edges"]:
+                if node["node"]["comments"]["totalCount"] >= 10:
+                    json_list.append(node)
 
         else:
             print("Invalid information provided")
@@ -74,18 +76,18 @@ def run_query(auth, owner, repo, pull_type):
 
 
 # returns query for issue comments
-def get_issue_query(repo, owner, pull_type, cursor=None):
+def get_query(repo, owner, p_type, state, outer_cursor=None):
 
     # for pagination
-    if cursor is not None:
-        before = f', before: "{cursor}"'
+    if outer_cursor is not None:
+        start_point = f', after: "{outer_cursor}"'
     else:
-        before = ""
+        start_point = ""
 
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            %s(last:100,%s states:CLOSED) {
+            %s(first:100,%s states:%s) {
                 edges {
                     node {
                         number
@@ -95,6 +97,7 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
                         }
                         state
                         comments(first:100) {
+                            totalCount
                             edges {
                                 node {
                                     author {
@@ -104,18 +107,17 @@ def get_issue_query(repo, owner, pull_type, cursor=None):
                                     createdAt
                                 }
                             }
-                            totalCount
                         }
                     }
                 }
                 pageInfo {
-                    hasPreviousPage
-                    startCursor
+                    hasNextPage
+                    endCursor
                 }
             }
         }
     }
-    """ % (repo, owner, pull_type, before)
+    """ % (repo, owner, p_type, start_point, state)
 
     return query
 
@@ -151,3 +153,4 @@ if __name__ == '__main__':
         test = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
         if test:
             pprint(test)
+            print(len(test))

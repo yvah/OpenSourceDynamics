@@ -4,6 +4,10 @@ import json
 import os
 
 
+threshold = 10
+max_pull_rate = 100
+
+
 def run_query(auth, owner, repo, pull_type):
 
     # list to store each comment
@@ -18,16 +22,17 @@ def run_query(auth, owner, repo, pull_type):
     has_next_page = True
     cursor = None
     json_list = []
+    highest_count = 0
     print(f"Gathering {pull_type}...")
 
     # query can only fetch 100 at a time, so keeps fetching until all fetched
     # inner loop does the same with comments
     i = 0  # grabs up to 1000 queries
-    while has_next_page and i < 1000:
-        i += 100
+    while has_next_page and i < 10:
+        i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
-        query = get_query(owner, repo, pull_type, "CLOSED", cursor)
+        query = get_comments_query(owner, repo, pull_type, "CLOSED", cursor)
         request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
@@ -54,12 +59,25 @@ def run_query(auth, owner, repo, pull_type):
             # if trimmed_request["totalCount"] >= 10:
 
             for node in trimmed_request["edges"]:
-                if node["node"]["comments"]["totalCount"] >= 10:
+                count = node["node"]["comments"]["totalCount"]
+                if count >= threshold:
                     json_list.append(node)
+                    if count > highest_count:
+                        highest_count = count
 
         else:
             print("Invalid information provided")
             return None
+
+    for i in range(2, highest_count-1 // max_pull_rate):
+
+    for item in json_list:
+        if item["node"]["comments"]["totalCount"] > max_pull_rate:
+            query = get_ind_query(item["node"]["number"])
+
+    query = get_ind_query()
+    request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
+    # todo deal with request
         
     cwd = os.getcwd()
     filepath = cwd + "/fetched_data"
@@ -75,49 +93,97 @@ def run_query(auth, owner, repo, pull_type):
     return json_string
 
 
+def issueMold(i, number):
+    mold = """
+            issue%s: issue(number: %s) {
+                ...IssueFragment
+            }
+        
+        """ % (i, number)
+    return mold
+
+
 # returns query for issue comments
-def get_query(repo, owner, p_type, state, outer_cursor=None):
+def get_ind_query(repo, owner, json_dict, cursor=None):
 
     # for pagination
-    if outer_cursor is not None:
-        start_point = f', after: "{outer_cursor}"'
+    if cursor is not None:
+        start_point = f', after: "{cursor}"'
     else:
         start_point = ""
+
+    mold = ""
+
+    for i in range(10):  # todo replace 10
+        mold += issueMold(i, number)  # todo replace number
 
     query = """
     {
         repository(name: "%s", owner: "%s") {
-            %s(first:100,%s states:%s) {
-                edges {
-                    node {
-                        number
-                        title
-                        author {
-                            login
-                        }
-                        state
-                        comments(first:100) {
-                            totalCount
-                            edges {
-                                node {
-                                    author {
-                                        login
-                                    }
-                                    bodyText
-                                    createdAt
-                                }
-                            }
-                        }
+        %s}
+    }
+
+    fragment IssueFragment on Issue {
+        title
+        comments(first:100%s) {
+            edges {
+                node {
+                    author {
+                        login
                     }
-                }
-                pageInfo {
-                    hasNextPage
-                    endCursor
+                    bodyText
+                    createdAt
                 }
             }
         }
     }
-    """ % (repo, owner, p_type, start_point, state)
+    """ % (repo, owner, mold, start_point)
+
+    return query
+
+
+# returns query for issue comments
+def get_comments_query(repo, owner, p_type, state, cursor=None):
+    # for pagination
+    if cursor is not None:
+        start_point = f', after: "{cursor}"'
+    else:
+        start_point = ""
+
+    query = """
+        {
+            repository(name: "%s", owner: "%s") {
+                %s(first:%d,%s states:%s) {
+                    edges {
+                        node {
+                            number
+                            title
+                            author {
+                                login
+                            }
+                            state
+                            comments(first:100) {
+                                totalCount
+                                edges {
+                                    node {
+                                        author {
+                                            login
+                                        }
+                                        bodyText
+                                        createdAt
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
+            }
+        }
+        """ % (repo, owner, max_pull_rate, p_type, start_point, state)
 
     return query
 

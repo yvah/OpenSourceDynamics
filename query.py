@@ -27,8 +27,7 @@ def run_query(auth, owner, repo, pull_type):
 
     # query can only fetch 100 at a time, so keeps fetching until all fetched
     i = 0  # performs 10 requests
-    while has_next_page and i < 10:
-        i += 1
+    while has_next_page:
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
         query = get_comments_query(repo, owner, pull_type, cursor)
@@ -41,6 +40,8 @@ def run_query(auth, owner, repo, pull_type):
             try:
                 trimmed_request = request.json()["data"]["repository"][pull_type]
             except TypeError:
+                if json_list is not None:
+                    pprint(json_list)
                 print("Invalid information provided")
                 break
             # pprint(trimmed_request)
@@ -57,6 +58,7 @@ def run_query(auth, owner, repo, pull_type):
             # creates a folder to store json files, if such doesn't exist
             # if trimmed_request["totalCount"] >= 10:
 
+            deleted_user = {'login': 'deletedUser'}
             for node in trimmed_request["edges"]:
                 comments = node["node"]["comments"]
                 if comments["totalCount"] >= comment_threshold:
@@ -64,10 +66,14 @@ def run_query(auth, owner, repo, pull_type):
                         comments["edges"] += get_other_comments(node["node"]["number"],
                                                                 comments["pageInfo"]["endCursor"],
                                                                 owner, repo, pull_type[0:-1], headers)
+                    comments.pop("pageInfo")
                     for i, comment in enumerate(comments["edges"]):
-                        if comment["node"]["author"]["__typename"] == "Bot":
-                            comments["edges"].pop(i)
-                            comments["totalCount"] -= 1
+                        try:
+                            if comment["node"]["author"]["__typename"] == "Bot":
+                                comments["edges"].pop(i)
+                                comments["totalCount"] -= 1
+                        except TypeError:
+                            comment["node"]["author"] = deleted_user  # if account deleted, author will be None
                     json_list.append(node)
 
         else:

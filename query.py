@@ -5,7 +5,7 @@ import os
 
 
 comment_threshold = 10
-max_pull_rate = 10
+max_pull_rate = 100
 
 
 def run_query(auth, owner, repo, pull_type):
@@ -63,7 +63,11 @@ def run_query(auth, owner, repo, pull_type):
                     if comments["pageInfo"]["hasNextPage"]:
                         comments["edges"] += get_other_comments(node["node"]["number"],
                                                                 comments["pageInfo"]["endCursor"],
-                                                                owner, repo, pull_type, headers)
+                                                                owner, repo, pull_type[0:-1], headers)
+                    for i, comment in enumerate(comments["edges"]):
+                        if comment["node"]["author"]["__typename"] == "Bot":
+                            comments["edges"].pop(i)
+                            comments["totalCount"] -= 1
                     json_list.append(node)
 
         else:
@@ -85,7 +89,7 @@ def run_query(auth, owner, repo, pull_type):
 
 
 # if over 100 comments, fetches the rest of them
-def get_other_comments(number, cursor, owner, repo, pull_type, headers):
+def get_other_comments(number, cursor, owner, repo, p_type, headers):
 
     # for pagination
     has_next_page = True
@@ -96,15 +100,16 @@ def get_other_comments(number, cursor, owner, repo, pull_type, headers):
     while has_next_page:
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
-        query = get_ind_query(repo, owner, number, pull_type, cursor)
+        query = get_ind_query(repo, owner, number, p_type, cursor)
         request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
             # pprint(request.json())
+            temp = request.json()
             try:
-                comments = request.json()["data"]["repository"][pull_type]["comments"]
+                comments = request.json()["data"]["repository"][p_type]["comments"]
             except TypeError:
                 print("Invalid information provided")
                 break
@@ -141,6 +146,7 @@ def get_ind_query(repo, owner, number, p_type, cursor=None):
                         node {
                             author {
                                 login
+                                __typename
                             }
                             bodyText
                             createdAt
@@ -185,6 +191,7 @@ def get_comments_query(repo, owner, p_type, cursor=None):
                                     node {
                                         author {
                                             login
+                                            __typename
                                         }
                                         bodyText
                                         createdAt

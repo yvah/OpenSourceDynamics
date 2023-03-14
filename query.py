@@ -4,7 +4,7 @@ import json
 import os
 
 
-threshold = 10
+comment_threshold = 10
 max_pull_rate = 10
 
 
@@ -26,7 +26,7 @@ def run_query(auth, owner, repo, pull_type):
     print(f"Gathering {pull_type}...")
 
     # query can only fetch 100 at a time, so keeps fetching until all fetched
-    i = 0  # grabs up to 1000 queries
+    i = 0  # performs 10 requests
     while has_next_page and i < 10:
         i += 1
 
@@ -59,7 +59,7 @@ def run_query(auth, owner, repo, pull_type):
 
             for node in trimmed_request["edges"]:
                 comments = node["node"]["comments"]
-                if comments["totalCount"] >= threshold:
+                if comments["totalCount"] >= comment_threshold:
                     if comments["pageInfo"]["hasNextPage"]:
                         comments["edges"] += get_other_comments(node["node"]["number"],
                                                                 comments["pageInfo"]["endCursor"],
@@ -89,7 +89,7 @@ def get_other_comments(number, cursor, owner, repo, pull_type, headers):
 
     # for pagination
     has_next_page = True
-    comment_list = []
+    comment_list = None
 
     # query can only fetch 100 at a time, so keeps fetching until all fetched
     i = 0  # grabs up to 1000 queries
@@ -104,18 +104,21 @@ def get_other_comments(number, cursor, owner, repo, pull_type, headers):
             # trims the result of the api call to remove unneeded nesting
             # pprint(request.json())
             try:
-                trimmed_request = request.json()["data"]["repository"][pull_type]
+                comments = request.json()["data"]["repository"][pull_type]["comments"]
             except TypeError:
                 print("Invalid information provided")
                 break
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
-            has_next_page = trimmed_request["pageInfo"]["hasNextPage"]
+            has_next_page = comments["pageInfo"]["hasNextPage"]
             if has_next_page:
-                cursor = trimmed_request["pageInfo"]["endCursor"]
+                cursor = comments["pageInfo"]["endCursor"]
 
-            comment_list += trimmed_request["comments"]
+            if comment_list is None:
+                comment_list = comments["edges"]
+            else:
+                comment_list += comments["edges"]
 
     return comment_list
 

@@ -3,7 +3,6 @@ import json
 
 
 def test_newComment():
-
     string = """{
         "author": {"login": "Frankie"},
         "bodyText": "this is a comment",
@@ -17,7 +16,6 @@ def test_newComment():
 
 
 def test_newIssue():
-
     string = """{
     "author": {"login": "Fredrick"},
     "comments": {"edges": [{"node": {"author": {"login": "Frankie"},
@@ -30,6 +28,6 @@ def test_newIssue():
 
     issue1 = classes.newIssueOrPullRequest(json.loads(string))
     issue2 = classes.IssueOrPullRequest("hi", 13, "CLOSED", "Fredrick",
-                           [classes.Comment("this is a comment", "Frankie", "2023-02-16", "17:20:39")])
+                                        [classes.Comment("this is a comment", "Frankie", "2023-02-16", "17:20:39")])
 
     assert issue1 == issue2

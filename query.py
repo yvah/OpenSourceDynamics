@@ -31,7 +31,7 @@ def run_query(auth, owner, repo, pull_type):
         i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
-        query = get_comments_query(repo, owner, pull_type, "CLOSED", cursor)
+        query = get_comments_query(repo, owner, pull_type, cursor)
         request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
 
         # if api call was successful, adds the comment to the comment list
@@ -123,18 +123,6 @@ def get_other_comments(number, cursor, owner, repo, pull_type, headers):
     return comment_list
 
 
-def issueMold(i, number, cursor):
-    mold = """
-            issue%d: issue(number: %d) {
-                comments(first:100%s) {
-                    ... CommentFragment
-                }
-            }
-        
-        """ % (i, number, cursor)
-    return mold
-
-
 # returns query for individual comments
 def get_ind_query(repo, owner, number, p_type, cursor=None):
 
@@ -171,8 +159,8 @@ def get_ind_query(repo, owner, number, p_type, cursor=None):
     return query
 
 
-# returns query for issue comments
-def get_comments_query(repo, owner, p_type, state, cursor=None):
+# returns query for issue or pull request comments
+def get_comments_query(repo, owner, p_type, cursor=None):
     # for pagination
     if cursor is not None:
         start_point = f', after: "{cursor}"'
@@ -182,7 +170,7 @@ def get_comments_query(repo, owner, p_type, state, cursor=None):
     query = """
         {
             repository(name: "%s", owner: "%s") {
-                %s(first:%d,%s states:%s) {
+                %s(first:%d,%s) {
                     edges {
                         node {
                             number
@@ -216,7 +204,7 @@ def get_comments_query(repo, owner, p_type, state, cursor=None):
                 }
             }
         }
-        """ % (repo, owner, p_type, max_pull_rate, start_point, state)
+        """ % (repo, owner, p_type, max_pull_rate, start_point)
 
     return query
 

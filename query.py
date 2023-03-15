@@ -6,7 +6,7 @@ from time import time
 
 
 comment_threshold = 10
-pull_rate = 10  # maximum possible value is 100
+pull_rate = 100  # maximum possible value is 100
 
 
 # for timing how long it takes a function to run

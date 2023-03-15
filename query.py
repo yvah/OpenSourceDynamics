@@ -37,10 +37,11 @@ def run_query(auth, owner, repo, pull_type):
     # for pagination
     has_next_page = True
     cursor = None
+    above_threshold = True
 
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched
-    while has_next_page and i != max_iterations:
+    while has_next_page and above_threshold and i != max_iterations:
         i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
@@ -70,10 +71,29 @@ def run_query(auth, owner, repo, pull_type):
             if has_next_page:
                 cursor = trimmed_request["pageInfo"]["endCursor"]
 
-            # filters out issues/prs with under the threshold of comments, comments made by bots
-            # also ensures all comments over 100 are fetched
-            filtered_request = filter_request(trimmed_request, repo, owner, pull_type[0:-1], headers)
-            json_list.append(filtered_request)  # add to final list
+            # checks if any of the issues/prs have fewer than threshold comments
+            # if so, remove them and stop fetching
+            if trimmed_request["edges"][-1]["node"]["comments"]["totalCount"] < comment_threshold:
+                above_threshold = False
+                for node in reversed(trimmed_request["edges"]):
+                    if node["node"]["comments"]["totalCount"] < comment_threshold:
+                        trimmed_request["edges"].pop()
+                    else:
+                        break
+
+            for j, edge in enumerate(trimmed_request["edges"]):
+                node = edge["node"]
+                node["comments"]["nodes"] = []
+                comments = get_comments(node["number"], repo, owner, pull_type[0:-1], headers)
+
+                if len(comments) >= comment_threshold:
+                    node["comments"]["nodes"].append(comments)
+                    node["comments"]["totalCount"] = len(comments)
+                else:
+                    trimmed_request["edges"].pop(j)
+
+            json_list.append(trimmed_request["edges"])  # add to final list
+            print(f"{i*100} {pull_type} gathered")
 
         else:
             print(f"Status code: {str(request.status_code)} on iteration {i}. Retrying")
@@ -85,48 +105,8 @@ def run_query(auth, owner, repo, pull_type):
     return json_string
 
 
-def filter_request(request, repo, owner, p_type, headers):
-
-    return_list = []
-    # iterates through issue/pr, only adds it to json_list if it has over the threshold of comments
-    for node in request["edges"]:
-        comments = node["node"]["comments"]
-        if comments["totalCount"] >= comment_threshold:
-            # determines if the issue/pr has over 100 comments
-            # if it does, it fetches the rest of them and appends them to the first 100 comments
-            if comments["pageInfo"]["hasNextPage"]:
-                comments["edges"] += get_other_comments(node["node"]["number"],
-                                                        comments["pageInfo"]["endCursor"],
-                                                        repo, owner, p_type, headers)
-            comments.pop("pageInfo")  # pageInfo no longer needed, so removed from dict
-
-            # iterates through each comment removes it if it was made by a bot
-            for i, comment in enumerate(comments["edges"]):
-                try:
-                    if comment["node"]["author"]["__typename"] == "Bot":
-                        comments["edges"].pop(i)
-                        comments["totalCount"] -= 1
-                except TypeError:
-                    # if account deleted, author will be None so give it login deletedUser
-                    comment["node"]["author"] = {'login': 'deletedUser'}
-            return_list.append(node)
-
-    return return_list
-
-
-# writes a json_string out to a file
-def write_to_file(json_string, repo, p_type):
-    cwd = os.getcwd()
-    filepath = cwd + "/fetched_data"
-    if not os.path.exists(filepath):
-        os.makedirs(filepath)
-    # writing data into repoName_pullType.json in cwd/fetched_data directory
-    with open(filepath + "/" + f"{repo}_{p_type}.json", "w") as outfile:
-        outfile.write(json_string)
-
-
-# if over 100 comments, fetches the rest of them
-def get_other_comments(number, cursor, repo, owner, p_type, headers):
+# gets comments for an issue/pr
+def get_comments(number, repo, owner, p_type, headers, cursor=None):
 
     # for pagination
     has_next_page = True
@@ -156,12 +136,43 @@ def get_other_comments(number, cursor, repo, owner, p_type, headers):
             if has_next_page:
                 cursor = comments["pageInfo"]["endCursor"]
 
+            filtered_comments = filter_comments(comments["edges"])
+
             if comment_list is None:
-                comment_list = comments["edges"]
+                comment_list = filtered_comments
             else:
-                comment_list += comments["edges"]
+                comment_list += filtered_comments
+        else:
+            print(f"Status code: {str(request.status_code)} while fetching comments. Retrying")
 
     return comment_list
+
+
+# filter out any comments made by bots
+def filter_comments(comment_list):
+
+    return_list = []
+    # iterates through each comment removes it if it was made by a bot
+    for comment in comment_list:
+        try:
+            if comment["node"]["author"]["__typename"] != "Bot":
+                return_list.append(comment)
+        except TypeError:
+            # if account deleted, author will be None so give it login deletedUser
+            comment["node"]["author"] = {'login': 'deletedUser'}
+
+    return return_list
+
+
+# writes a json_string out to a file
+def write_to_file(json_string, repo, p_type):
+    cwd = os.getcwd()
+    filepath = cwd + "/fetched_data"
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
+    # writing data into repoName_pullType.json in cwd/fetched_data directory
+    with open(filepath + "/" + f"{repo}_{p_type}.json", "w") as outfile:
+        outfile.write(json_string)
 
 
 # returns query for individual comments
@@ -212,7 +223,7 @@ def get_comments_query(repo, owner, p_type, cursor=None):
     query = """
         {
             repository(name: "%s", owner: "%s") {
-                %s(first:%d,%s) {
+                %s(first:%d, orderBy:{field: COMMENTS, direction: DESC}%s) {
                     edges {
                         node {
                             number
@@ -221,22 +232,8 @@ def get_comments_query(repo, owner, p_type, cursor=None):
                                 login
                             }
                             state
-                            comments(first:100) {
+                            comments(first:0) {
                                 totalCount
-                                edges {
-                                    node {
-                                        author {
-                                            login
-                                            __typename
-                                        }
-                                        bodyText
-                                        createdAt
-                                    }
-                                }
-                                pageInfo {
-                                    hasNextPage
-                                    endCursor
-                                }
                             }
                         }
                     }

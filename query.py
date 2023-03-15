@@ -2,12 +2,25 @@ from pprint import pprint
 from requests import post
 import json
 import os
+from time import time
 
 
 comment_threshold = 10
-pull_rate = 100  # maximum possible value is 100
+pull_rate = 10  # maximum possible value is 100
 
 
+# for timing how long it takes a function to run
+def time_execution(function):
+    def wrapper(*args):
+        start_time = time()
+        value = function(*args)
+        end_time = time()
+        print(f"{function.__name__} took {round(end_time - start_time, 3)} seconds to run")
+        return value
+    return wrapper
+
+
+@time_execution
 def run_query(auth, owner, repo, pull_type):
 
     print(f"Gathering {pull_type}...")

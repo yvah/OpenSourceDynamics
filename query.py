@@ -7,6 +7,7 @@ from time import time
 
 comment_threshold = 10
 pull_rate = 100  # maximum possible value is 100
+max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 
 
 # for timing how long it takes a function to run
@@ -37,15 +38,20 @@ def run_query(auth, owner, repo, pull_type):
     has_next_page = True
     cursor = None
 
-    # query can only fetch at most 100 at a time, so keeps fetching until all fetched
     i = 0
-    while has_next_page and i < 10:
+    # query can only fetch at most 100 at a time, so keeps fetching until all fetched
+    while has_next_page and i != max_iterations:
         i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
         query = get_comments_query(repo, owner, pull_type, cursor)
-        request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
-        temp = request.json()
+        try:
+            request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
+        except Exception:
+            print(f"error at iteration {i}")
+            i -= 1
+            continue
+        # temp = request.json()
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
@@ -70,8 +76,8 @@ def run_query(auth, owner, repo, pull_type):
             json_list.append(filtered_request)  # add to final list
 
         else:
-            print(f"Status code: %s", str(request.status_code))
-            has_next_page = False
+            print(f"Status code: {str(request.status_code)} on iteration {i}. Retrying")
+            i -= 1
 
     json_string = json.dumps(json_list, indent=4)
     write_to_file(json_string, repo, pull_type)
@@ -275,5 +281,5 @@ if __name__ == '__main__':
 
     if valid:
         test = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
-        if test:
-            pprint(test)
+        # if test:
+        #     pprint(test)

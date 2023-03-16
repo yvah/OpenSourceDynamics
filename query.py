@@ -7,13 +7,14 @@ from time import time
 comment_threshold = 10
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
-pull_rates = [(100, 2), (90, 8), (80, 10), (70, 13), (60, 15), (50, 17), (40, 25), (30, 30), (20, 50), (12, 100)]
+pull_rates = [(100, 2), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
+              (20, 58), (18, 70), (16, 75), (14, 80), (12, 95), (10, 100)]
 
 
 # for timing how long it takes a function to run
 def time_execution(function):
     def wrapper(*args):
-        print("")
+        print(f"Timing {function.__name__}")
         start_time = time()
         value = function(*args)
         end_time = time()

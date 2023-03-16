@@ -5,7 +5,7 @@ import os
 from time import time
 
 comment_threshold = 10
-max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 2), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (20, 58), (18, 70), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -57,7 +57,7 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
             print(f"error at iteration {i}")
             i -= 1
             continue
-        temp = request.json()
+        # temp = request.json()
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
@@ -94,16 +94,18 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
 
             for j, edge in enumerate(trimmed_request["edges"]):
                 node = edge["node"]
-                node["comments"]["edges"], new_count = filter_comments(node["comments"]["edges"])
-                node["comments"]["totalCount"] = new_count
+                node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
+                count = len(node["comments"]["edges"])
+                node["comments"]["totalCount"] = count
 
                 if node["comments"]["pageInfo"]["hasNextPage"]:
                     comments = get_other_comments(node["number"], repo, owner, pull_type[0:-1],
                                                   headers, node["comments"]["pageInfo"]["endCursor"])
 
-                    if new_count + len(comments) >= comment_threshold:
-                        node["comments"]["edges"].append(comments)
+                    if count + len(comments) >= comment_threshold:
+                        node["comments"]["edges"] += comments
                         node["comments"]["totalCount"] += len(comments)
+                        node["comments"].pop("pageInfo")
                     else:
                         trimmed_request["edges"].pop(j)
 
@@ -178,7 +180,7 @@ def filter_comments(comment_list):
             # if account deleted, author will be None so give it login deletedUser
             comment["node"]["author"] = {'login': 'deletedUser'}
 
-    return return_list, len(return_list)
+    return return_list
 
 
 # writes a json_string out to a file

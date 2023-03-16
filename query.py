@@ -7,12 +7,13 @@ from time import time
 comment_threshold = 10
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
-pull_rates = [(100, 3), (90, 8), (80, 10), (70, 13), (60, 15), (50, 17), (40, 25), (30, 30), (20, 50), (12, 100)]
+pull_rates = [(100, 2), (90, 8), (80, 10), (70, 13), (60, 15), (50, 17), (40, 25), (30, 30), (20, 50), (12, 100)]
 
 
 # for timing how long it takes a function to run
 def time_execution(function):
     def wrapper(*args):
+        print("")
         start_time = time()
         value = function(*args)
         end_time = time()
@@ -40,7 +41,7 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
     above_threshold = True
 
     # initial pull rate is (12, 100)
-    pr_index = 0
+    pr_index = -1
 
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched
@@ -55,7 +56,7 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
             print(f"error at iteration {i}")
             i -= 1
             continue
-        # temp = request.json()
+        temp = request.json()
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
@@ -86,29 +87,30 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
                         break
             else:
                 for j, rate in enumerate(pull_rates):
-                    if last_count != 0 and last_count % 100 == 0:
-                        pr_index = 0
-                        break
-                    if (last_count % 100) <= rate[1]:
+                    if last_count <= rate[1]:
                         pr_index = j
                         break
 
             for j, edge in enumerate(trimmed_request["edges"]):
                 node = edge["node"]
-                node["comments"]["nodes"] = []
-                comments = get_comments(node["number"], repo, owner, pull_type[0:-1], headers)
+                node["comments"]["edges"], new_count = filter_comments(node["comments"]["edges"])
+                node["comments"]["totalCount"] = new_count
 
-                if len(comments) >= comment_threshold:
-                    node["comments"]["nodes"].append(comments)
-                    node["comments"]["totalCount"] = len(comments)
-                else:
-                    trimmed_request["edges"].pop(j)
+                if node["comments"]["pageInfo"]["hasNextPage"]:
+                    comments = get_other_comments(node["number"], repo, owner, pull_type[0:-1],
+                                                  headers, node["comments"]["pageInfo"]["endCursor"])
 
-            json_list.append(trimmed_request["edges"])  # add to final list
-            print(f"{i * 100} {pull_type} gathered")
+                    if new_count + len(comments) >= comment_threshold:
+                        node["comments"]["edges"].append(comments)
+                        node["comments"]["totalCount"] += len(comments)
+                    else:
+                        trimmed_request["edges"].pop(j)
+
+            json_list += trimmed_request["edges"]  # add to final list
+            print(f'{len(json_list)} {pull_type} gathered')
 
         else:
-            print(f"Status code: {str(request.status_code)} on iteration {i}. Retrying")
+            print(f"Status code: {str(request.status_code)} on iteration {i}, pr_index = {pr_index}. Retrying")
             i -= 1
 
     json_string = json.dumps(json_list, indent=4)
@@ -118,7 +120,7 @@ def run_query(auth, owner, repo, pull_type):  # TODO appending comments
 
 
 # gets comments for an issue/pr
-def get_comments(number, repo, owner, p_type, headers, cursor=None):  # todo try get multiple comments at once
+def get_other_comments(number, repo, owner, p_type, headers, cursor=None):  # todo try getting multiple comments at once
 
     # for pagination
     has_next_page = True
@@ -175,7 +177,7 @@ def filter_comments(comment_list):
             # if account deleted, author will be None so give it login deletedUser
             comment["node"]["author"] = {'login': 'deletedUser'}
 
-    return return_list
+    return return_list, len(return_list)
 
 
 # writes a json_string out to a file
@@ -245,6 +247,7 @@ def get_comments_query(repo, owner, p_type, pull_rate, cursor=None):
                                 login
                             }
                             state
+                            closedAt
                             comments(first: %d) {
                                 totalCount
                                 edges {
@@ -258,7 +261,8 @@ def get_comments_query(repo, owner, p_type, pull_rate, cursor=None):
                                     }
                                 }
                                 pageInfo {
-                                  endCursor
+                                    hasNextPage
+                                    endCursor
                                 }
                             }
                         }

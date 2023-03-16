@@ -4,10 +4,10 @@ import json
 import os
 from time import time
 
-
 comment_threshold = 10
-pull_rate = 100  # maximum possible value is 100
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+# first in each tuple is
+pull_rates = [(100, 3), (90, 8), (80, 10), (70, 13), (60, 15), (50, 17), (40, 25), (30, 30), (20, 50), (12, 100)]
 
 
 # for timing how long it takes a function to run
@@ -18,12 +18,12 @@ def time_execution(function):
         end_time = time()
         print(f"{function.__name__} took {round(end_time - start_time, 3)} seconds to run")
         return value
+
     return wrapper
 
 
 @time_execution
-def run_query(auth, owner, repo, pull_type):
-
+def run_query(auth, owner, repo, pull_type):  # TODO appending comments
     print(f"Gathering {pull_type}...")
 
     # final list to be returned
@@ -39,13 +39,16 @@ def run_query(auth, owner, repo, pull_type):
     cursor = None
     above_threshold = True
 
+    # initial pull rate is (12, 100)
+    pr_index = 0
+
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched
     while has_next_page and above_threshold and i != max_iterations:
         i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
-        query = get_comments_query(repo, owner, pull_type, cursor)
+        query = get_comments_query(repo, owner, pull_type, pull_rates[pr_index], cursor)
         try:
             request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
         except Exception:
@@ -73,12 +76,21 @@ def run_query(auth, owner, repo, pull_type):
 
             # checks if any of the issues/prs have fewer than threshold comments
             # if so, remove them and stop fetching
-            if trimmed_request["edges"][-1]["node"]["comments"]["totalCount"] < comment_threshold:
+            last_count = trimmed_request["edges"][-1]["node"]["comments"]["totalCount"]
+            if last_count < comment_threshold:
                 above_threshold = False
                 for node in reversed(trimmed_request["edges"]):
                     if node["node"]["comments"]["totalCount"] < comment_threshold:
                         trimmed_request["edges"].pop()
                     else:
+                        break
+            else:
+                for j, rate in enumerate(pull_rates):
+                    if last_count != 0 and last_count % 100 == 0:
+                        pr_index = 0
+                        break
+                    if (last_count % 100) <= rate[1]:
+                        pr_index = j
                         break
 
             for j, edge in enumerate(trimmed_request["edges"]):
@@ -93,7 +105,7 @@ def run_query(auth, owner, repo, pull_type):
                     trimmed_request["edges"].pop(j)
 
             json_list.append(trimmed_request["edges"])  # add to final list
-            print(f"{i*100} {pull_type} gathered")
+            print(f"{i * 100} {pull_type} gathered")
 
         else:
             print(f"Status code: {str(request.status_code)} on iteration {i}. Retrying")
@@ -106,7 +118,7 @@ def run_query(auth, owner, repo, pull_type):
 
 
 # gets comments for an issue/pr
-def get_comments(number, repo, owner, p_type, headers, cursor=None):
+def get_comments(number, repo, owner, p_type, headers, cursor=None):  # todo try get multiple comments at once
 
     # for pagination
     has_next_page = True
@@ -129,6 +141,9 @@ def get_comments(number, repo, owner, p_type, headers, cursor=None):
             except TypeError:
                 print("Invalid information provided")
                 break
+            except KeyError:
+                print("error while pulling comments")
+                break
             # pprint(trimmed_request)
 
             # determines if all comments have been fetched
@@ -150,7 +165,6 @@ def get_comments(number, repo, owner, p_type, headers, cursor=None):
 
 # filter out any comments made by bots
 def filter_comments(comment_list):
-
     return_list = []
     # iterates through each comment removes it if it was made by a bot
     for comment in comment_list:
@@ -177,7 +191,6 @@ def write_to_file(json_string, repo, p_type):
 
 # returns query for individual comments
 def get_ind_query(repo, owner, number, p_type, cursor=None):
-
     # for pagination
     if cursor is not None:
         start_point = f', after: "{cursor}"'
@@ -213,7 +226,7 @@ def get_ind_query(repo, owner, number, p_type, cursor=None):
 
 
 # returns query for issue or pull request comments
-def get_comments_query(repo, owner, p_type, cursor=None):
+def get_comments_query(repo, owner, p_type, pull_rate, cursor=None):
     # for pagination
     if cursor is not None:
         start_point = f', after: "{cursor}"'
@@ -232,8 +245,21 @@ def get_comments_query(repo, owner, p_type, cursor=None):
                                 login
                             }
                             state
-                            comments(first:0) {
+                            comments(first: %d) {
                                 totalCount
+                                edges {
+                                    node {
+                                        author {
+                                            login
+                                            __typename
+                                        }
+                                        bodyText
+                                        createdAt
+                                    }
+                                }
+                                pageInfo {
+                                  endCursor
+                                }
                             }
                         }
                     }
@@ -244,7 +270,7 @@ def get_comments_query(repo, owner, p_type, cursor=None):
                 }
             }
         }
-        """ % (repo, owner, p_type, pull_rate, start_point)
+        """ % (repo, owner, p_type, pull_rate[0], start_point, pull_rate[1])
 
     return query
 

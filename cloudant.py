@@ -43,8 +43,7 @@ def addDocument(doc, database):
             )
             success = response.get_result()["ok"]
         except ibm_cloud_sdk_core.api_exception.ApiException:
-            print("rate limit reached")
-            sleep(0.1)
+            sleep(0.5)
     return True
 
 
@@ -53,7 +52,6 @@ def addMultipleDocs(documents, database):
 
     for doc in documents:
         addDocument(doc, database)
-        sleep(0.1)  # rate limit of 10 writes per second
 
 
 # clears the database by deleting and recreating it

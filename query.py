@@ -4,6 +4,7 @@ import json
 import os
 from time import time
 import cloudant
+from threading import Thread
 
 comment_threshold = 10
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
@@ -61,7 +62,6 @@ def run_query(auth, owner, repo, pull_type, db_name):
             print(f"error at iteration {i}")
             i -= 1
             continue
-        # temp = request.json()
 
         # if api call was successful, adds the comment to the comment list
         if request.status_code == 200:
@@ -101,7 +101,10 @@ def run_query(auth, owner, repo, pull_type, db_name):
             for j, edge in enumerate(trimmed_request["edges"]):
                 # filter out comments made by bots
                 node = edge["node"]
-                node["author"] = node["author"]["login"]  # remove if more info about author needed
+                if node["author"] is not None:
+                    node["author"] = node["author"]["login"]  # remove if more info about author needed
+                else:
+                    node["author"] = "deletedUser"
                 node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
 
                 # update the comment count
@@ -123,8 +126,9 @@ def run_query(auth, owner, repo, pull_type, db_name):
                 # remove unnecessary nesting
                 node["comments"] = node["comments"]["edges"]
                 trimmed_request["edges"][j] = node
-                # add to database
-                cloudant.addDocument(node, db_name)
+
+            # thread started to add list of issues/prs to the database
+            Thread(target=cloudant.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
 
             json_list += trimmed_request["edges"]  # add to final list
             print(f'{len(json_list)} {pull_type} gathered')  # print progress
@@ -141,7 +145,7 @@ def run_query(auth, owner, repo, pull_type, db_name):
 
 
 # gets comments for an issue/pr
-def get_other_comments(number, repo, owner, p_type, headers, cursor=None):  # todo try getting multiple comments at once
+def get_other_comments(number, repo, owner, p_type, headers, cursor=None):
 
     # for pagination
     has_next_page = True
@@ -158,7 +162,6 @@ def get_other_comments(number, repo, owner, p_type, headers, cursor=None):  # to
         if request.status_code == 200:
             # trims the result of the api call to remove unneeded nesting
             # pprint(request.json())
-            temp = request.json()
             try:
                 comments = request.json()["data"]["repository"][p_type]["comments"]
             except TypeError:
@@ -192,14 +195,15 @@ def filter_comments(comment_list):
     return_list = []
     # iterates through each comment removes it if it was made by a bot
     for comment in comment_list:
-        try:
+
+        if comment["node"]["author"] is not None:
             if comment["node"]["author"]["__typename"] != "Bot":
+                comment["node"]["author"] = comment["node"]["author"]["login"]  # remove if more author info needed
+                # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
                 return_list.append(comment["node"])
-            comment["node"]["author"] = comment["node"]["author"]["login"]
-            # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
-        except TypeError:
-            # if account deleted, author will be None so give it login deletedUser
-            comment["node"]["author"] = {'login': 'deletedUser'}
+        else:
+            comment["node"]["author"] = "deletedUser"
+            return_list.append(comment["node"])
 
     return return_list
 

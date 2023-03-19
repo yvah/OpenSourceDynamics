@@ -11,7 +11,7 @@ service.set_service_url(CLOUDANT_URL)
 
 
 # returns true if databaseName exists, else false
-def checkDatabase(databaseName):
+def checkDatabases(databaseName):
     databases = service.get_all_dbs().get_result()
     return databaseName in databases
 

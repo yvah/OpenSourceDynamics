@@ -3,9 +3,10 @@ from requests import post
 import json
 import os
 from time import time
+import cloudant
 
 comment_threshold = 10
-max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 2  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -15,9 +16,11 @@ pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25)
 def time_execution(function):
     def wrapper(*args):
         print(f"Timing {function.__name__}")
+
         start_time = time()
         value = function(*args)
         end_time = time()
+
         print(f"{function.__name__} took {round(end_time - start_time, 3)} seconds to run")
         return value
 
@@ -25,8 +28,9 @@ def time_execution(function):
 
 
 @time_execution
-def run_query(auth, owner, repo, pull_type):
+def run_query(auth, owner, repo, pull_type, db_name):
     print(f"Gathering {pull_type}...")
+    cloudant.createDatabase(db_name)
 
     # final list to be returned
     json_list = []
@@ -93,6 +97,7 @@ def run_query(auth, owner, repo, pull_type):
                         pr_index = j
                         break
 
+            # loop through issues/prs
             for j, edge in enumerate(trimmed_request["edges"]):
                 # filter out comments made by bots
                 node = edge["node"]
@@ -114,6 +119,8 @@ def run_query(auth, owner, repo, pull_type):
                         node["comments"].pop("pageInfo")
                     else:
                         trimmed_request["edges"].pop(j)
+
+                cloudant.addDocument(node, db_name)
 
             json_list += trimmed_request["edges"]  # add to final list
             print(f'{len(json_list)} {pull_type} gathered')  # print progress
@@ -317,7 +324,22 @@ if __name__ == '__main__':
             else:
                 print("Invalid input")
 
-    if valid:
-        test = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
-        # if test:
-        #     pprint(test)
+    database = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
+    if cloudant.checkDatabases(database):
+        print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
+              , end="")
+        valid = False
+
+        while not valid:
+            ans = input()
+            if ans == 'y':
+                print("Running analysis on existing data")
+                valid = True
+            elif ans == 'n':
+                result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database)
+                valid = True
+            else:
+                print("Invalid input. Use existing data? (y/n): ")
+
+    else:
+        result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database)

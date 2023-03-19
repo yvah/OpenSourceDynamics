@@ -6,7 +6,7 @@ from time import time
 import cloudant
 
 comment_threshold = 10
-max_iterations = 2  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -101,25 +101,28 @@ def run_query(auth, owner, repo, pull_type, db_name):
             for j, edge in enumerate(trimmed_request["edges"]):
                 # filter out comments made by bots
                 node = edge["node"]
+                node["author"] = node["author"]["login"]  # remove if more info about author needed
+
                 node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
 
-                # update the totalCount
+                # update the comment count
                 count = len(node["comments"]["edges"])
-                node["comments"]["totalCount"] = count
+                node["commentCount"] = count
 
                 # pull the rest of the comments if there are any
                 if node["comments"]["pageInfo"]["hasNextPage"]:
                     comments = get_other_comments(node["number"], repo, owner, pull_type[0:-1],
                                                   headers, node["comments"]["pageInfo"]["endCursor"])
 
-                    # add comments to exiting ones, update totalCount, if under threshold comments, remove
+                    # add comments to exiting ones, update commentCount, if under threshold comments, remove
                     if count + len(comments) >= comment_threshold:
                         node["comments"]["edges"] += comments
-                        node["comments"]["totalCount"] += len(comments)
-                        node["comments"].pop("pageInfo")
+                        node["commentCount"] += len(comments)
                     else:
                         trimmed_request["edges"].pop(j)
 
+                node["comments"] = node["comments"]["edges"]
+                trimmed_request["edges"][j] = node
                 cloudant.addDocument(node, db_name)
 
             json_list += trimmed_request["edges"]  # add to final list
@@ -190,7 +193,9 @@ def filter_comments(comment_list):
     for comment in comment_list:
         try:
             if comment["node"]["author"]["__typename"] != "Bot":
-                return_list.append(comment)
+                return_list.append(comment["node"])
+            comment["node"]["author"] = comment["node"]["author"]["login"]
+            # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
         except TypeError:
             # if account deleted, author will be None so give it login deletedUser
             comment["node"]["author"] = {'login': 'deletedUser'}
@@ -336,6 +341,7 @@ if __name__ == '__main__':
                 print("Running analysis on existing data")
                 valid = True
             elif ans == 'n':
+                cloudant.clearDatabase(database)
                 result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database)
                 valid = True
             else:

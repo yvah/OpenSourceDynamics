@@ -6,7 +6,7 @@ from time import time
 import cloudant
 
 comment_threshold = 10
-max_iterations = 1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -102,7 +102,6 @@ def run_query(auth, owner, repo, pull_type, db_name):
                 # filter out comments made by bots
                 node = edge["node"]
                 node["author"] = node["author"]["login"]  # remove if more info about author needed
-
                 node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
 
                 # update the comment count
@@ -121,8 +120,10 @@ def run_query(auth, owner, repo, pull_type, db_name):
                     else:
                         trimmed_request["edges"].pop(j)
 
+                # remove unnecessary nesting
                 node["comments"] = node["comments"]["edges"]
                 trimmed_request["edges"][j] = node
+                # add to database
                 cloudant.addDocument(node, db_name)
 
             json_list += trimmed_request["edges"]  # add to final list

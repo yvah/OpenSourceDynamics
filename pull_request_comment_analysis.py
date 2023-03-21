@@ -1,7 +1,7 @@
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions
 from pprint import pprint
 from query import run_query
 import scipy.stats as stats
@@ -40,12 +40,19 @@ class Pull_Request:
         # IBM NLP
         response = natural_language_understanding.analyze(
             text=self.comments,
-            features=Features(sentiment=SentimentOptions())).get_result()
-        self.sentiment = response['sentiment']['document']['score']
-    
+            features=Features(sentiment=SentimentOptions(), emotion=EmotionOptions())).get_result()
+        #print(response)
+        self.sentiment = round(response['sentiment']['document']['score'], 4)
+        # Creates an array to store emotion scores
+        self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
+        for i in range(5):
+            self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
+        self.main_emotion = max(self.emotion)
+
     # Defines a print method for pr
     def __str__(self):
-        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + ">"
+        print(self.emotion)
+        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + "; emotion: " + self.emotion[0] + " (score: " + str(self.main_emotion[1]) + ")>"
 
 
 # Takes a json file and parses it into a list of Pull_Request objects
@@ -139,12 +146,12 @@ if pull_type == "pullRequests":
     if merged == 0:
         print('No merged PR')
     else:
-        print('Average sentiment for merged PR:', merged_sum/merged)
+        print('Average sentiment for merged PR:', round(merged_sum/merged, 4))
 
     if closed == 0:
         print('No closed PR')
     else:
-        print('Average sentiment for closed PR:', closed_sum/closed)
+        print('Average sentiment for closed PR:', round(closed_sum/closed, 4))
 
     print()
     # Preform a Point-Biserial Correlation test

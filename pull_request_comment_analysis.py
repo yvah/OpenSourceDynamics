@@ -1,4 +1,5 @@
 import json
+from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions
@@ -22,6 +23,7 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 )
 natural_language_understanding.set_service_url(url)
 
+# Defines repositories as objects
 class Repository:
     def __init__(self, data):
         # Creat list of Pull_Request objects
@@ -80,7 +82,6 @@ class Repository:
         
         return result
 
-
 # Defines pull requests as objects
 class Pull_Request:
     # Constructor takes in a json node representing a pr
@@ -106,7 +107,7 @@ class Pull_Request:
         for i in range(5):
             self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
 
-        print(self.emotion)
+        #print(self.emotion)
         #self.main_emotion = max(self.emotion)
         #self.s = ""
         #for i in range(5):
@@ -114,7 +115,8 @@ class Pull_Request:
 
     # Defines a print method for pr
     def __str__(self):
-        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + ")>"
+        s = str(self.emotion)
+        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + ")>\n" + s
 
 # Takes a json file and parses it into a list of Pull_Request objectss
 def list_of_pr(data):
@@ -143,71 +145,57 @@ def correlation_test(prs):
         sentiment.append(pr.sentiment)
     return stats.pointbiserialr(state, sentiment)
 
-'''# Promts user for query
-print("Enter an access token: ", end="")
-auth = input()
-
-pull_type = ""
-valid = False
-
-while not valid:
-    print("Enter a repo (owner/repo): ", end="")
-    owner_repo = input().split("/")
-    if len(owner_repo) != 2:
-        print("Invalid input")
-    else:
-        print("Get issues or pull requests? (i or p): ", end="")
-        letter = input()
-
-        if letter == "i":
-            pull_type = "issues"
-            valid = True
-        elif letter == "p":
-            pull_type = "pullRequests"
-            valid = True
-        else:
-            print("Invalid input")
-
-    if valid:
-        data = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
-
-if pull_type == "issues":
-    pprint(data)
-
-if pull_type == "pullRequests":
-    data = json.loads(data)
-    '''
-if True:
+# main function for testing code
+if __name__ == '__main__':
+    #'''
+    # to test nlu
     file = open("fetched_data/flutter_PullRequests.json")
     data = json.load(file)
-    '''
-    dict = {
-        'employees' : [
-            {
-                'name' : 'John Doe',
-                'department' : 'Marketing',
-                'place' : 'Remote'
-            },
-            {
-                'name' : 'Jane Doe',
-                'department' : 'Software Engineering',
-                'place' : 'Remote'
-            },
-            {
-                'name' : 'Don Joe',
-                'department' : 'Software Engineering',
-                'place' : 'Office'
-            }
-        ]
-    }
-
-    json_string = json.dumps(dict, indent=4)
-    with file as outfile:
-        outfile.write(json_string)
-    
-    '''
-    
     print("Performing sentiment analysis...\n")
-    
+    start_time = time()
     repo = Repository(data)
+    end_time = time()
     print(repo)
+    print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
+
+    '''
+    # or with data extraction
+    print("Enter an access token: ", end="")
+    auth = input()
+    
+    pull_type = ""
+    valid = False
+
+    while not valid:
+        print("Enter a repo (owner/repo): ", end="")
+        owner_repo = input().split("/")
+        if len(owner_repo) != 2:
+            print("Invalid input")
+        else:
+            print("Get issues or pull requests? (i or p): ", end="")
+            letter = input()
+
+            if letter == "i":
+                pull_type = "issues"
+                valid = True
+            elif letter == "p":
+                pull_type = "pullRequests"
+                valid = True
+            else:
+                print("Invalid input")
+
+        if valid:
+            data = run_query(auth, owner_repo[1], owner_repo[0], pull_type)
+
+    if pull_type == "issues":
+        pprint(data)
+
+    if pull_type == "pullRequests":
+        data = json.loads(data)
+        print("Performing sentiment analysis...\n")
+        start_time = time()
+        repo = Repository(data)
+        end_time = time()
+        print(repo)
+        print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
+    # '''

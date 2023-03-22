@@ -7,7 +7,7 @@ import cloudant
 from threading import Thread
 
 comment_threshold = 10
-max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -29,9 +29,10 @@ def time_execution(function):
 
 
 @time_execution
-def run_query(auth, owner, repo, pull_type, db_name):
+def run_query(auth, owner, repo, pull_type, db, db_name):
+
     print(f"Gathering {pull_type}...")
-    cloudant.createDatabase(db_name)
+    db.createDatabase(db_name)
 
     # final list to be returned
     json_list = []
@@ -128,7 +129,7 @@ def run_query(auth, owner, repo, pull_type, db_name):
                 trimmed_request["edges"][j] = node
 
             # thread started to add list of issues/prs to the database
-            Thread(target=cloudant.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
+            Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
 
             json_list += trimmed_request["edges"]  # add to final list
             print(f'{len(json_list)} {pull_type} gathered')  # print progress
@@ -334,8 +335,9 @@ if __name__ == '__main__':
             else:
                 print("Invalid input")
 
-    database = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
-    if cloudant.checkDatabases(database):
+    database = cloudant.Database("credentials.json")
+    database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
+    if database.checkDatabases(database_name):
         print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
               , end="")
         valid = False
@@ -346,11 +348,11 @@ if __name__ == '__main__':
                 print("Running analysis on existing data")
                 valid = True
             elif ans == 'n':
-                cloudant.clearDatabase(database)
-                result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database)
+                database.clearDatabase(database_name)
+                result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database_name)
                 valid = True
             else:
                 print("Invalid input. Use existing data? (y/n): ")
 
     else:
-        result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database)
+        result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database, database_name)

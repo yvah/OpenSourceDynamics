@@ -2,61 +2,64 @@ import ibm_cloud_sdk_core
 from ibmcloudant.cloudant_v1 import CloudantV1 as Cloudant
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from time import sleep
-
-CLOUDANT_URL = "https://e90cf857-4d01-42b7-a5a9-22b66c91c13e-bluemix.cloudantnosqldb.appdomain.cloud"
-CLOUDANT_APIKEY = "UN7N-RKZkoI-zwC20g6fwlLQPvOQZf-7g6dKGxU1XJsf"
-IAM_auth = IAMAuthenticator(CLOUDANT_APIKEY)
-
-service = Cloudant(authenticator=IAM_auth)
-service.set_service_url(CLOUDANT_URL)
+import json
 
 
-# returns true if databaseName exists, else false
-def checkDatabases(databaseName):
-    databases = service.get_all_dbs().get_result()
-    return databaseName in databases
+def loadJson(filename):
+    with open(filename) as json_file:
+        return json.load(json_file)
 
 
-# creates a database with with the passed in name, returns true on success, false otherwise
-def createDatabase(name):
+class Database:
+    def __init__(self, credentials_file):
+        self.credentials = loadJson(credentials_file)
+        iam_auth = IAMAuthenticator(self.credentials["apikey"])
 
-    try:
-        response = service.put_database(db=name).get_result()
-        return response["ok"]
-    except ibm_cloud_sdk_core.api_exception.ApiException:
-        return False
+        self.service = Cloudant(authenticator=iam_auth)
+        self.service.set_service_url(self.credentials["url"])
 
+    # returns true if databaseName exists, else false
+    def checkDatabases(self, databaseName):
+        databases = self.service.get_all_dbs().get_result()
+        return databaseName in databases
 
-# function for adding documents to the database
-def addDocument(doc, database):
+    # creates a database with with the passed in name, returns true on success, false otherwise
+    def createDatabase(self, name):
 
-    success = False
-    while not success:
         try:
-            response = service.put_document(
-                db=database,
-                doc_id=str(doc["number"]),
-                document=doc
-            )
-            success = response.get_result()["ok"]
+            response = self.service.put_database(db=name).get_result()
+            return response["ok"]
         except ibm_cloud_sdk_core.api_exception.ApiException:
-            sleep(0.5)
-    return True
+            return False
 
+    # function for adding documents to the database
+    def addDocument(self, doc, database):
 
-# helper function to add multiple documents
-def addMultipleDocs(documents, database):
+        success = False
+        while not success:
+            try:
+                response = self.service.put_document(
+                    db=database,
+                    doc_id=str(doc["number"]),
+                    document=doc
+                )
+                success = response.get_result()["ok"]
+            except ibm_cloud_sdk_core.api_exception.ApiException:
+                sleep(0.5)
+        return True
 
-    for doc in documents:
-        addDocument(doc, database)
+    # helper function to add multiple documents
+    def addMultipleDocs(self, documents, database):
 
+        for doc in documents:
+            self.addDocument(doc, database)
 
-# clears the database by deleting and recreating it
-def clearDatabase(database):
+    # clears the database by deleting and recreating it
+    def clearDatabase(self, database):
 
-    try:
-        service.delete_database(db=database)
-    except ibm_cloud_sdk_core.api_exception.ApiException:
-        return False
+        try:
+            self.service.delete_database(db=database)
+        except ibm_cloud_sdk_core.api_exception.ApiException:
+            return False
 
-    return createDatabase(database)
+        return self.createDatabase(database)

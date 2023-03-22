@@ -7,7 +7,7 @@ import cloudant
 from threading import Thread
 
 comment_threshold = 10
-max_iterations = 1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 3  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -30,6 +30,7 @@ def time_execution(function):
 
 @time_execution
 def run_query(auth, owner, repo, pull_type, db, db_name):
+    global max_iterations
 
     print(f"Gathering {pull_type}...")
     db.createDatabase(db_name)
@@ -49,6 +50,12 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
 
     # initial pull rate is (12, 100)
     pr_index = -1
+
+    # bug with github graphql api with sorting by comments
+    # temporary "fix"
+    if pull_type == "pullRequests":
+        max_iterations = 1
+        pr_index = 0
 
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched
@@ -336,7 +343,11 @@ if __name__ == '__main__':
                 print("Invalid input")
 
     database = cloudant.Database("credentials.json")
-    database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
+    if pull_type == "pullRequests":
+        database_name = f"{owner_repo[0]}/{owner_repo[1]}-pull_requests"
+    else:
+        database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
+
     if database.checkDatabases(database_name):
         print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
               , end="")
@@ -349,7 +360,7 @@ if __name__ == '__main__':
                 valid = True
             elif ans == 'n':
                 database.clearDatabase(database_name)
-                result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database_name)
+                result = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database, database_name)
                 valid = True
             else:
                 print("Invalid input. Use existing data? (y/n): ")

@@ -31,6 +31,7 @@ def time_execution(function):
 @time_execution
 def run_query(auth, owner, repo, pull_type, db, db_name):
     global max_iterations
+    discount = 0
 
     print(f"Gathering {pull_type}...")
     db.createDatabase(db_name)
@@ -63,7 +64,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
         i += 1
 
         # forms the query and performs call, on subsequent iterations passes in cursor for pagination
-        query = get_comments_query(repo, owner, pull_type, pull_rates[pr_index], cursor)
+        query = get_comments_query(repo, owner, pull_type, pull_rates[pr_index], discount, cursor)
         try:
             request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
         except Exception:
@@ -102,7 +103,9 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                 # determine the pull rate for the next iteration
                 for j, rate in enumerate(pull_rates):
                     if last_count <= rate[1]:
-                        pr_index = j
+                        if j != pr_index:
+                            pr_index = j
+                            discount = 0  # if pr_index changes, reset the discount
                         break
 
             # loop through issues/prs
@@ -144,6 +147,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
         else:
             print(f"Status code: {str(request.status_code)} on iteration {i}, pr_index = {pr_index}. Retrying")
             i -= 1
+            discount += 1  # fail occurs when too much fetched at once, so fetch less next time
 
     # write to file
     json_string = json.dumps(json_list, indent=4)
@@ -228,12 +232,15 @@ def write_to_file(json_string, repo, p_type):
 
 
 # returns query for issue or pull request comments
-def get_comments_query(repo, owner, p_type, pull_rate, cursor=None):
+def get_comments_query(repo, owner, p_type, pull_rate, discount, cursor=None):
     # for pagination
     if cursor is not None:
         start_point = f', after: "{cursor}"'
     else:
         start_point = ""
+
+    if discount >= pull_rate[0]:
+        discount = pull_rate[0] - 1
 
     query = """
         {
@@ -274,7 +281,7 @@ def get_comments_query(repo, owner, p_type, pull_rate, cursor=None):
                 }
             }
         }
-        """ % (repo, owner, p_type, pull_rate[0], start_point, pull_rate[1])
+        """ % (repo, owner, p_type, pull_rate[0] - discount, start_point, pull_rate[1])
 
     return query
 

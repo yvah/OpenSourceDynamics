@@ -23,13 +23,14 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 )
 natural_language_understanding.set_service_url(url)
 
+
 # Defines repositories as objects
 class Repository:
     def __init__(self, data):
-        # Creat list of Pull_Request objects
+        # Creat list of PullRequest objects
         self.pull_requests = list_of_pr(data)
 
-        # Calculate average sentiment for clossed/merged prs
+        # Calculate average sentiment for closed/merged prs
         merged = merged_sum = closed = closed_sum = 0
         for pr in self.pull_requests:
             if pr.state == 'MERGED':
@@ -38,97 +39,102 @@ class Repository:
             elif pr.state == 'CLOSED':
                 closed_sum += pr.sentiment
                 closed += 1
-            else: 
+            else:
                 continue
         self.merged_average = self.closed_average = None
         if merged != 0:
-            self.merged_average = round(merged_sum/merged, 4)
+            self.merged_average = round(merged_sum / merged, 4)
         if closed != 0:
-            self.closed_average = round(closed_sum/closed, 4)
+            self.closed_average = round(closed_sum / closed, 4)
 
         # Preform Point Biserial test
         self.p_value = self.r_value = None
-        if self.merged_average != None and self.closed_average != None:
+        if self.merged_average is not None and self.closed_average is not None:
             point_biserial = correlation_test(self.pull_requests)
             self.p_value = round(point_biserial.pvalue, 4)
-            self.r_value = round(point_biserial.statistic, 4) 
+            self.r_value = round(point_biserial.statistic, 4)
 
     def __str__(self):
         result = ''
-        # Print Pull_Requests
+        # Print PullRequests
         for pr in self.pull_requests:
             result += str(pr) + '\n'
         result += '\n'
 
         # Print averages
-        if self.merged_average == None:
+        if self.merged_average is None:
             result += 'No merged PR\n'
         else:
             result += 'Average sentiment for merged PR: ' + str(self.merged_average) + '\n'
-        if self.closed_average == None:
+        if self.closed_average is None:
             result += 'No closed PR\n'
         else:
             result += 'Average sentiment for closed PR: ' + str(self.closed_average) + '\n'
         result += '\n'
 
         # Print correlation
-        if self.p_value == None:
+        if self.p_value is None:
             result += 'Can not preform a correlation test\n'
         else:
             result += 'State and sentiment are '
             if self.p_value > 0.05:
                 result += 'not '
-            result += 'statisiticaly significant: p-value of ' + str(self.p_value) + ' and R-value of ' + str(self.r_value)
-        
+            result += 'statistically significant: p-value of ' + str(self.p_value) + ' and R-value of ' + str(
+                self.r_value)
+
         return result
 
+
 # Defines pull requests as objects
-class Pull_Request:
+class PullRequest:
     # Constructor takes in a json node representing a pr
     def __init__(self, pr):
         self.state = pr['state']
-        self.number_of_comments = pr['comments']['totalCount']
-        
+        self.number_of_comments = pr['commentCount']
+
         # NEEDS TO CHANGE
         # Takes all comments and concatenates into single string -> not efficient
         comments = ''
-        for comment in pr['comments']['edges']:
-           comments += comment['node']['bodyText'] + ' '
+        for comment in pr['comments']:
+            comments += comment['bodyText'] + ' '
         self.comments = comments
-        
+
         # IBM NLP
         response = natural_language_understanding.analyze(
             text=self.comments,
             features=Features(sentiment=SentimentOptions(), emotion=EmotionOptions())).get_result()
-        #print(response)
+        # print(response)
         self.sentiment = round(response['sentiment']['document']['score'], 4)
         # Creates an array to store emotion scores
         self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
         for i in range(5):
             self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
 
-        #print(self.emotion)
-        #self.main_emotion = max(self.emotion)
-        #self.s = ""
-        #for i in range(5):
+        # print(self.emotion)
+        # self.main_emotion = max(self.emotion)
+        # self.s = ""
+        # for i in range(5):
         #    self.s += self.emotion[i][0] + ": " + self.emotion[i][1] + "\n"
 
     # Defines a print method for pr
     def __str__(self):
         s = str(self.emotion)
-        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + ")>\n" + s
+        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
+            self.sentiment) + ")>\n" + s
 
-# Takes a json file and parses it into a list of Pull_Request objectss
+
+# Takes a json file and parses it into a list of PullRequest objectss
 def list_of_pr(data):
     pull_requests = []
     for pr in data:
         # NEED TO IMPLEMENT BETTER ERROR HANDLING
         # ApiException: Error: not enough text for language id, Code: 422
         try:
-            pull_requests.append(Pull_Request(pr['node']))
+            pull_requests.append(PullRequest(pr))
         except Exception:
-           pass
+            pass
     return pull_requests
+
 
 # Preforms a Point-Biserial Correlation test and prints the result
 def correlation_test(prs):
@@ -145,9 +151,10 @@ def correlation_test(prs):
         sentiment.append(pr.sentiment)
     return stats.pointbiserialr(state, sentiment)
 
+
 # main function for testing code
 if __name__ == '__main__':
-    #'''
+    # '''
     # to test nlu
     file = open("fetched_data/flutter_PullRequests.json")
     data = json.load(file)

@@ -1,0 +1,1 @@
+fetch().then(rex => resizeBy.json()).then(data => {})

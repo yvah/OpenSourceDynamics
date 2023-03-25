@@ -1,4 +1,4 @@
-import json
+import json, requests
 from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -91,6 +91,8 @@ class PullRequest:
     def __init__(self, pr):
         self.state = pr['state']
         self.number_of_comments = pr['commentCount']
+        self.author = pr['author'].split()[0]
+        self.gender = getGender(self.author);
 
         # NEEDS TO CHANGE
         # Takes all comments and concatenates into single string -> not efficient
@@ -106,9 +108,9 @@ class PullRequest:
         # print(response)
         self.sentiment = round(response['sentiment']['document']['score'], 4)
         # Creates an array to store emotion scores
-        self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
-        for i in range(5):
-            self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
+        #self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
+        #or i in range(5):
+        #    self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
 
         # print(self.emotion)
         # self.main_emotion = max(self.emotion)
@@ -118,9 +120,9 @@ class PullRequest:
 
     # Defines a print method for pr
     def __str__(self):
-        s = str(self.emotion)
+        #s = str(self.emotion)
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
-            self.sentiment) + ")>\n" + s
+            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + ")"
 
 
 # Takes a json file and parses it into a list of PullRequest objectss
@@ -151,6 +153,22 @@ def correlation_test(prs):
         sentiment.append(pr.sentiment)
     return stats.pointbiserialr(state, sentiment)
 
+def getGender(name):
+	url = ""
+	cnt = 0
+        
+	if url == "":
+		url = "name[0]=" + name
+	else:
+		cnt += 1
+		url = url + "&name[" + str(cnt) + "]=" + name
+
+	req = requests.get("https://api.genderize.io?" + url)
+	result = json.loads(req.text)
+	gender = result[0]["gender"]
+	if gender is None:
+		return "none"
+	return gender
 
 # main function for testing code
 if __name__ == '__main__':
@@ -164,7 +182,7 @@ if __name__ == '__main__':
     end_time = time()
     print(repo)
     print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
-
+   
     '''
     # or with data extraction
     print("Enter an access token: ", end="")

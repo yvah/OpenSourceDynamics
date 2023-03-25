@@ -113,7 +113,10 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                 # filter out comments made by bots
                 node = edge["node"]
                 if node["author"] is not None:
-                    node["author"] = node["author"]["login"]  # remove if more info about author needed
+                    if node["author"]["name"] is not None:
+                        node["author"] = node["author"]["name"]
+                    else:
+                        node["author"] = node["author"]["login"]  # remove if more info about author needed
                 else:
                     node["author"] = "deletedUser"
                 node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
@@ -252,6 +255,9 @@ def get_comments_query(repo, owner, p_type, pull_rate, discount, cursor=None):
                             title
                             author {
                                 login
+                                ... on User {
+                                    name
+                                }
                             }
                             state
                             closedAt

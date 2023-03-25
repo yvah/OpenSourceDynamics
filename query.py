@@ -261,6 +261,7 @@ def get_comments_query(repo, owner, p_type, pull_rate, discount, cursor=None):
                             }
                             state
                             closedAt
+                            createdAt
                             comments(first: %d) {
                                 totalCount
                                 edges {

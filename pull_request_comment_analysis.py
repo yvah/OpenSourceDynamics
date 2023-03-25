@@ -1,4 +1,4 @@
-import json, requests
+import json, requests, os, csv
 from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -53,6 +53,35 @@ class Repository:
             point_biserial = correlation_test(self.pull_requests)
             self.p_value = round(point_biserial.pvalue, 4)
             self.r_value = round(point_biserial.statistic, 4)
+    
+    def toCSV(self):
+        cwd = os.getcwd()
+        csv_fields = ['number', 'title', 'author', 'gender', 'state', 'createdAt', 'closedAt', 'number of comments', 'sentiment', 'sadness', 'joy', 'fear', 'disgust', 'anger']
+        with open(f'{cwd}/fetched_data/sentiment_analysis_result.csv', 'w', newline='') as analysis_results_file:
+            writer = csv.DictWriter(analysis_results_file, csv_fields)
+            writer.writeheader()
+            for pr in self.pull_requests:
+                analysis_result = [
+                    {
+                        'number': f'{str(pr.number)}',
+                        'title': f'{str(pr.title)}',
+                        'author': f'{str(pr.author)}',
+                        'gender': f'{str(pr.gender)}',
+                        'state': f'{str(pr.state)}',
+                        'createdAt': f'{str(pr.createdAt)}',
+                        'closedAt': f'{str(pr.closedAt)}',
+                        'number of comments': f'{str(pr.number_of_comments)}',
+                        'sentiment': f'{str(pr.sentiment)}',
+                        'sadness': f'{str(pr.emotion[0][1])}',
+                        'joy': f'{str(pr.emotion[1][1])}',
+                        'fear': f'{str(pr.emotion[2][1])}',
+                        'disgust': f'{str(pr.emotion[3][1])}',
+                        'anger': f'{str(pr.emotion[4][1])}'
+                    }
+                ] 
+                writer.writerows(analysis_result)
+
+
 
     def __str__(self):
         result = ''
@@ -89,10 +118,14 @@ class Repository:
 class PullRequest:
     # Constructor takes in a json node representing a pr
     def __init__(self, pr):
+        self.number = pr['number']
+        self.title = pr['title']
+        self.closedAt = pr['closedAt']
+        self.createdAt = pr['createdAt']
         self.state = pr['state']
         self.number_of_comments = pr['commentCount']
         self.author = pr['author'].split()[0]
-        self.gender = getGender(self.author);
+        self.gender = getGender(self.author)
 
         # NEEDS TO CHANGE
         # Takes all comments and concatenates into single string -> not efficient
@@ -108,10 +141,10 @@ class PullRequest:
         # print(response)
         self.sentiment = round(response['sentiment']['document']['score'], 4)
         # Creates an array to store emotion scores
-        #self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
-        #or i in range(5):
-        #    self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
-
+        self.emotion = [['sadness', 0], ['joy', 0], ['fear', 0], ['disgust', 0], ['anger', 0]]
+        for i in range(5):
+            self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
+        
         # print(self.emotion)
         # self.main_emotion = max(self.emotion)
         # self.s = ""
@@ -122,7 +155,7 @@ class PullRequest:
     def __str__(self):
         #s = str(self.emotion)
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
-            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + ")"
+            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + ">"
 
 
 # Takes a json file and parses it into a list of PullRequest objectss
@@ -182,7 +215,9 @@ if __name__ == '__main__':
     end_time = time()
     print(repo)
     print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
-   
+
+    repo.toCSV()
+
     '''
     # or with data extraction
     print("Enter an access token: ", end="")

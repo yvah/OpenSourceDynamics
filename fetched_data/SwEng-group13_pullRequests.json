@@ -1,0 +1,73 @@
+[
+    {
+        "number": 64,
+        "title": "Version includes API calls and NLU analysis",
+        "author": "taylorj8",
+        "state": "MERGED",
+        "closedAt": "2023-03-25T12:16:59Z",
+        "createdAt": "2023-03-24T14:35:30Z",
+        "comments": [
+            {
+                "author": "HazelHilbert",
+                "bodyText": "I am having problems with importing Cloudant. Do I have to download anything?",
+                "createdAt": "2023-03-24T16:09:03Z"
+            },
+            {
+                "author": "yvah",
+                "bodyText": "Hi! Daniel and I are in the glassrooms, you can join us.\nFor the issue, did you download ibmcloudant using pip? Looks like it lacks this module.\n\u2026\n On 24 Mar 2023, at 16:09, Hazel Hilbert ***@***.***> wrote:\n\n\n  <https://user-images.githubusercontent.com/98608198/227580236-6a44f405-6e38-451e-b3cf-648e83d34abb.png>I am having problems with importing Cloudant. Do I have to download anything?\n \u2014\n Reply to this email directly, view it on GitHub <#64 (comment)>, or unsubscribe <https://github.com/notifications/unsubscribe-auth/ANKWWHS5OQ5FC7JJWRXTQWDW5XBKVANCNFSM6AAAAAAWGUU3C4>.\n You are receiving this because your review was requested.",
+                "createdAt": "2023-03-24T16:11:59Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "Unfortunately I am actually in a lecture haha",
+                "createdAt": "2023-03-24T16:14:52Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "I'm also getting this error:\n\nSorry for all the questions, just trying to see if the NLU will still work. We should also make sure we are keeping track of all the imports and keys we need to run the code",
+                "createdAt": "2023-03-24T16:20:44Z"
+            },
+            {
+                "author": "yvah",
+                "bodyText": "IBM credentials might have changed if someone of the team reseted them, but it seems like you just don\u2019t have the file with them. Try to reinstall cloudant using pip:\npip uninstall cloudant\npip install cloudant\n\u2026\n On 24 Mar 2023, at 16:20, Hazel Hilbert ***@***.***> wrote:\n\n\n I'm also getting this error:\n  <https://user-images.githubusercontent.com/98608198/227582883-f50ea9ac-ec95-4078-b002-2466b73c8237.png>\n Sorry for all the questions, just trying to see if the NLU will still work. We should also make sure we are keeping track of all the imports and keys we need to run the code\n\n \u2014\n Reply to this email directly, view it on GitHub <#64 (comment)>, or unsubscribe <https://github.com/notifications/unsubscribe-auth/ANKWWHQ7WNNVMLMSVKH437TW5XCWNANCNFSM6AAAAAAWGUU3C4>.\n You are receiving this because your review was requested.",
+                "createdAt": "2023-03-24T16:27:05Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "I did that but it is giving the same error :/",
+                "createdAt": "2023-03-24T16:33:02Z"
+            },
+            {
+                "author": "yvah",
+                "bodyText": "So you checked the credentials file in the directory where it\u2019s trying to find it?\nYou can also pass that error with exception. Generally not the best thing to do, but might help.\n\u2026\n On 24 Mar 2023, at 16:33, Hazel Hilbert ***@***.***> wrote:\n\n\n I did that but it is giving the same error :/\n\n \u2014\n Reply to this email directly, view it on GitHub <#64 (comment)>, or unsubscribe <https://github.com/notifications/unsubscribe-auth/ANKWWHR3XGH2NLQM6A3EQV3W5XEEVANCNFSM6AAAAAAWGUU3C4>.\n You are receiving this because your review was requested.",
+                "createdAt": "2023-03-24T16:39:35Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "I don\u2019t think I fully really understand what you mean. I installed cloudant through pip, but then just tried to run it. I don't have any file named \"credentials.json\" in my local directory. Are there some other steps I should do before running the code? Like do I have to download anything else or edit anything?",
+                "createdAt": "2023-03-24T16:47:11Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "If it's easier, I could just try to sort it out tomorrow when we meet in person",
+                "createdAt": "2023-03-24T16:48:56Z"
+            },
+            {
+                "author": "yvah",
+                "bodyText": "Sorry for being confusing. It looks like the program doesn\u2019t see credentials file. Add it to that directory:\n\u2026\n On 24 Mar 2023, at 16:47, Hazel Hilbert ***@***.***> wrote:\n\n\n I don\u2019t think I fully really understand what you mean. I installed cloudant through pip, but then just tried to run it. I don't have any file named \"credentials.json\" in my local directory. Are there some other steps I should do before running the code? Like do I have to download anything else or edit anything?\n\n \u2014\n Reply to this email directly, view it on GitHub <#64 (comment)>, or unsubscribe <https://github.com/notifications/unsubscribe-auth/ANKWWHV3AEZ6ZYXQX6OZLCDW5XFZTANCNFSM6AAAAAAWGUU3C4>.\n\n You are receiving this because your review was requested.",
+                "createdAt": "2023-03-24T16:49:41Z"
+            },
+            {
+                "author": "HazelHilbert",
+                "bodyText": "Oh ok, how do I do that? \ud83d\ude05 Do I do it from IBM cloud?",
+                "createdAt": "2023-03-24T16:51:41Z"
+            },
+            {
+                "author": "yvah",
+                "bodyText": "No, just locally on your laptop directory. Go to the directory you see in\nthe traceback.\n\u2026\nOn Fri, 24 Mar 2023 at 16:51, Hazel Hilbert ***@***.***> wrote:\n Oh ok, how do I do that? \ud83d\ude05 Do I do it from IBM cloud?\n\n \u2014\n Reply to this email directly, view it on GitHub\n <#64 (comment)>,\n or unsubscribe\n <https://github.com/notifications/unsubscribe-auth/ANKWWHT5LLK2ZEXH46MWURLW5XGKTANCNFSM6AAAAAAWGUU3C4>\n .\n You are receiving this because your review was requested.Message ID:\n ***@***.***>",
+                "createdAt": "2023-03-24T16:55:21Z"
+            }
+        ],
+        "commentCount": 12
+    }
+]

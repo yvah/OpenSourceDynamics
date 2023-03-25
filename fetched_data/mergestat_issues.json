@@ -1,0 +1,1717 @@
+[
+    {
+        "node": {
+            "number": 595,
+            "title": "Bug when Importing Repositories that are gone",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "ramiroJCB"
+                            },
+                            "bodyText": "This error seems to be either on pr commits sync or repo starts , this errors will be turned into warn error  , this filter will be removed",
+                            "createdAt": "2022-12-07T20:09:41Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 596,
+            "title": "unexpected EOF when importing repos",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 597,
+            "title": "Changing Error logs to  warning logs in the worker",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 599,
+            "title": "When console session times out we need to route to /login",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Adding a filter to alerts for permission denied to set role so we will need to remove this when we fix this.",
+                            "createdAt": "2022-11-30T02:29:18Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Also adding filter -resource.labels.container_name=\"mergestat-graphql\"",
+                            "createdAt": "2022-11-30T21:39:31Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 600,
+            "title": "Possible error comming  from gitutils usage in git_blame sync",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 601,
+            "title": "repo sync logs violates foreign key constraint",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "This was related to the broken migration #629",
+                            "createdAt": "2022-12-09T15:51:34Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 602,
+            "title": "Nil pointer in github actions job upsert",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 605,
+            "title": "Only show users (in `/settings/user-management`) that have a MergeStat role",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 606,
+            "title": "Let's be consistent with page titles",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 609,
+            "title": "Auth error when password is incorrect.",
+            "author": {
+                "login": "german-mergestat"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 610,
+            "title": "Add Github Network Dependents information",
+            "author": {
+                "login": "alexkreidler"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 611,
+            "title": "Use a longer timeout when running migrations",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Prioritizing this ahead of #331 since we think this will mitigate a majority of the issues we have seen in the wild.",
+                            "createdAt": "2022-12-02T20:55:11Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@amenowanna should we close this based on the change in: mergestat/helm-charts#88\nor want to validate this further?",
+                            "createdAt": "2022-12-19T13:31:47Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "This only applies to init containers right? Do we need to add it to other paths?",
+                            "createdAt": "2022-12-19T14:59:53Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Discussed this on a call and right now this is sufficient.",
+                            "createdAt": "2022-12-19T17:21:55Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 612,
+            "title": "Username in Connect page should reflect current user",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "german-mergestat"
+                            },
+                            "bodyText": "@patrickdevivo @amenowanna user comes from databaseConnection function. Should I show user coming from currentMergeStatUser function instead?",
+                            "createdAt": "2022-12-19T21:23:52Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Yes, it should be the same value that we show on the upper right-hand side of the UI to show what user is logged in.",
+                            "createdAt": "2022-12-19T21:25:47Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 615,
+            "title": "Flaky UI test in CI",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@german-mergestat the flaky test I see now is a bit different - not sure if we traded one for another \ud83d\ude05\n\nThis one looks like a timeout - I wonder if we could bump that in the CI run to give us a bit more breathing room",
+                            "createdAt": "2022-12-19T21:31:23Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 620,
+            "title": "Breadcrumb link to a GitHub repo should link to the repo, not the owner",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 623,
+            "title": "Add error handling and structured logging for GraphQL proxy (in console source)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 628,
+            "title": "Migration 11 fails if orphaned id's are found",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 633,
+            "title": "When selecting \"Sync Now\" in the console we need to insert type_group to respect concurrency",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "I wonder if this should be done via a postgres function (exposed as a mutation in the graphql schema), something like mergestat.sync_now(repoSyncID, ...) to encapsulate this business logic on the backend to make it easier to change/adjust in the future.\nWe'd still need to update the frontend to call the function instead.",
+                            "createdAt": "2022-12-10T14:44:38Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Question for @german-mergestat does this also add this behavior to the other \"Sync Now\" button?\n\nJust want to make sure - if it doesn't do you mind creating another ticket to track that - thanks!",
+                            "createdAt": "2022-12-17T20:00:02Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 634,
+            "title": "Add better support for Bitbucket repositories",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Closing this in favor of tracking the feature in Notion",
+                            "createdAt": "2023-01-23T05:05:06Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 635,
+            "title": "Add support for local file system repos (in the `docker-compose`/local experience)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "This can be achieved by creating an override docker-compose.override.yaml file locally (by the end user) and adding a bind-mount volume.\nservices:\n  worker:\n    volumes:\n      - ~/projects:/projects # this can be any local path\nThen, from the UI, the repository can be added by using a file:// url:",
+                            "createdAt": "2022-12-14T07:32:44Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "I had some trouble in this setup when it came to running the GIT_* sync types - were you able to get data syncing okay locally @riyaz-ali? I added the volumes to the docker-compose file locally.",
+                            "createdAt": "2022-12-15T01:35:28Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "Ah! sorry my bad. You need an additional / after the scheme, such that the path reads /projects/mergestat. The full url would be file:///projects/mergestat",
+                            "createdAt": "2022-12-16T07:41:24Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Got it! Thanks - I was able to validate that! Really cool that we can support this in an ok way for now. So I think for this ticket let's mark it complete when we've:\n\nDocumented in our docs (maybe in the Running Locally section? Or Setup section? @amenowanna what do you think)\nDocumented in the docker-compose.yaml file with a comment (let's include an example of how to mount a volume to the worker and a link to the docs page)\n\nAnything else?",
+                            "createdAt": "2022-12-16T18:52:45Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "We should put the docs in the running locally section. In general we still need to add docs for adding individual repos and those docs could link to the running local docs for people looking to that.",
+                            "createdAt": "2022-12-16T18:56:35Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "@riyaz-ali please finish creating the docs for this so we can get flow moving on this issue again and moved to done.",
+                            "createdAt": "2022-12-19T21:31:45Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 638,
+            "title": "Add experimental `trufflehog` sync",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 639,
+            "title": "Add experimental `detect-secrets` sync",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 640,
+            "title": "Add `experimental` git leaks sync",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 645,
+            "title": "When adding a repo only set `is_github` if the repo *looks* like a GitHub URL",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Going to close this out, as recent work removes the is_github flag, nullifying what we were wanting to achieve here",
+                            "createdAt": "2023-02-19T21:55:35Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 652,
+            "title": "Sync run duration not displayed even on completed syncs",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 673,
+            "title": "Allow overriding of secure cookie for console/ui sessions",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 675,
+            "title": "Add support for `brakeman` as a scanner sync type",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Going to implement this in this spike: mergestat/internal#135",
+                            "createdAt": "2023-02-14T16:05:31Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 676,
+            "title": "Add support for `gosec` as a scanner sync type",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 682,
+            "title": "Make the Add Repositories button secondary only when the Authenticate GitHub banner/section is shown (to clarify the main CTA)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 683,
+            "title": "Link out the docs page in the `Authenticate GitHub` onboarding card in the `/repos` page",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 684,
+            "title": "Remove the `Add Repository` button in the `No repositories added yet` empty state",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 685,
+            "title": "Consider \u201crepos\u201d vs \u201crepositories\u201d language - we should be consistent or at least have a framework for deciding which to use",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 686,
+            "title": "Consider adding ability to unset a GitHub token (remove it) via the UI",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 687,
+            "title": "When a repo auto import encounters and error, link in the callout to the management panel for that auto import (so the user can delete or edit it)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 688,
+            "title": "Default the \u201cSelect default syncs\u201d to closed (maybe only if there are multiple auto imports queued up)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 689,
+            "title": "Call out describing \u201cDefault syncs\u201d behavior for auto imports should have more detail - it should probably link out to docs as well",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 690,
+            "title": "Repo auto imports should implement basic API retrying (to avoid transitory and rate limit errors)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 691,
+            "title": "Adding a repo by URL - if a repo has a GitHub URL, can we extract the owner/name and display it without the `https://github.com/` prefix for brevity",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 692,
+            "title": "Odd behavior when adding multiple repos at once - either with the direct URL or CSV insert",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "ramiroJCB"
+                            },
+                            "bodyText": "this is was comes form the logs after tryin to replicate this",
+                            "createdAt": "2023-02-20T18:10:34Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 693,
+            "title": "Replace all instances of No data available! with the empty state pattern, and ideally a CTA where relevant",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 702,
+            "title": "Unable to sync PR Commits",
+            "author": {
+                "login": "kapilkumawat86"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Hi @kapilkumawat86 - could you try removing the .git from the repo name and see if that helps?\nIf so, we should probably be smarter about parsing/handing the .git if it's there in a repo name",
+                            "createdAt": "2023-01-06T15:50:49Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "kapilkumawat86"
+                            },
+                            "bodyText": "Thanks @patrickdevivo for quick help and this worked...",
+                            "createdAt": "2023-01-06T16:02:10Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 705,
+            "title": "Need help how can I fix gitsync timeout issue",
+            "author": {
+                "login": "kapilkumawat86"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Hi @kapilkumawat86 - at the moment there's not a way to filter data at collection/sync time (though that is something we should add support for via user-defined configuration of our syncs).\nSomething you could do to address this particular issue, is set the GITHUB_PER_PAGE in the worker service. If you're using docker-compose you can add a line here.\nThe default value is 50, but sometimes that causes issues with the GitHub API (a page of data may be too big and trip a timeout/error). I would suggest lowering it to 30 or even 10. This will make the sync running time longer, but may avoid some of these timeouts.\nWe are working on:\n\nConfiguration options per sync type (so that you can manage these parameters fora sync run in the UI)\nImplementing API retries in our GitHub API syncs",
+                            "createdAt": "2023-01-08T15:33:31Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "kapilkumawat86"
+                            },
+                            "bodyText": "Thanks let me try this and get back to you",
+                            "createdAt": "2023-01-09T04:27:52Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 708,
+            "title": "`Copy` button no longer works on `Queries` page",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Let's handle this by detecting if the page is not HTTPs and if so, disable the Copy button. We should do this for all Copy buttons that interact with the user clipboard.",
+                            "createdAt": "2023-02-16T21:48:35Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 710,
+            "title": "Store original timezone information for Git commit timestamps (`author_when` and `committer_when`)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 712,
+            "title": "Add support for `grype` as a scanner sync type",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 715,
+            "title": "Spacing issue on `/repos` table",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 716,
+            "title": "Implement first iteration of line chart support in `Queries`",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 717,
+            "title": "Implement first iteration of bar chart support in `Queries`",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 718,
+            "title": "Move repo auto-import jobs to new background worker",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 722,
+            "title": "Implement the backend work to support a `Query History` feature",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 725,
+            "title": "Update frontend `Queries` page to track query history",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 727,
+            "title": "Consider removing Grafana from default local setup",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 734,
+            "title": "New global navigation tweaks",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "Could be a tooltip or the same pop out we use for the menus that have sub items.",
+                            "createdAt": "2023-01-19T18:36:34Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 743,
+            "title": "Add Series selection for bar charts",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 746,
+            "title": "Introduce vendor and provider constructs",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "Completed in #748",
+                            "createdAt": "2023-02-13T10:44:20Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 747,
+            "title": "Refactor Auto-import jobs to support vendor and provider",
+            "author": {
+                "login": "riyaz-ali"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "riyaz-ali"
+                            },
+                            "bodyText": "Completed in #748",
+                            "createdAt": "2023-02-13T10:44:49Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 749,
+            "title": "Consider moving all existing GitHub based repo syncs to the v3 (REST API)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 750,
+            "title": "We are not showing the tags of a repo",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 752,
+            "title": "Bot Handle  in issues and reactivity.",
+            "author": {
+                "login": "gedw99"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "hi @gedw99 just to clarify - do you mean identifying whether an issue was created by a bot? I will check in the GitHub API and see if they have a field for tracking that. I know bots often comment/open issues with a handle that has the string [bot]  in it, which could be identified in SQL using a string match or regular expression. We could put together some examples around that",
+                            "createdAt": "2023-01-25T18:44:25Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "gedw99"
+                            },
+                            "bodyText": "Hey @patrickdevivo\nsounds hopeful regarding string search of the contents of an issue. That\u2019s what I was hoping was possible too.\nI also would like to know what you suggest. Was an issue created by a bot.\nAlso I want to know when a human put a bot command handle into an issue comment.\nDoes that make it clearer ?\nThe intent is to be able to know:\n\nwhen, who and the args of the bot that a human wrote into an issue.\n\nWould be bonus if I was able to subscribe to a query from the cli or some daemon so that I get  new events of this type. I don\u2019t know if your architecture supports this conceptually btw. I call them \u201cSqueries\u201d. Under the hood it could be a graphql subscription or a CDC running under postresql. I expect your architecture is a bit of a CQRS style setup and so the Squery would be possible to do using SQL.\nsorry to ram so much into a single issue but I am hoping that it\u2019s also welcome in terms of product extensibility.",
+                            "createdAt": "2023-01-25T20:17:51Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 753,
+            "title": "Use the BlueprintJS table component (spreadsheet like experience) for query results",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 758,
+            "title": "Add sqlc generate to our workflow steps",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 763,
+            "title": "Possible bug in `GITHUB_REPO_METADATA` sync - missing values for columns",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Confirming that mergestat-lite is properly returning these timestamps, so something is getting dropped in our handling of it:",
+                            "createdAt": "2023-01-25T21:50:50Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 769,
+            "title": "Update Docs with new auto Import capabilities",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 771,
+            "title": "Persist charts across query executions",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 772,
+            "title": "Broken migration when records are orphaned in gosec_repo_scans",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 776,
+            "title": "Bug when pat is not provided  Actions and OSSF sync stop working without errors",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 778,
+            "title": "Display repo sync labels in the UI",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Duplicate of #800, which has been addressed/closed",
+                            "createdAt": "2023-02-19T21:58:53Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 782,
+            "title": "Implement backend work for initial saved queries functionality",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 783,
+            "title": "Implement frontend for initial saved queries functionality",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 784,
+            "title": "Implement frontend experience for Initial Query History",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 790,
+            "title": "Implement basic autocompletes in the SQL editor for DB schema entities",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 791,
+            "title": "Ensure GitHub repo auto imports respect the concurrency requirements of the GitHub API (one request at a time)",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "ramiroJCB"
+                            },
+                            "bodyText": "Currently blocked because of a  recently discovered zombie thread when imports fails or sometimes it success.We would need a new digest of sqlq into this branch to address this issue",
+                            "createdAt": "2023-02-16T21:22:12Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 792,
+            "title": "Add a new syncer, `GIT_REMOTES`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 793,
+            "title": "Add `_mergestat_synced_at` column to `GRYPE_REPO_SCAN` syncer",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "We should also add the comments to the table and columns",
+                            "createdAt": "2023-02-03T02:32:47Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 798,
+            "title": "Add support for GitLab as Git Source in the new providers/vendors approach",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 799,
+            "title": "Implement the frontend work for our Git Source refactor work",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 800,
+            "title": "Display repo sync type labels in the UI",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 801,
+            "title": "Handle the remaining `sqlq` integration, in support of generic jobs",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "@amenowanna could you add some additional context here when able (or link to the Notion doc).",
+                            "createdAt": "2023-02-03T20:37:31Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 805,
+            "title": "Settle on a single pattern for accessing PostgreSQL in the `worker`",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 809,
+            "title": "Add support for plain SSH/HTTPs git repos in new provider/vendor construct",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 810,
+            "title": "`grype` scan repo sync failing silenty ",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 811,
+            "title": "Add user feedback when the repo sync schedule toggle is used/modified",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 812,
+            "title": "Update saved_queries schema",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 814,
+            "title": "Create new tables for mergestat to support sqlq jobs",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 815,
+            "title": "Add FK  to orphan tables in mergestat",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 821,
+            "title": "Use `<Link />` component in sidebar header/logo",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 824,
+            "title": "Odd/incorrect behavior when query returns 0 rows of data",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "ramiroJCB"
+                            },
+                            "bodyText": "@patrickdevivo  is there a way to replicate this?\nI keep trying and I cannot. maybe solved ?",
+                            "createdAt": "2023-02-20T17:47:12Z"
+                        }
+                    },
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Here's another example I was able to trigger @ramiroJCB",
+                            "createdAt": "2023-02-20T18:51:58Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 826,
+            "title": "`Cannot read properties of null (reading 'toString')` when creating a bar chart",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "I think this occurs when there is a null value in the resultset returned by the query (which is a valid result)",
+                            "createdAt": "2023-02-12T15:28:06Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 828,
+            "title": "Refactor new `vendor`/`provider` schema",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 829,
+            "title": "Saved queries should also persist visualizations",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 830,
+            "title": "Saved queries tweaks and improvements",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 833,
+            "title": "Bug in migrations when `syft_repo_scans` has existing results from a repo that was removed",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 835,
+            "title": "Make migration to take in consideration  orphaned records",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 840,
+            "title": "Only highlight the child item in the navbar",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 843,
+            "title": "Add description column to 'Providers'",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 844,
+            "title": "Add support for migration command to worker",
+            "author": {
+                "login": "amenowanna"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "patrickdevivo"
+                            },
+                            "bodyText": "Closing this out as we resolved by simply removing the init container: mergestat/helm-charts#109 and are now only running migrations as part of the worker startup",
+                            "createdAt": "2023-02-20T03:35:43Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 846,
+            "title": "Add support for syncing GitHub repo security settings",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": [
+                    {
+                        "node": {
+                            "author": {
+                                "login": "amenowanna"
+                            },
+                            "bodyText": "@patrickdevivo I think when we discussed this with Peter we found it here which links to these api docs.",
+                            "createdAt": "2023-02-16T21:14:40Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 852,
+            "title": "Bug when auto importing repos",
+            "author": {
+                "login": "ramiroJCB"
+            },
+            "state": "CLOSED",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 854,
+            "title": "Panic in GitHub Actions syncer",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    },
+    {
+        "node": {
+            "number": 855,
+            "title": "Not correctly showing the current state of syncs running for a repo on the `/repos` page",
+            "author": {
+                "login": "patrickdevivo"
+            },
+            "state": "OPEN",
+            "comments": {
+                "edges": []
+            }
+        }
+    }
+]

@@ -28,19 +28,19 @@ def chart ():
 def Element ():
     return render_template("element.html")
 
-# @app.route("/form")
-# def form ():
-#     return render_template("form.html")
-
-@app.route("/form", methods=["RETRIEVE"])
-def retrieve():
-    owner = request.data["owner"]
-    repo = request.data["repo"]
-    source = request.form.get("gridRadios")
-    print(owner, repo, source, file='sys.stdout')
-    # if issues
-        # run_query(auth, owner, repo, pull_type)
+@app.route("/form")
+def form ():
     return render_template("form.html")
+
+@app.route("/form", methods=["POST", "GET"])
+def retrieve():
+    # print(request.get_data(as_text=True))
+    return render_template("chart.html")
+
+@app.route("/charts", methods=["POST"])
+def charts ():
+    print(request.form["owner"])
+    return render_template("chart.html")
 
 @app.route("/signin")
 def signin ():

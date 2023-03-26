@@ -1,4 +1,2 @@
-apikey
-url
-
-Put the IBM NLU API key on the first line and the url on the second. Do not commit changes to this file.
+ZnyBggUW3k_VReXX8HRaKwj6OnKgS-4wHA69_bDhtoT_
+https://us-south.dynamic-dashboard-embedded.cloud.ibm.com/daas

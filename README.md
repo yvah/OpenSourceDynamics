@@ -37,5 +37,7 @@ docker run -it <dockerHubUsername>/SwEng-app
 docker login -u <dockerHubUsername> -p <dockerHubPassword>
 docker push <dockerHubUsername>/SwEng-app
 
+ - Refer to deploy.sh file for more information. 
+
 
 

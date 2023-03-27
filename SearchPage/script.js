@@ -1,9 +1,12 @@
 
       function go()
       {
-         let pToken = document.getElementById('password').value
-         let repo = document.getElementById('name').value
-         let pullType = document.getElementById('pulltype').value
-         print(pToken)
-         print(repo)
+         let pToken = document.getElementById('password')
+         pToken = pToken.value
+         let repo = document.getElementById('name')
+         repo = repo.value
+         let pullType = document.getElementById('pulltype')
+         console.log(repo);
+         console.log(pToken);
+         console.log(pullType);
       }

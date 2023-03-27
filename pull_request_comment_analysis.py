@@ -56,32 +56,30 @@ class Repository:
     
     def toCSV(self):
         cwd = os.getcwd()
-        csv_fields = ['number', 'title', 'author', 'gender', 'state', 'createdAt', 'closedAt', 'number of comments', 'sentiment', 'sadness', 'joy', 'fear', 'disgust', 'anger']
+        csv_fields = ['Number', 'Title', 'Author', 'Gender', 'State', 'Created', 'Closed', 'Number of Comments', 'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger']
         with open(f'{cwd}/fetched_data/sentiment_analysis_result.csv', 'w', newline='') as analysis_results_file:
             writer = csv.DictWriter(analysis_results_file, csv_fields)
             writer.writeheader()
             for pr in self.pull_requests:
                 analysis_result = [
                     {
-                        'number': f'{str(pr.number)}',
-                        'title': f'{str(pr.title)}',
-                        'author': f'{str(pr.author)}',
-                        'gender': f'{str(pr.gender)}',
-                        'state': f'{str(pr.state)}',
-                        'createdAt': f'{str(pr.createdAt)}',
-                        'closedAt': f'{str(pr.closedAt)}',
-                        'number of comments': f'{str(pr.number_of_comments)}',
-                        'sentiment': f'{str(pr.sentiment)}',
-                        'sadness': f'{str(pr.emotion[0][1])}',
-                        'joy': f'{str(pr.emotion[1][1])}',
-                        'fear': f'{str(pr.emotion[2][1])}',
-                        'disgust': f'{str(pr.emotion[3][1])}',
-                        'anger': f'{str(pr.emotion[4][1])}'
+                        'Number': f'{str(pr.number)}',
+                        'Title': f'{str(pr.title)}',
+                        'Author': f'{str(pr.author)}',
+                        'Gender': f'{str(pr.gender)}',
+                        'State': f'{str(pr.state)}',
+                        'Created': f'{str(pr.createdAt)}',
+                        'Closed': f'{str(pr.closedAt)}',
+                        'Number of Comments': f'{str(pr.number_of_comments)}',
+                        'Sentiment': f'{str(pr.sentiment)}',
+                        'Sadness': f'{str(pr.emotion[0][1])}',
+                        'Joy': f'{str(pr.emotion[1][1])}',
+                        'Fear': f'{str(pr.emotion[2][1])}',
+                        'Disgust': f'{str(pr.emotion[3][1])}',
+                        'Anger': f'{str(pr.emotion[4][1])}'
                     }
                 ] 
                 writer.writerows(analysis_result)
-
-
 
     def __str__(self):
         result = ''

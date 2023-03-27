@@ -1,4 +1,5 @@
 import json, requests, os, csv
+import statistics
 from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -30,29 +31,32 @@ class Repository:
         # Creat list of PullRequest objects
         self.pull_requests = list_of_pr(data)
 
-        # Calculate average sentiment for closed/merged prs
-        merged = merged_sum = closed = closed_sum = 0
-        for pr in self.pull_requests:
-            if pr.state == 'MERGED':
-                merged_sum += pr.sentiment
-                merged += 1
-            elif pr.state == 'CLOSED':
-                closed_sum += pr.sentiment
-                closed += 1
-            else:
-                continue
-        self.merged_average = self.closed_average = None
-        if merged != 0:
-            self.merged_average = round(merged_sum / merged, 4)
-        if closed != 0:
-            self.closed_average = round(closed_sum / closed, 4)
+        # Calculate averages
+        self.average_sentiment = average(self.pull_requests, 'Sentiment', 'None')
+        self.average_sentiment_state = average(self.pull_requests, 'Sentiment', 'State')
+        self.average_sentiment_gender = average(self.pull_requests, 'Sentiment', 'Gender')
+        self.average_emotion = [average(self.pull_requests, 'Sadness', 'None'), 
+                                  average(self.pull_requests, 'Joy', 'None'),
+                                  average(self.pull_requests, 'Fear', 'None'),
+                                  average(self.pull_requests, 'Disgust', 'None'),
+                                  average(self.pull_requests, 'Anger', 'None')]
+        self.average_emotion_state = [average(self.pull_requests, 'Sadness', 'State'), 
+                                  average(self.pull_requests, 'Joy', 'State'),
+                                  average(self.pull_requests, 'Fear', 'State'),
+                                  average(self.pull_requests, 'Disgust', 'State'),
+                                  average(self.pull_requests, 'Anger', 'State')]
+        self.average_emotion_gender = [average(self.pull_requests, 'Sadness', 'Gender'), 
+                                  average(self.pull_requests, 'Joy', 'Gender'),
+                                  average(self.pull_requests, 'Fear', 'Gender'),
+                                  average(self.pull_requests, 'Disgust', 'Gender'),
+                                  average(self.pull_requests, 'Anger', 'Gender')]
 
         # Preform Point Biserial test
         self.p_value = self.r_value = None
-        if self.merged_average is not None and self.closed_average is not None:
-            point_biserial = correlation_test(self.pull_requests)
-            self.p_value = round(point_biserial.pvalue, 4)
-            self.r_value = round(point_biserial.statistic, 4)
+        #if self.merged_average is not None and self.closed_average is not None:
+        point_biserial = correlation_test(self.pull_requests)
+        self.p_value = round(point_biserial.pvalue, 4)
+        self.r_value = round(point_biserial.statistic, 4)
     
     def toCSV(self):
         cwd = os.getcwd()
@@ -89,6 +93,7 @@ class Repository:
         result += '\n'
 
         # Print averages
+        '''
         if self.merged_average is None:
             result += 'No merged PR\n'
         else:
@@ -98,6 +103,13 @@ class Repository:
         else:
             result += 'Average sentiment for closed PR: ' + str(self.closed_average) + '\n'
         result += '\n'
+        '''
+        result += str(self.average_sentiment) + '\n'
+        result += str(self.average_sentiment_state) + '\n'
+        result += str(self.average_sentiment_gender) + '\n'
+        result += str(self.average_emotion) + '\n'
+        result += str(self.average_emotion_state) + '\n'
+        result += str(self.average_emotion_gender) + '\n'
 
         # Print correlation
         if self.p_value is None:
@@ -168,9 +180,60 @@ def list_of_pr(data):
             pass
     return pull_requests
 
-# Get averages
-def average():
-    return 0
+# Get averages for different variables and filters
+def average(pull_requests, variable, filter):
+    list1 = []
+    list2 = []
+    list3 = []
+
+    for pr in pull_requests:
+        if (filter == 'State'):
+            filter_var = pr.state
+        elif (filter == 'Gender'):
+            filter_var = pr.gender
+        if filter == 'None':
+            filter_var = 'None'
+
+        if variable == 'Sentiment':
+            var = pr.sentiment
+        elif variable == 'Sadness':
+            var = pr.emotion[0][1]
+        elif variable == 'Joy':
+            var = pr.emotion[1][1]
+        elif variable == 'Fear':
+            var = pr.emotion[2][1]
+        elif variable == 'Disgust':
+            var = pr.emotion[3][1]
+        elif variable == 'Anger':
+            var = pr.emotion[4][1]
+        
+        if filter_var == 'MERGED' or filter_var == 'female' or filter_var == 'None':
+            list1.append(var)
+        elif filter_var == 'CLOSED' or filter_var == 'male':
+            list2.append(var)
+        else:
+            list3.append(var)
+    
+    return [None if not list1 else round(statistics.fmean(list1), 4), 
+            None if not list2 else round(statistics.fmean(list2), 4),
+            None if not list3 else round(statistics.fmean(list3), 4)]
+
+def frequency(pull_requests, variable):
+    list = [0, 0, 0]
+    for pr in pull_requests:
+        if (filter == 'State'):
+            var = pr.state
+        elif (filter == 'Gender'):
+            var = pr.gender
+        
+        if var == 'MERGED' or var == 'female' or var == 'None':
+            list[0] += 1
+        elif var == 'CLOSED' or var == 'male':
+            list[1] += 1
+        else:
+            list[2] += 1
+    
+    return list
 
 # Preforms a Point-Biserial Correlation test and prints the result
 def correlation_test(prs):

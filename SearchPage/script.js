@@ -1,10 +1,15 @@
 
       function go()
       {
-         var name = document.getElementById('search').value;
-          var result = _.find(cities.locations, {'title': name});
-          if (!result)
-              window.alert('Nothing found');
-          else
-              window.alert('Go to ' + result.url);
+         let data = JSON.parse(jsonData)
+         let pToken = document.getElementById('password').value
+         let repo = document.getElementById('name').value
+         let x = document.querySelector('#list-holder');
+         x.innerHTML = ""
+        
+         for(i = 0; i<data.length;i++) {
+            let temp = data[i];
+        
+        }
+
       }

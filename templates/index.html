@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Search Page</title>
+    <title>Simple registration form</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <script src="{{url_for('static', filename='script.js')}}"></script>
-
+    <script src="script.js" defer></script>
     <style>
       html, body {
       display: flex;
@@ -135,21 +134,22 @@
   <body>
     <div class="main-block">
       <h1>Search</h1>
-      <form action="/">
+      <form method="POST" action="/query">
         <label id="icon" for="name"><i class="fas fa-lock"></i></label>
-        <input type="text" password="password" id="password" placeholder="Personal Access Token" required/>
+        <input type="text" name="user" password="password" id="password" placeholder="Personal Access Token" required/>
+        
         <label id="icon" for="name"><i class="fas fa-compass"></i></label>
-        <input type="text" name="name" id="name" placeholder="Repository" required/>
+        <input type="text" name="repo" id="name" placeholder="Repository" required/>
         <hr>
         <div class="type">
-          <input type="radio" value="none" id="issues" name="type" checked/>
+          <input type="radio" value="issues" id="issues" name="type" checked/>
           <label for="issues" class="radio">Issues</label>
-          <input type="radio" value="none" id="pull requests" name="type" />
+          <input type="radio" value="issues" id="pull requests" name="type" />
           <label for="pull requests" class="radio">Pull Requests</label>
         </div>
         <hr>
         <div class="btn-block">
-          <button type="search" onclick = "go()" href="/">Search</button>
+          <button type="search" href="/">Search</button>
         </div>
       </form>
     </div>

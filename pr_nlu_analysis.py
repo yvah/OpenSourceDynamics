@@ -338,8 +338,11 @@ def point_biserial_correlation_test(pull_requests, di_var, cont_var):
         elif cont_var == 'Anger':
             cont_list.append(pr.emotion[4][1])
 
-    result = stats.pointbiserialr(di_list, cont_list)
-    return [result.pvalue, result.statistic]
+    try:
+        result = stats.pointbiserialr(di_list, cont_list)
+        return [round(result.pvalue, 4), round(result.statistic, 4)]
+    except:
+        return [None, None]
 
 
 # Preforms a Chi-Square Correlation test
@@ -361,8 +364,11 @@ def chi_square_correlation_test(pull_requests):
                 list[2][0] += 1
             elif pr.state == 'CLOSED':
                 list[2][1] += 1
-    result = stats.chi2_contingency(list)
-    return [result.pvalue, result.statistic]
+    try:
+        result = stats.chi2_contingency(list)
+        return [round(result.pvalue, 4), round(result.statistic, 4)]
+    except:
+        return [None, None]
 
 
 # Preforms a Pearson Correlation test
@@ -385,8 +391,11 @@ def pearson_correlation_test(pull_requests, var2):
         elif var2 == 'Anger':
             var2_list.append(pr.emotion[4][1])
 
-    result = stats.pearsonr(var1_list, var2_list)
-    return [result.pvalue, result.statistic]
+    try:
+        result = stats.pearsonr(var1_list, var2_list)
+        return [round(result.pvalue, 4), round(result.statistic, 4)]
+    except:
+        return [None, None]
 
 
 # Predicts gender of a given name using genderize.io API

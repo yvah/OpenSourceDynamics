@@ -1,5 +1,5 @@
 import cloudant
-from pull_request_comment_analysis import Repository
+from pr_nlu_analysis import Repository
 from query import run_query
 
 
@@ -16,4 +16,5 @@ def run_all(auth, repo, owner, pull_type):
 
     data = run_query(auth, owner, repo, pull_type, database, database_name)
     repo = Repository(data)
-    print(repo)
+    repo.to_csv()
+    repo.stats_to_csv()

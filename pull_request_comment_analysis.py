@@ -3,8 +3,6 @@ from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions
-from pprint import pprint
-from query import run_query, write_to_file
 import scipy.stats as stats
 
 # Pulls API Keys from keys.txt file
@@ -27,7 +25,7 @@ natural_language_understanding.set_service_url(url)
 # Defines repositories as objects
 class Repository:
     def __init__(self, data):
-        # Creat list of PullRequest objects
+        # Create list of PullRequest objects
         self.pull_requests = list_of_pr(data)
 
         # Calculate average sentiment for closed/merged prs

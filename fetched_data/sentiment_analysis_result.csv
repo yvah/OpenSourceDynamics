@@ -1,0 +1,98 @@
+Number,Title,Author,Gender,State,Created,Closed,Number of Comments,Sentiment,Sadness,Joy,Fear,Disgust,Anger
+30999,Roll engine 72986c39ea36..49a72e1e41c9 (36 commits),engine-flutter-autoroll,none,CLOSED,2019-04-13T00:40:23Z,2019-04-13T00:44:18Z,149,-0.6319,0.3767,0.0884,0.1233,0.0593,0.1331
+61221,[flutter_tools] Add ARM64 Linux host and cross-building option support,Hidenori,male,MERGED,2020-07-10T08:44:54Z,2021-02-12T22:25:30Z,98,0.4624,0.3111,0.3288,0.0957,0.0298,0.0652
+71235,Roll Engine from 20caf5496951 to e89090181b63 (3 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-25T20:55:40Z,2020-11-30T17:54:34Z,110,-0.6248,0.342,0.1755,0.119,0.0157,0.0522
+34087,Roll engine 06dbe28e33e5..afb5dc400a89 (3 commits),engine-flutter-autoroll,none,CLOSED,2019-06-08T00:11:11Z,2019-06-08T00:51:55Z,69,-0.635,0.3778,0.0881,0.123,0.0595,0.1329
+105335,`OverlayPortal` ,LongCatIsLooong,none,MERGED,2022-06-03T20:48:46Z,2023-03-02T17:34:01Z,67,0.3382,0.2769,0.3196,0.1304,0.0349,0.0602
+76519,Proposal: A more complete app template for Flutter,Brian,male,CLOSED,2021-02-22T12:13:03Z,2021-03-25T13:04:21Z,63,0.4218,0.241,0.405,0.0841,0.0354,0.0667
+86587,Roll Plugins from f726c319a61d to 57fb51f06e18 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-07-16T23:04:18Z,2021-07-19T18:27:12Z,63,-0.9519,0.3682,0.2283,0.1226,0.0119,0.0605
+81857,Roll Plugins from a2ce3dab4661 to c54b73d67393 (2 revisions),engine-flutter-autoroll,none,CLOSED,2021-05-04T19:32:09Z,2021-05-07T15:20:02Z,63,-0.7336,0.3594,0.201,0.0556,0.021,0.0583
+76903,Roll Plugins from aead5acb35c6 to a0fe2225e255 (4 revisions),engine-flutter-autoroll,none,CLOSED,2021-02-27T00:43:53Z,2021-03-01T17:25:46Z,60,-0.9519,0.2837,0.1808,0.1939,0.011,0.0438
+72968,Roll Engine from f5364860ab10 to 2021ca2ad87c (1 revision),engine-flutter-autoroll,none,CLOSED,2020-12-26T00:56:44Z,2020-12-28T18:12:36Z,61,-0.621,0.3646,0.1786,0.072,0.0164,0.045
+82047,Roll Plugins from d763b2c7293c to b2104b420a76 (4 revisions),engine-flutter-autoroll,none,CLOSED,2021-05-07T18:17:09Z,2021-05-10T11:05:02Z,60,-0.9519,0.2805,0.1779,0.2026,0.0106,0.0401
+85789,Scale selection handles for rich text on iOS,Renzo,male,MERGED,2021-07-02T17:31:23Z,2021-07-22T23:46:07Z,41,-0.5842,0.519,0.3334,0.0261,0.0401,0.0251
+73622,Roll Plugins from b3bc1f2e246f to 34faaafe5071 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-01-09T00:45:15Z,2021-01-11T13:58:08Z,57,-0.6944,0.3301,0.1864,0.1373,0.0133,0.041
+108052,Deprecate `BoxDecoration.shape`.,Bernardo,male,OPEN,2022-07-20T20:41:28Z,None,56,-0.2625,0.2914,0.3094,0.1247,0.0295,0.0907
+80437,"Fix ""`TextStyle.overflow` is not working for SelectableText widget""",Pedro,male,CLOSED,2021-04-14T16:20:25Z,2021-07-13T08:26:22Z,51,-0.4889,0.3019,0.265,0.121,0.0363,0.0653
+31425,Roll engine ca31a7c57bad..8b5f77630fc3 (19 commits),engine-flutter-autoroll,none,CLOSED,2019-04-22T16:51:23Z,2019-04-22T17:07:17Z,54,-0.6366,0.3783,0.0879,0.1228,0.0596,0.1328
+106552,Improve fidelity of multi-pointer drag gestures.,Winctoryang,none,CLOSED,2022-06-24T11:42:37Z,2022-10-04T22:17:54Z,52,0.3447,0.2401,0.3303,0.1056,0.0312,0.0934
+94645,let the plugin's output generated in flutter/.android/plugins_build_output/${androidPlugin.name},姚春锋,none,MERGED,2021-12-04T03:08:21Z,2022-09-14T15:47:17Z,50,-0.3875,0.2957,0.2392,0.1185,0.0337,0.0736
+57861,Roll Engine from 9ce1e5c5c7e7 to 42bac718f814 (63 revisions),engine-flutter-autoroll,none,CLOSED,2020-05-23T17:10:26Z,2020-05-26T15:06:37Z,51,-0.6931,0.2969,0.171,0.1448,0.0173,0.0598
+23397,Fixes gradle error: 'Could not find lint-gradle-api.jar' (#23095),Stefan,male,MERGED,2018-10-23T09:26:06Z,2018-10-24T21:33:40Z,51,-0.3295,0.2801,0.2999,0.1329,0.0254,0.0846
+96276,TextField text backgroundColor covers text selection color,JsouLiang,none,CLOSED,2022-01-07T10:23:11Z,2022-11-15T23:43:38Z,40,-0.4554,0.3209,0.2618,0.1123,0.0281,0.0735
+66152,Added timeout for closing devfs sync http connections.,gaaclarke,none,MERGED,2020-09-18T23:01:02Z,2020-09-25T17:52:34Z,47,-0.632,0.3163,0.2632,0.1585,0.026,0.0629
+66157,Roll Engine from 2abe69c60818 to 7dc2ec2fbfe6 (29 revisions),engine-flutter-autoroll,none,CLOSED,2020-09-19T00:10:08Z,2020-09-21T23:00:56Z,46,-0.6409,0.3721,0.1749,0.0814,0.0182,0.0521
+76072,[text_input] introduce TextInputControl,J-P,male,MERGED,2021-02-15T16:23:47Z,2022-10-04T22:23:12Z,45,-0.4252,0.292,0.319,0.1047,0.0357,0.0744
+73105,[UserAccountsDrawerHeader] New option for changing profiles images size,burekas7,none,MERGED,2020-12-29T18:16:48Z,2021-02-03T18:56:06Z,33,0.543,0.3176,0.2975,0.1029,0.0278,0.0708
+56409,InteractiveViewer Widget,Justin,male,MERGED,2020-05-05T23:57:35Z,2020-06-03T00:53:06Z,44,0.413,0.2716,0.3592,0.11,0.0282,0.0733
+42100,Run secondary animation of previous route when using pushReplacement(…,joellurcook,none,MERGED,2019-10-07T10:39:23Z,2020-01-27T18:33:05Z,43,0.2863,0.3063,0.2773,0.132,0.0328,0.0702
+21896,Bottom sheet scrolling,Dan,male,MERGED,2018-09-14T23:44:35Z,2019-04-26T21:12:12Z,44,-0.327,0.2719,0.2931,0.1191,0.0392,0.1049
+108339,Refactor StrokeAlign to allow double values.,Bernardo,male,MERGED,2022-07-26T01:38:55Z,2022-08-15T20:23:21Z,43,0.3121,0.2848,0.2985,0.132,0.0376,0.0923
+97972,Deprecate `toggleableActiveColor`,Taha,male,MERGED,2022-02-07T18:40:34Z,2022-08-02T19:09:06Z,40,-0.2677,0.2819,0.3362,0.1051,0.0342,0.055
+16413,Scan assets from disk,fmatosqg,none,MERGED,2018-04-10T10:37:56Z,2018-05-21T00:52:34Z,43,0.2743,0.3083,0.3052,0.1241,0.0254,0.0622
+63610,"[flutter_tools] support code size tooling on iOS, linux, windows, macOS, and Android on Windows",Jonah,male,MERGED,2020-08-12T21:36:20Z,2020-08-25T17:00:25Z,42,0.3859,0.2575,0.3211,0.1259,0.0304,0.0461
+78699,Roll Plugins from d7125cdb91c0 to 7b9ac6b0c20d (11 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-20T16:30:37Z,2021-03-22T10:51:31Z,40,-0.7535,0.2825,0.2236,0.178,0.0107,0.0499
+48155,"Add FormField validation states (touched, saved, etc) with ErrorStateMatcher",Yumin,male,CLOSED,2020-01-03T23:48:18Z,2020-04-14T23:30:51Z,40,0.3264,0.2887,0.3279,0.1209,0.0332,0.0574
+99644,docs: Add more potential use case for Bottom Navigation Bar,Aman,male,MERGED,2022-03-06T20:41:06Z,2022-06-23T17:17:07Z,2,0.6534,0.2232,0.4616,0.0525,0.0165,0.052
+78706,Roll Engine from e6db3a275eca to 2f47f64e4b14 (16 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-20T22:45:06Z,2021-03-22T16:36:57Z,39,-0.715,0.3703,0.2143,0.0616,0.0178,0.0504
+72831,Roll Plugins from 0f1c20dd25c0 to 622ba57c3960 (3 revisions),engine-flutter-autoroll,none,CLOSED,2020-12-22T22:30:54Z,2020-12-24T16:21:47Z,39,-0.6314,0.2933,0.1815,0.179,0.0165,0.0411
+85954,Flutter web add support for NetworkImage headers,Jonas,male,MERGED,2021-07-06T09:20:50Z,2022-01-26T23:00:13Z,30,-0.4062,0.3642,0.2183,0.1332,0.0265,0.0579
+83047,[Material 3] Add Navigation Bar component to flutter framework.,MH,male,MERGED,2021-05-20T19:44:51Z,2021-09-26T15:03:04Z,37,0.4081,0.2863,0.3736,0.0792,0.03,0.0508
+68086,Introduce `MaxLengthEnforcement`,Alex,male,MERGED,2020-10-14T07:30:53Z,2020-12-09T23:32:00Z,36,-0.4851,0.3582,0.2232,0.1063,0.0291,0.0749
+33213,Expose InheritedWidget subscription cancelation,Remi,male,CLOSED,2019-05-22T20:19:57Z,2019-09-18T21:38:09Z,38,-0.3024,0.3372,0.2968,0.104,0.0306,0.0652
+31485,Prevent exception being thrown on hasScrolledBody,K.,male,MERGED,2019-04-23T13:09:04Z,2019-06-05T20:31:00Z,38,-0.4428,0.2871,0.2399,0.1276,0.0424,0.0883
+89511,Reland engine display features,Andrei,male,MERGED,2021-09-05T18:28:23Z,2021-11-05T01:37:55Z,37,0.2479,0.2833,0.3652,0.0979,0.0395,0.0699
+86417,Roll Plugins from fbb4b3a85e3a to cf80430e72e1 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-07-14T09:27:17Z,2021-07-16T01:16:12Z,37,-0.9519,0.3466,0.1815,0.1232,0.0128,0.0607
+75472,Support Scribble Handwriting,Jami,female,MERGED,2021-02-05T02:46:57Z,2022-01-11T19:00:13Z,36,0.2994,0.2946,0.309,0.0991,0.0275,0.0793
+51656,Set AA flag for painting images,Yuqian,female,MERGED,2020-02-28T19:35:08Z,2020-04-09T02:02:05Z,37,-0.2766,0.3114,0.2718,0.1043,0.0358,0.0711
+113637,Speed up first asset load by encoding asset manifest in binary rather than JSON,Andrew,male,MERGED,2022-10-18T19:48:33Z,2022-12-05T18:39:10Z,35,-0.4776,0.3294,0.2756,0.1094,0.0337,0.0677
+43760,Fix the issue of Android add2app build fails on Android when assets are read-only,shihchanghsiungsonos,none,CLOSED,2019-10-29T22:17:19Z,2020-02-03T22:52:30Z,35,0.3627,0.352,0.3095,0.0813,0.0207,0.059
+114997,Roll Flutter Engine from e7d7edab98ad to 1a8888b5170b (33 revisions),engine-flutter-autoroll,none,CLOSED,2022-11-09T16:19:16Z,2022-11-09T17:10:07Z,34,-0.5203,0.3026,0.2912,0.1057,0.0306,0.0475
+91802,"Add a ""flutter debug_adapter"" command that runs a DAP server",Danny,male,MERGED,2021-10-14T09:25:05Z,2021-10-27T13:48:06Z,35,-0.2588,0.2799,0.306,0.0939,0.0294,0.0622
+68523,Fix the OutlineInputBorder padding (#67707),Michel,male,CLOSED,2020-10-19T21:09:55Z,2021-03-29T19:38:34Z,33,-0.372,0.3357,0.2786,0.0966,0.0269,0.0963
+65501,Update the cupertino picker visuals,YeungKC,none,MERGED,2020-09-09T20:06:54Z,2020-10-07T20:12:13Z,35,-0.5108,0.3421,0.2377,0.114,0.0346,0.064
+44018,Fix the issue of TextSelection could misbehave inside a Nested Overlay,shihchanghsiungsonos,none,CLOSED,2019-11-01T22:15:03Z,2020-01-21T22:29:03Z,35,0.4582,0.2462,0.3256,0.1347,0.0367,0.0811
+22956,[FR] BottomNavigationBar fixed with no titles.,Hyo,female,CLOSED,2018-10-11T14:01:43Z,2019-02-19T20:19:39Z,35,-0.4645,0.3264,0.2955,0.0729,0.027,0.0674
+14298,[fuchsia_remote_debug_protocol] Adds the fuchsia remote debug protocol library.,Andrew,male,MERGED,2018-01-26T20:59:02Z,2018-03-23T00:19:03Z,35,-0.3288,0.301,0.298,0.1002,0.0305,0.0642
+103833,Add OvalBorder and BoxShape.oval ,Bernardo,male,MERGED,2022-05-14T22:49:21Z,2022-07-20T21:29:05Z,32,-0.2949,0.2474,0.3196,0.1151,0.0381,0.1032
+87203,Add image keyboard support on Android,Tanay,male,CLOSED,2021-07-28T15:44:45Z,2022-08-25T21:43:13Z,31,0.2982,0.3172,0.3201,0.0848,0.0321,0.0765
+51126,[flutter_tools] fix build for projects with watchOS companion app,tauu,male,MERGED,2020-02-20T15:55:42Z,2020-04-15T19:13:07Z,33,-0.27,0.3049,0.3078,0.0882,0.0281,0.0639
+49527,Avoid calling didChangeDependences on a State that has dropped out of the tree,Dan,male,MERGED,2020-01-27T07:08:53Z,2020-01-29T22:33:02Z,34,0.2762,0.3067,0.279,0.1446,0.0336,0.0604
+67515,Implement Cupertino Sheet,Jaime,male,CLOSED,2020-10-07T10:32:12Z,2021-12-09T21:50:42Z,31,0.4512,0.2319,0.3802,0.098,0.0345,0.0837
+56365,FormField should autovalidate only if its content was changed,Pedro,male,CLOSED,2020-05-05T13:58:26Z,2020-06-18T15:35:32Z,32,0.3634,0.2523,0.2907,0.0895,0.0307,0.1209
+39856,Change isFlaky to isNew,Yuqian,female,CLOSED,2019-09-04T23:53:17Z,2019-10-02T22:47:56Z,33,-0.6265,0.3224,0.1958,0.1084,0.0438,0.0922
+31028,Adds support for generating projects that use AndroidX support libraries,Josh,male,MERGED,2019-04-14T05:01:19Z,2019-06-01T01:33:03Z,33,0.3578,0.2864,0.3396,0.0879,0.0299,0.0625
+18347,Expose Text foreground from engine,Dan,male,MERGED,2018-06-10T19:36:11Z,2018-06-21T00:23:51Z,33,-0.31,0.2682,0.3277,0.1037,0.022,0.0717
+5689,Update to Dart `1.20.0-dev.1.0`.,Phil,male,MERGED,2016-08-31T21:41:53Z,2016-09-08T20:14:08Z,33,-0.4113,0.3161,0.2512,0.0956,0.0237,0.0757
+117698,Improve CupertinoContextMenu to match native more,Manuel,male,MERGED,2022-12-27T21:52:17Z,2023-02-15T17:37:22Z,30,0.6129,0.2725,0.3815,0.0805,0.0311,0.0574
+96774,Fix flutter web app not respecting assets path when in non-root folder,nicolasvac,none,MERGED,2022-01-18T14:45:17Z,2022-03-10T23:50:17Z,31,-0.6485,0.3952,0.1657,0.0885,0.0269,0.064
+96664,fix: BottomNavigationBarItem colors,Zlati,female,CLOSED,2022-01-14T17:53:38Z,2022-07-19T12:32:33Z,31,-0.4101,0.3277,0.2656,0.0885,0.04,0.0759
+82575,"[flutter] when primary mouse pointers don't contact a focused node, reset the focus",Jonah,male,MERGED,2021-05-14T21:30:23Z,2021-06-09T00:39:06Z,31,-0.3698,0.2822,0.3251,0.0893,0.0301,0.0677
+75027,[flutter_tools] switch dart defines to base64 to avoid windows control characters,Jonah,male,MERGED,2021-01-29T23:10:40Z,2021-02-02T17:10:49Z,32,0.2948,0.2657,0.3293,0.1285,0.0231,0.0528
+74469,Implement dartPluginClass support for plugins,Emmanuel,male,MERGED,2021-01-22T06:14:01Z,2021-02-19T17:22:46Z,32,-0.5196,0.281,0.2768,0.1562,0.028,0.0539
+70747,Roll Engine from 35a0b9fe6827 to 4b859cee939a (4 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-18T07:45:41Z,2020-11-19T17:51:34Z,32,-0.6855,0.2944,0.164,0.1903,0.0121,0.0577
+48223,Add HeroMode widget,najeira,none,MERGED,2020-01-06T02:44:32Z,2020-10-31T04:23:03Z,32,0.3233,0.2908,0.3122,0.1153,0.0438,0.0641
+29809,Fix text selection toolbar appearing under obstructions,yaheng,female,MERGED,2019-03-22T18:38:37Z,2019-05-06T18:18:10Z,32,0.6273,0.2942,0.3146,0.0798,0.0287,0.0763
+5295,Update Dart SDK to `1.19.0-dev.4.0`.,Phil,male,CLOSED,2016-08-08T22:32:35Z,2016-08-10T23:00:14Z,32,0.3308,0.2761,0.3467,0.0935,0.0246,0.0722
+112149,Revert file naming convention of .aar files to support fuzzy matching in build.gradle,林军华,none,MERGED,2022-09-22T06:40:23Z,2022-10-04T03:37:23Z,27,-0.3289,0.273,0.35,0.0962,0.0205,0.057
+110052,Add support for image insertion on Android,Tanay,male,MERGED,2022-08-23T00:43:55Z,2023-01-31T19:46:19Z,29,0.2944,0.3093,0.3096,0.1093,0.0337,0.0577
+102687,[framework] remove forced compositing from opacity,Jonah,male,CLOSED,2022-04-27T20:47:34Z,2022-05-26T02:00:42Z,25,0.4718,0.2807,0.2926,0.1226,0.0235,0.0595
+91496,[Stepper] Add Alternative Label on horizontal-type Stepper,Jiun,male,MERGED,2021-10-08T16:07:10Z,2022-06-06T21:43:10Z,30,0.5905,0.2312,0.3389,0.1145,0.0319,0.0839
+83530,Add a more complete app template for Flutter (skeleton),Filip,male,MERGED,2021-05-28T00:23:02Z,2021-06-28T22:26:05Z,18,0.3468,0.2357,0.4159,0.1056,0.0229,0.0534
+62330,Use a LinkedList to improve the performances of ChangeNotifier,Remi,male,MERGED,2020-07-27T11:19:34Z,2020-08-26T18:34:03Z,31,-0.2718,0.3191,0.3147,0.1031,0.0281,0.0529
+43735,Fixed onSort bug in data_table.dart,Ander,male,CLOSED,2019-10-29T17:25:27Z,2020-03-13T01:20:51Z,30,0.4198,0.2742,0.33,0.124,0.0276,0.0651
+28152,Improve hot reload performance,Jonah,male,MERGED,2019-02-19T17:51:13Z,2019-03-15T22:02:46Z,31,-0.4115,0.3034,0.2988,0.0979,0.0234,0.0701
+16705,Add support for listing and launching emulators,Danny,male,MERGED,2018-04-18T10:06:59Z,2018-05-09T15:04:01Z,31,0.2846,0.3386,0.2989,0.1015,0.0196,0.0527
+99731,[Material] Create an InkSparkle splash effect that matches the Material 3 ripple effect,Anthony,male,MERGED,2022-03-08T02:50:33Z,2022-03-09T23:13:47Z,29,0.4886,0.5431,0.381,0.0171,0.0451,0.0205
+97928,[defunct] MediaQuery as InheritedModel,Callum,male,CLOSED,2022-02-07T04:51:26Z,2022-11-01T23:44:04Z,28,-0.4065,0.3038,0.2888,0.1019,0.0436,0.0637
+78779,Roll Plugins from d7125cdb91c0 to 8621694430d0 (12 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-22T10:52:38Z,2021-03-23T18:47:31Z,30,-0.8668,0.2824,0.2223,0.1759,0.0112,0.0514
+74814,Add platform view supports on Linux,Yuhui,male,CLOSED,2021-01-27T14:39:44Z,2022-08-31T00:57:27Z,29,-0.3914,0.2538,0.3335,0.1057,0.0257,0.0536
+59766,FormField should autovalidate only if its content was changed (fixed),Pedro,male,MERGED,2020-06-18T14:50:16Z,2020-07-16T16:31:07Z,30,0.5036,0.2898,0.375,0.1129,0.0249,0.0483
+49598,add sample code for page_storage.dart,glaze,female,CLOSED,2020-01-28T04:31:40Z,2020-04-08T22:17:14Z,30,0.3384,0.379,0.2702,0.0616,0.0291,0.0877
+111852,Add `allowedButtonsFilter` to prevent Draggable from appearing with secondary click.,Bernardo,male,MERGED,2022-09-19T04:36:41Z,2023-01-13T05:45:50Z,29,-0.2829,0.2108,0.3686,0.1258,0.0379,0.0776
+105836,"moving the left handle automatically scrolls EditableText to the right handle, which doesn't happen on native",takashi,male,MERGED,2022-06-11T18:11:07Z,2023-03-01T19:52:28Z,28,0.3175,0.2982,0.2692,0.102,0.0429,0.0893
+101586,Feat: dSYM debug info for iOS & macOS builds,Ivan,male,MERGED,2022-04-08T15:27:14Z,2022-09-05T18:16:17Z,25,-0.3322,0.2912,0.2568,0.1321,0.0308,0.0659
+85118,[integration_test] Support collecting of SkSL,Jia,female,CLOSED,2021-06-23T11:22:53Z,2021-12-01T00:00:03Z,29,0.2998,0.2555,0.3042,0.1295,0.0353,0.0798
+70730,Improve performance of Widget Tests,Jia,female,MERGED,2020-11-18T00:39:11Z,2021-01-13T01:29:03Z,28,-0.4739,0.2604,0.2788,0.1238,0.0396,0.0739
+70047,Roll Engine from 0f7cdca65fba to e5eea3756a9b (4 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-08T10:57:42Z,2020-11-09T18:16:34Z,29,-0.6681,0.3585,0.1762,0.0719,0.0165,0.0625
+37819,Add HtmlElementView (the Flutter Web platform view),Harry,male,MERGED,2019-08-07T23:02:01Z,2019-08-29T19:49:05Z,26,0.365,0.2792,0.2927,0.1423,0.0248,0.0622

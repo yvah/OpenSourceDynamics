@@ -31,15 +31,20 @@ class Repository:
         # Creat list of PullRequest objects
         self.pull_requests = list_of_pr(data)
 
+        # Defines values for state and gender
+        self.values_state = ['Merged', 'Closed', 'Open']
+        self.values_gender = ['Female', 'Male', 'Unknown']
+
         # Calculate averages
-        self.average_sentiment = average(self.pull_requests, 'Sentiment', 'None')
+        self.average_sentiment = average(self.pull_requests, 'Sentiment', 'None')[0]
         self.average_sentiment_state = average(self.pull_requests, 'Sentiment', 'State')
         self.average_sentiment_gender = average(self.pull_requests, 'Sentiment', 'Gender')
-        self.average_emotion = [average(self.pull_requests, 'Sadness', 'None'), 
+        em_av = [average(self.pull_requests, 'Sadness', 'None'), 
                                   average(self.pull_requests, 'Joy', 'None'),
                                   average(self.pull_requests, 'Fear', 'None'),
                                   average(self.pull_requests, 'Disgust', 'None'),
                                   average(self.pull_requests, 'Anger', 'None')]
+        self.average_emotion = [em_av[0][0], em_av[1][0], em_av[2][0], em_av[3][0], em_av[4][0]]
         self.average_emotion_state = [average(self.pull_requests, 'Sadness', 'State'), 
                                   average(self.pull_requests, 'Joy', 'State'),
                                   average(self.pull_requests, 'Fear', 'State'),
@@ -51,6 +56,10 @@ class Repository:
                                   average(self.pull_requests, 'Disgust', 'Gender'),
                                   average(self.pull_requests, 'Anger', 'Gender')]
 
+        # Calculate frequencies
+        self.freq_state = frequency(self.pull_requests, 'State')
+        self.freq_gender = frequency(self.pull_requests, 'Gender')
+
         # Preform Point Biserial test
         self.p_value = self.r_value = None
         #if self.merged_average is not None and self.closed_average is not None:
@@ -58,7 +67,7 @@ class Repository:
         self.p_value = round(point_biserial.pvalue, 4)
         self.r_value = round(point_biserial.statistic, 4)
     
-    def toCSV(self):
+    def to_csv(self):
         cwd = os.getcwd()
         csv_fields = ['Number', 'Title', 'Author', 'Gender', 'State', 'Created', 'Closed', 'Number of Comments', 'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger']
         with open(f'{cwd}/fetched_data/sentiment_analysis_result.csv', 'w', newline='') as analysis_results_file:
@@ -85,6 +94,31 @@ class Repository:
                 ] 
                 writer.writerows(analysis_result)
 
+    def stats_to_csv(self):
+        cwd = os.getcwd()
+        csv_fields = ['Sentiment Average', 'Emotion Averages', 
+                      'State Values', 'State Frequency', 'State-Sentiment Average', 'State-Emotion Averages',
+                      'Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Emotion Averages']
+        with open(f'{cwd}/fetched_data/sentiment_analysis_statistics_result.csv', 'w', newline='') as analysis_results_file:
+            writer = csv.DictWriter(analysis_results_file, csv_fields)
+            writer.writeheader()
+            for i in range(3):
+                analysis_result = [
+                    {
+                        'Sentiment Average': f'{str(self.average_sentiment) if i == 0 else ""}',
+                        'Emotion Averages': f'{str(self.average_emotion if i == 0 else "")}',
+                        'State Values': f'{self.values_state[i]}',
+                        'State Frequency': f'{str(self.freq_state[i])}',
+                        'State-Sentiment Average': f'{str(self.average_sentiment_state[i])}', 
+                        'State-Emotion Averages': f'{str([self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i]])}',
+                        'Gender Values': f'{self.values_gender[i]}', 
+                        'Gender Frequency': f'{str(self.freq_gender[i])}', 
+                        'Gender-Sentiment Average': f'{str(self.average_sentiment_gender[i])}', 
+                        'Gender-Emotion Averages': f'{str([self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i]])}'
+                    }
+                ] 
+                writer.writerows(analysis_result)            
+
     def __str__(self):
         result = ''
         # Print PullRequests
@@ -93,23 +127,16 @@ class Repository:
         result += '\n'
 
         # Print averages
-        '''
-        if self.merged_average is None:
-            result += 'No merged PR\n'
-        else:
-            result += 'Average sentiment for merged PR: ' + str(self.merged_average) + '\n'
-        if self.closed_average is None:
-            result += 'No closed PR\n'
-        else:
-            result += 'Average sentiment for closed PR: ' + str(self.closed_average) + '\n'
-        result += '\n'
-        '''
         result += str(self.average_sentiment) + '\n'
         result += str(self.average_sentiment_state) + '\n'
         result += str(self.average_sentiment_gender) + '\n'
         result += str(self.average_emotion) + '\n'
         result += str(self.average_emotion_state) + '\n'
         result += str(self.average_emotion_gender) + '\n'
+
+        # Print frequencies
+        result += str(self.freq_state) + '\n'
+        result += str(self.freq_gender) + '\n\n'
 
         # Print correlation
         if self.p_value is None:
@@ -122,7 +149,6 @@ class Repository:
                 self.r_value)
 
         return result
-
 
 # Defines pull requests as objects
 class PullRequest:
@@ -167,7 +193,6 @@ class PullRequest:
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
             self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + ">"
 
-
 # Takes a json file and parses it into a list of PullRequest objectss
 def list_of_pr(data):
     pull_requests = []
@@ -187,6 +212,7 @@ def average(pull_requests, variable, filter):
     list3 = []
 
     for pr in pull_requests:
+        filter_var = ''
         if (filter == 'State'):
             filter_var = pr.state
         elif (filter == 'Gender'):
@@ -218,15 +244,17 @@ def average(pull_requests, variable, filter):
             None if not list2 else round(statistics.fmean(list2), 4),
             None if not list3 else round(statistics.fmean(list3), 4)]
 
+# Get frequencies for different variables
 def frequency(pull_requests, variable):
     list = [0, 0, 0]
     for pr in pull_requests:
-        if (filter == 'State'):
+        var = ''
+        if (variable == 'State'):
             var = pr.state
-        elif (filter == 'Gender'):
+        elif (variable == 'Gender'):
             var = pr.gender
         
-        if var == 'MERGED' or var == 'female' or var == 'None':
+        if var == 'MERGED' or var == 'female':
             list[0] += 1
         elif var == 'CLOSED' or var == 'male':
             list[1] += 1
@@ -250,6 +278,7 @@ def correlation_test(prs):
         sentiment.append(pr.sentiment)
     return stats.pointbiserialr(state, sentiment)
 
+# Predicts gender of a given name using genderize.io API
 def getGender(name):
 	url = ""
 	cnt = 0

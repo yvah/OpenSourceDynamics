@@ -6,7 +6,7 @@ from pr_nlu_analysis import Repository
 if __name__ == '__main__':
     # '''
     # to test nlu
-    file = open("fetched_data/flutter_PullRequests.json")
+    file = open("fetched_data/test_data.json")
     data = json.load(file)
     print("Performing sentiment analysis...\n")
     start_time = time()
@@ -15,7 +15,8 @@ if __name__ == '__main__':
     print(repo)
     print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
 
-    repo.toCSV()
+    repo.to_csv()
+    repo.stats_to_csv()
 
     '''
     # or with data extraction

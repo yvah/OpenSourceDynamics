@@ -24,7 +24,6 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 )
 natural_language_understanding.set_service_url(url)
 
-
 # Defines repositories as objects
 class Repository:
     def __init__(self, data):
@@ -62,23 +61,26 @@ class Repository:
 
         # Calculatte correlation
         self.corr_state_gender = chi_square_correlation_test(self.pull_requests)
-        self.corr_state_comments = None
+        self.corr_state_comments = point_biserial_correlation_test(self.pull_requests, 'State', 'Comments')
         self.corr_state_sentiment = point_biserial_correlation_test(self.pull_requests, 'State', 'Sentiment')
         self.corr_state_emotion = [point_biserial_correlation_test(self.pull_requests, 'State', 'Sadness'),
                                    point_biserial_correlation_test(self.pull_requests, 'State', 'Joy'),
                                    point_biserial_correlation_test(self.pull_requests, 'State', 'Fear'),
                                    point_biserial_correlation_test(self.pull_requests, 'State', 'Disgust'),
                                    point_biserial_correlation_test(self.pull_requests, 'State', 'Anger')]
-        self.corr_gender_comments = None
+        self.corr_gender_comments = point_biserial_correlation_test(self.pull_requests, 'Gender', 'Comments')
         self.corr_gender_sentiment = point_biserial_correlation_test(self.pull_requests, 'Gender', 'Sentiment')
         self.corr_gender_emotion = [point_biserial_correlation_test(self.pull_requests, 'Gender', 'Sadness'),
                                    point_biserial_correlation_test(self.pull_requests, 'Gender', 'Joy'),
                                    point_biserial_correlation_test(self.pull_requests, 'Gender', 'Fear'),
                                    point_biserial_correlation_test(self.pull_requests, 'Gender', 'Disgust'),
                                    point_biserial_correlation_test(self.pull_requests, 'Gender', 'Anger')]
-        self.corr_comments_sentiment = None
-        self.corr_comments_emotion = None
-
+        self.corr_comments_sentiment = pearson_correlation_test(self.pull_requests, 'Sentiment')
+        self.corr_comments_emotion = [pearson_correlation_test(self.pull_requests, 'Sadness'),
+                                   pearson_correlation_test(self.pull_requests, 'Joy'),
+                                   pearson_correlation_test(self.pull_requests, 'Fear'),
+                                   pearson_correlation_test(self.pull_requests, 'Disgust'),
+                                   pearson_correlation_test(self.pull_requests, 'Anger')]
 
         # Preform Point Biserial test
         self.p_value = self.r_value = None
@@ -139,14 +141,14 @@ class Repository:
                         'Gender-Emotion Averages': f'{str([self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i]])}',
                         'Correlation': f'{"p-value" if i == 0 else "test statistic" if i == 1 else ""}',
                         'State-Gender Correlation': f'{self.corr_state_gender[i] if i != 2 else ""}',
-                        'State-Comments Correlation': f'{"?"}',
+                        'State-Comments Correlation': f'{self.corr_state_comments[i] if i != 2 else ""}',
                         'State-Sentiment Correlation': f'{self.corr_state_sentiment[i] if i != 2 else ""}',
-                        'State-Emotion Correlations': f'{self.corr_state_emotion[i] if i != 2 else ""}',
-                        'Gender-Comments Correlation': f'{"?"}',
+                        'State-Emotion Correlations': f'{str([self.corr_state_emotion[0][i], self.corr_state_emotion[1][i], self.corr_state_emotion[2][i], self.corr_state_emotion[3][i], self.corr_state_emotion[4][i]]) if i != 2 else ""}',
+                        'Gender-Comments Correlation': f'{self.corr_gender_comments[i] if i != 2 else ""}',
                         'Gender-Sentiment Correlation': f'{self.corr_gender_sentiment[i] if i != 2 else ""}',
-                        'Gender-Emotion Correlations': f'{self.corr_gender_emotion[i] if i != 2 else ""}',
-                        'Comments-Sentiment Correlation': f'{"?"}',
-                        'Comments-Emotion Correlation': f'{"?"}'
+                        'Gender-Emotion Correlations': f'{str([self.corr_gender_emotion[0][i], self.corr_gender_emotion[1][i], self.corr_gender_emotion[2][i], self.corr_gender_emotion[3][i], self.corr_gender_emotion[4][i]]) if i != 2 else ""}',
+                        'Comments-Sentiment Correlation': f'{self.corr_comments_sentiment[i] if i != 2 else ""}',
+                        'Comments-Emotion Correlation': f'{str([self.corr_comments_emotion[0][i], self.corr_comments_emotion[1][i], self.corr_comments_emotion[2][i], self.corr_comments_emotion[3][i], self.corr_comments_emotion[4][i]]) if i != 2 else ""}'
                     }
                 ] 
                 writer.writerows(analysis_result)            
@@ -295,7 +297,7 @@ def frequency(pull_requests, variable):
     
     return list
 
-# Preforms a Point-Biserial Correlation test and prints the result
+# Preforms a Point-Biserial Correlation test
 def point_biserial_correlation_test(pull_requests, di_var, cont_var):
     di_list = []
     cont_list = []
@@ -310,12 +312,14 @@ def point_biserial_correlation_test(pull_requests, di_var, cont_var):
         if di_value == 'MERGED' or di_value == 'female':
             di_list.append(0)
         elif di_value == 'CLOSED' or di_value == 'male':
-            di_list.append(0)
+            di_list.append(1)
         else:
             continue
 
         if cont_var == 'Sentiment':
             cont_list.append(pr.sentiment)
+        elif cont_var == 'Comments':
+            cont_list.append(pr.number_of_comments)
         elif cont_var == 'Sadness':
             cont_list.append(pr.emotion[0][1])
         elif cont_var == 'Joy':
@@ -330,7 +334,7 @@ def point_biserial_correlation_test(pull_requests, di_var, cont_var):
     result = stats.pointbiserialr(di_list, cont_list)
     return [result.pvalue, result.statistic]
 
-# Preforms a Chi-Square Correlation test and prints the result
+# Preforms a Chi-Square Correlation test
 def chi_square_correlation_test(pull_requests):
     list = [[0, 0], [0, 0], [0, 0]]
     for pr in pull_requests:
@@ -350,6 +354,29 @@ def chi_square_correlation_test(pull_requests):
             elif pr.state == 'CLOSED':
                 list[2][1] += 1
     result = stats.chi2_contingency(list)
+    return [result.pvalue, result.statistic]
+
+# Preforms a Pearson Correlation test
+def pearson_correlation_test(pull_requests, var2):
+    var1_list = []
+    var2_list = []
+
+    for pr in pull_requests:
+        var1_list.append(pr.number_of_comments)
+        if var2 == 'Sentiment':
+            var2_list.append(pr.sentiment)
+        elif var2 == 'Sadness':
+            var2_list.append(pr.emotion[0][1])
+        elif var2 == 'Joy':
+            var2_list.append(pr.emotion[1][1])
+        elif var2 == 'Fear':
+            var2_list.append(pr.emotion[2][1])
+        elif var2 == 'Disgust':
+            var2_list.append(pr.emotion[3][1])
+        elif var2 == 'Anger':
+            var2_list.append(pr.emotion[4][1])
+    
+    result = stats.pearsonr(var1_list, var2_list)
     return [result.pvalue, result.statistic]
 
 # Predicts gender of a given name using genderize.io API

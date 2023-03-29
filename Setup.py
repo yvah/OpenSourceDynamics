@@ -17,7 +17,7 @@ def query():
     type = request.form["type"]
     owner_repo = repo.split("/")
     print(user, repo, type)
-    data = run_query(user,owner_repo[0],owner_repo[1],type, "w", "name")
+    data = run_query(user,owner_repo[0],owner_repo[1],type)
     data = json.loads(data)
     print("Performing sentiment analysis...\n")
     start_time = time()

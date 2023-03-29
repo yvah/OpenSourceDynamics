@@ -28,7 +28,7 @@ def time_execution(function):
     return wrapper
 
 
-@time_execution
+# @time_execution  # uncomment to time function
 def run_query(auth, owner, repo, pull_type, db, db_name):
     global max_iterations
     discount = 0
@@ -154,7 +154,6 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
 
     # write to file
     json_string = json.dumps(json_list, indent=4)
-    write_to_file(json_string, repo, pull_type)
     # pprint(json_string)
     return json_string
 
@@ -260,6 +259,7 @@ def get_comments_query(repo, owner, p_type, pull_rate, discount, cursor=None):
                                 }
                             }
                             state
+                            createdAt
                             closedAt
                             createdAt
                             comments(first: %d) {
@@ -362,6 +362,7 @@ if __name__ == '__main__':
     else:
         database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
 
+    result = None
     args = auth, owner_repo[0], owner_repo[1], pull_type, database, database_name
     if database.checkDatabases(database_name):
         print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
@@ -382,3 +383,6 @@ if __name__ == '__main__':
 
     else:
         result = run_query(*args)
+
+    if result is not None:
+        write_to_file(result, owner_repo[1], pull_type)

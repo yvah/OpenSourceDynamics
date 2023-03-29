@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__, static_folder="templates", static_url_path="")
 
@@ -6,16 +6,27 @@ app = Flask(__name__, static_folder="templates", static_url_path="")
 def index():
     return render_template("index.html")
 
-@app.route("/query", methods=["POST"])
+@app.route("/validate", methods=["POST"])
 def query():
     # input tag in html requires name attribute that will be used in request.form[]
     user = request.form["user"]
     repo = request.form["repo"]
-    type = request.form["type"]
-    print(user, repo, type)
-    return render_template("index.html")
+    type = request.form["type"] # value in tags are 'issues' or 'pull-requests'
+    
+    if (True):
+        return redirect(url_for('results', user = user, repo = repo, type = type))
+    else:
+        print(user, repo, type)
+        return redirect(url_for('index'))
+        
 
-# use https://raw.githubusercontent.com/yvah/SwEng-group13/API/query.py as source for query
+@app.route("/<type>/<user>/<repo>")
+def results(type, user, repo):
+    print(user, repo, type)
+    # re check for valid, if someone randomly 
+    return render_template("chart.html")
+
+# use https://raw.githubusercontent.com/yvah/SwEng-group13/API/query.py as source for query 
 
 # @app.route("/404")
 # def error ():

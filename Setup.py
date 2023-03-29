@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from query import run_query
+from bridge import run_all
 from pr_nlu_analysis import Repository
 from time import time
 import json
@@ -16,15 +16,8 @@ def query():
     repo = request.form["repo"]
     type = request.form["type"]
     owner_repo = repo.split("/")
-    print(user, repo, type)
-    data = run_query(user,owner_repo[0],owner_repo[1],type)
-    data = json.loads(data)
-    print("Performing sentiment analysis...\n")
-    start_time = time()
-    repo = Repository(data)
-    end_time = time()
-    print(repo)
-    print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
+    print(user, owner_repo[0],owner_repo[1], type)
+    run_all(user,owner_repo[0],owner_repo[1],type)
     return render_template("index.html")
 if __name__ == '__main__':
    app.run()

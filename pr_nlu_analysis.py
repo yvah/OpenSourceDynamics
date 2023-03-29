@@ -58,7 +58,7 @@ class Repository:
         self.freq_state = frequency(self.pull_requests, 'State')
         self.freq_gender = frequency(self.pull_requests, 'Gender')
 
-        # Calculatte correlation
+        # Calculate correlation
         self.corr_state_gender = chi_square_correlation_test(self.pull_requests)
         self.corr_state_comments = point_biserial_correlation_test(self.pull_requests, 'State', 'Comments')
         self.corr_state_sentiment = point_biserial_correlation_test(self.pull_requests, 'State', 'Sentiment')
@@ -81,12 +81,6 @@ class Repository:
                                       pearson_correlation_test(self.pull_requests, 'Disgust'),
                                       pearson_correlation_test(self.pull_requests, 'Anger')]
 
-        # Preform Point Biserial test
-        self.p_value = self.r_value = None
-        # if self.merged_average is not None and self.closed_average is not None:
-        # point_biserial = correlation_test(self.pull_requests)
-        # self.p_value = round(point_biserial.pvalue, 4)
-        # self.r_value = round(point_biserial.statistic, 4)
 
     def to_csv(self):
         cwd = os.getcwd()
@@ -115,6 +109,7 @@ class Repository:
                     }
                 ]
                 writer.writerows(analysis_result)
+
 
     def stats_to_csv(self):
         cwd = os.getcwd()
@@ -155,6 +150,7 @@ class Repository:
                     }
                 ]
                 writer.writerows(analysis_result)
+
 
     def __str__(self):
         result = ''

@@ -4,7 +4,6 @@ from query import run_query
 
 
 def run_all(auth, repo, pull_type):
-    
     database = cloudant.Database("credentials.json")
     if pull_type == "pullRequests":
         database_name = f"{repo}-pull_requests"

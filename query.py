@@ -35,7 +35,10 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
 
     print(f"Gathering {pull_type}...")
     db.createDatabase(db_name)
-
+    print(auth)
+    print(owner)
+    print(repo)
+    print(pull_type)
     # final list to be returned
     json_list = []
     # stores the authorisation token and accept
@@ -68,6 +71,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
         try:
             request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
         except Exception:
+            print("s")
             print(f"error at iteration {i}")
             i -= 1
             continue

@@ -15,8 +15,9 @@ def query():
     user = request.form["user"]
     repo = request.form["repo"]
     type = request.form["type"]
-    owner_repo = repo.split("/")
-    run_all(user,owner_repo[0],owner_repo[1],type)
+    #owner_repo = repo.split("/")
+    print(user,repo,type)
+    run_all(user,repo,type)
     return render_template("index.html")
 if __name__ == '__main__':
    app.run()

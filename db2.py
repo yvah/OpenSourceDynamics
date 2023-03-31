@@ -1,5 +1,6 @@
 import ibm_db
 from cloudant import load_json
+import requests
 
 
 class DB2:
@@ -11,7 +12,6 @@ class DB2:
                                          f"HOSTNAME={self.credentials['hostname']};"
                                          f"PORT={self.credentials['port']};"
                                          f"SECURITY=SSL;"
-                                         f"SSLServerCertificate={self.credentials['cert_file']}"
                                          f"PROTOCOL=TCPIP;"
                                          f"UID={self.credentials['username']};"
                                          f"PWD={self.credentials['password']};", '', '')

@@ -27,17 +27,16 @@ natural_language_understanding.set_service_url(url)
 
 # Defines repositories as objects
 class Repository:
-    def __init__(self, data):
+    def __init__(self, data, type):
         # Create list of RepoItem objects
         self.repo_items = list_of_repo_items(data)
 
         # Defines values for state and gender
-        self.values_state = ['Merged', 'Closed', 'Open']
+        self.values_state = ['Open', 'Closed', '']
         self.values_gender = ['Female', 'Male', 'Unknown']
 
         # Calculate averages
         self.average_sentiment = average(self.repo_items, 'Sentiment', 'None')[0]
-        self.average_sentiment_state = average(self.repo_items, 'Sentiment', 'State')
         self.average_sentiment_gender = average(self.repo_items, 'Sentiment', 'Gender')
         em_av = [average(self.repo_items, 'Sadness', 'None'),
                  average(self.repo_items, 'Joy', 'None'),
@@ -45,43 +44,70 @@ class Repository:
                  average(self.repo_items, 'Disgust', 'None'),
                  average(self.repo_items, 'Anger', 'None')]
         self.average_emotion = [em_av[0][0], em_av[1][0], em_av[2][0], em_av[3][0], em_av[4][0]]
-        self.average_emotion_state = [average(self.repo_items, 'Sadness', 'State'),
-                                      average(self.repo_items, 'Joy', 'State'),
-                                      average(self.repo_items, 'Fear', 'State'),
-                                      average(self.repo_items, 'Disgust', 'State'),
-                                      average(self.repo_items, 'Anger', 'State')]
         self.average_emotion_gender = [average(self.repo_items, 'Sadness', 'Gender'),
                                        average(self.repo_items, 'Joy', 'Gender'),
                                        average(self.repo_items, 'Fear', 'Gender'),
                                        average(self.repo_items, 'Disgust', 'Gender'),
                                        average(self.repo_items, 'Anger', 'Gender')]
+        self.average_lifetime = average(self.repo_items, 'Lifetime', 'None')[0]
+        self.average_lifetime_gender = average(self.repo_items, 'Lifetime', 'Gender')
 
         # Calculate frequencies
         self.freq_state = frequency(self.repo_items, 'State')
         self.freq_gender = frequency(self.repo_items, 'Gender')
 
         # Calculate correlation
-        self.corr_state_gender = chi_square_correlation_test(self.repo_items)
-        self.corr_state_comments = point_biserial_correlation_test(self.repo_items, 'State', 'Comments')
-        self.corr_state_sentiment = point_biserial_correlation_test(self.repo_items, 'State', 'Sentiment')
-        self.corr_state_emotion = [point_biserial_correlation_test(self.repo_items, 'State', 'Sadness'),
-                                   point_biserial_correlation_test(self.repo_items, 'State', 'Joy'),
-                                   point_biserial_correlation_test(self.repo_items, 'State', 'Fear'),
-                                   point_biserial_correlation_test(self.repo_items, 'State', 'Disgust'),
-                                   point_biserial_correlation_test(self.repo_items, 'State', 'Anger')]
         self.corr_gender_comments = point_biserial_correlation_test(self.repo_items, 'Gender', 'Comments')
         self.corr_gender_sentiment = point_biserial_correlation_test(self.repo_items, 'Gender', 'Sentiment')
+        self.corr_gender_lifetime = point_biserial_correlation_test(self.repo_items, 'Gender', 'Lifetime')
         self.corr_gender_emotion = [point_biserial_correlation_test(self.repo_items, 'Gender', 'Sadness'),
                                     point_biserial_correlation_test(self.repo_items, 'Gender', 'Joy'),
                                     point_biserial_correlation_test(self.repo_items, 'Gender', 'Fear'),
                                     point_biserial_correlation_test(self.repo_items, 'Gender', 'Disgust'),
                                     point_biserial_correlation_test(self.repo_items, 'Gender', 'Anger')]
-        self.corr_comments_sentiment = pearson_correlation_test(self.repo_items, 'Sentiment')
-        self.corr_comments_emotion = [pearson_correlation_test(self.repo_items, 'Sadness'),
-                                      pearson_correlation_test(self.repo_items, 'Joy'),
-                                      pearson_correlation_test(self.repo_items, 'Fear'),
-                                      pearson_correlation_test(self.repo_items, 'Disgust'),
-                                      pearson_correlation_test(self.repo_items, 'Anger')]
+        self.corr_comments_sentiment = pearson_correlation_test(self.repo_items, 'Comments', 'Sentiment')
+        self.corr_comments_emotion = [pearson_correlation_test(self.repo_items, 'Comments', 'Sadness'),
+                                      pearson_correlation_test(self.repo_items, 'Comments', 'Joy'),
+                                      pearson_correlation_test(self.repo_items, 'Comments', 'Fear'),
+                                      pearson_correlation_test(self.repo_items, 'Comments', 'Disgust'),
+                                      pearson_correlation_test(self.repo_items, 'Comments', 'Anger')]
+        self.corr_lifetime_sentiment = pearson_correlation_test(self.repo_items, 'Lifetime', 'Sentiment')
+        self.corr_lifetime_emotion = [pearson_correlation_test(self.repo_items, 'Lifetime', 'Sadness'),
+                                      pearson_correlation_test(self.repo_items, 'Lifetime', 'Joy'),
+                                      pearson_correlation_test(self.repo_items, 'Lifetime', 'Fear'),
+                                      pearson_correlation_test(self.repo_items, 'Lifetime', 'Disgust'),
+                                      pearson_correlation_test(self.repo_items, 'Lifetime', 'Anger')]
+
+
+        # Additional statistics for Pull Requests
+        if type == 'Pull Requests':
+            self.values_state = ['Open', 'Closed', 'Merged']
+            self.average_lifetime_state = average(self.repo_items, 'Lifetime', 'State')
+            self.average_sentiment_state = average(self.repo_items, 'Sentiment', 'State')
+            self.average_emotion_state = [average(self.repo_items, 'Sadness', 'State'),
+                                      average(self.repo_items, 'Joy', 'State'),
+                                      average(self.repo_items, 'Fear', 'State'),
+                                      average(self.repo_items, 'Disgust', 'State'),
+                                      average(self.repo_items, 'Anger', 'State')]
+            self.corr_state_gender = chi_square_correlation_test(self.repo_items)
+            self.corr_state_comments = point_biserial_correlation_test(self.repo_items, 'State', 'Comments')
+            self.corr_state_sentiment = point_biserial_correlation_test(self.repo_items, 'State', 'Sentiment')
+            self.corr_state_lifetime = point_biserial_correlation_test(self.repo_items, 'State', 'Lifetime')
+            self.corr_state_emotion = [point_biserial_correlation_test(self.repo_items, 'State', 'Sadness'),
+                                   point_biserial_correlation_test(self.repo_items, 'State', 'Joy'),
+                                   point_biserial_correlation_test(self.repo_items, 'State', 'Fear'),
+                                   point_biserial_correlation_test(self.repo_items, 'State', 'Disgust'),
+                                   point_biserial_correlation_test(self.repo_items, 'State', 'Anger')]
+        else:
+            self.average_lifetime_state = None
+            self.average_sentiment_state = None
+            self.average_emotion_state = None
+            self.corr_state_gender = None
+            self.corr_state_comments = None
+            self.corr_state_sentiment = None
+            self.corr_state_lifetime = None
+            self.corr_state_emotion = None
+
 
 
     def to_csv(self):
@@ -116,13 +142,13 @@ class Repository:
 
     def stats_to_csv(self):
         cwd = os.getcwd()
-        csv_fields = ['Sentiment Average', 'Emotion Averages',
-                      'State Values', 'State Frequency', 'State-Sentiment Average', 'State-Emotion Averages',
-                      'Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Emotion Averages',
-                      'Correlation', 'State-Gender Correlation', 'State-Comments Correlation',
-                      'State-Sentiment Correlation', 'State-Emotion Correlations',
-                      'Gender-Comments Correlation', 'Gender-Sentiment Correlation', 'Gender-Emotion Correlations',
-                      'Comments-Sentiment Correlation', 'Comments-Emotion Correlation']
+        csv_fields = ['Sentiment Average', 'Emotion Averages', 'Lifetime Average',
+                      'State Values', 'State Frequency', 'State-Sentiment Average', 'State-Emotion Averages', 'State-Lifetime Average',
+                      'Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Emotion Averages', 'Gender-Lifetime Average',
+                      'Correlation', 'State-Gender Correlation', 
+                      'State-Comments Correlation', 'State-Lifetime Correlation', 'State-Sentiment Correlation', 'State-Emotion Correlations',
+                      'Gender-Comments Correlation', 'Gender-Lifetime Correlation', 'Gender-Sentiment Correlation', 'Gender-Emotion Correlations',
+                      'Comments-Sentiment Correlation', 'Comments-Emotion Correlation', 'Lifetime-Sentiment Correlation', 'Lifetime-Emotion Correlation']
         with open(f'{cwd}/fetched_data/sentiment_analysis_statistics_result.csv', 'w',
                   newline='') as analysis_results_file:
             writer = csv.DictWriter(analysis_results_file, csv_fields)
@@ -132,24 +158,31 @@ class Repository:
                     {
                         'Sentiment Average': f'{str(self.average_sentiment) if i == 0 else ""}',
                         'Emotion Averages': f'{str(self.average_emotion) if i == 0 else ""}',
+                        'Lifetime Average': f'{str(self.average_lifetime) if i == 0 else ""}',
                         'State Values': f'{self.values_state[i]}',
                         'State Frequency': f'{str(self.freq_state[i])}',
                         'State-Sentiment Average': f'{str(self.average_sentiment_state[i])}',
                         'State-Emotion Averages': f'{str([self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i]])}',
+                        'State-Lifetime Average': f'{str(self.average_lifetime_state[i])}',
                         'Gender Values': f'{self.values_gender[i]}',
                         'Gender Frequency': f'{str(self.freq_gender[i])}',
                         'Gender-Sentiment Average': f'{str(self.average_sentiment_gender[i])}',
                         'Gender-Emotion Averages': f'{str([self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i]])}',
+                        'Gender-Lifetime Average': f'{str(self.average_lifetime_gender[i])}',
                         'Correlation': f'{"p-value" if i == 0 else "test statistic" if i == 1 else ""}',
                         'State-Gender Correlation': f'{self.corr_state_gender[i] if i != 2 else ""}',
                         'State-Comments Correlation': f'{self.corr_state_comments[i] if i != 2 else ""}',
+                        'State-Lifetime Correlation': f'{self.corr_state_lifetime[i] if i != 2 else ""}',
                         'State-Sentiment Correlation': f'{self.corr_state_sentiment[i] if i != 2 else ""}',
                         'State-Emotion Correlations': f'{str([self.corr_state_emotion[0][i], self.corr_state_emotion[1][i], self.corr_state_emotion[2][i], self.corr_state_emotion[3][i], self.corr_state_emotion[4][i]]) if i != 2 else ""}',
                         'Gender-Comments Correlation': f'{self.corr_gender_comments[i] if i != 2 else ""}',
+                        'Gender-Lifetime Correlation': f'{self.corr_gender_lifetime[i] if i != 2 else ""}',
                         'Gender-Sentiment Correlation': f'{self.corr_gender_sentiment[i] if i != 2 else ""}',
                         'Gender-Emotion Correlations': f'{str([self.corr_gender_emotion[0][i], self.corr_gender_emotion[1][i], self.corr_gender_emotion[2][i], self.corr_gender_emotion[3][i], self.corr_gender_emotion[4][i]]) if i != 2 else ""}',
                         'Comments-Sentiment Correlation': f'{self.corr_comments_sentiment[i] if i != 2 else ""}',
-                        'Comments-Emotion Correlation': f'{str([self.corr_comments_emotion[0][i], self.corr_comments_emotion[1][i], self.corr_comments_emotion[2][i], self.corr_comments_emotion[3][i], self.corr_comments_emotion[4][i]]) if i != 2 else ""}'
+                        'Comments-Emotion Correlation': f'{str([self.corr_comments_emotion[0][i], self.corr_comments_emotion[1][i], self.corr_comments_emotion[2][i], self.corr_comments_emotion[3][i], self.corr_comments_emotion[4][i]]) if i != 2 else ""}',
+                        'Lifetime-Sentiment Correlation': f'{self.corr_lifetime_sentiment[i] if i != 2 else ""}', 
+                        'Lifetime-Emotion Correlation': f'{str([self.corr_lifetime_emotion[0][i], self.corr_lifetime_emotion[1][i], self.corr_lifetime_emotion[2][i], self.corr_lifetime_emotion[3][i], self.corr_lifetime_emotion[4][i]]) if i != 2 else ""}'
                     }
                 ]
                 writer.writerows(analysis_result)
@@ -250,6 +283,8 @@ def average(repo_items, variable, filter):
 
         if variable == 'Sentiment':
             var = ri.sentiment
+        elif variable == 'Lifetime':
+            var = ri.lifetime
         elif variable == 'Sadness':
             var = ri.emotion[0][1]
         elif variable == 'Joy':
@@ -261,7 +296,7 @@ def average(repo_items, variable, filter):
         elif variable == 'Anger':
             var = ri.emotion[4][1]
 
-        if filter_var == 'MERGED' or filter_var == 'female' or filter_var == 'None':
+        if filter_var == 'OPEN' or filter_var == 'female' or filter_var == 'None':
             list1.append(var)
         elif filter_var == 'CLOSED' or filter_var == 'male':
             list2.append(var)
@@ -283,7 +318,7 @@ def frequency(repo_items, variable):
         elif (variable == 'Gender'):
             var = ri.gender
 
-        if var == 'MERGED' or var == 'female':
+        if var == 'OPEN' or var == 'female':
             list[0] += 1
         elif var == 'CLOSED' or var == 'male':
             list[1] += 1
@@ -313,6 +348,8 @@ def point_biserial_correlation_test(repo_items, di_var, cont_var):
 
         if cont_var == 'Sentiment':
             cont_list.append(ri.sentiment)
+        elif cont_var == 'Lifetime':
+            cont_list.append(ri.lifetime)
         elif cont_var == 'Comments':
             cont_list.append(ri.number_of_comments)
         elif cont_var == 'Sadness':
@@ -360,12 +397,16 @@ def chi_square_correlation_test(repo_items):
 
 
 # Preforms a Pearson Correlation test
-def pearson_correlation_test(repo_items, var2):
+def pearson_correlation_test(repo_items, var1, var2):
     var1_list = []
     var2_list = []
 
     for ri in repo_items:
-        var1_list.append(ri.number_of_comments)
+        if var1 == 'Comments':
+            var1_list.append(ri.number_of_comments)
+        elif var1 == 'Lifetime':
+            var1_list.append(ri.lifetime)
+
         if var2 == 'Sentiment':
             var2_list.append(ri.sentiment)
         elif var2 == 'Sadness':

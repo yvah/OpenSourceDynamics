@@ -5,6 +5,8 @@ from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions
 import scipy.stats as stats
+from datetime import datetime
+
 
 # Pulls API Keys from keys.txt file
 keys = open('keys.txt', 'r')
@@ -180,9 +182,15 @@ class PullRequest:
     def __init__(self, pr):
         self.number = pr['number']
         self.title = pr['title']
-        self.closedAt = pr['closedAt']
-        self.createdAt = pr['createdAt']
         self.state = pr['state']
+
+        self.createdAt = pr['createdAt'].replace('T', ' ').replace('Z', '')
+        self.closedAt = None
+        self.lifetime = None
+        if self.state != 'OPEN':
+            self.closedAt = pr['closedAt'].replace('T', ' ').replace('Z', '')
+            datetimeFormat = '%Y-%m-%d %H:%M:%S'
+            self.lifetime = round((datetime.strptime(self.closedAt, datetimeFormat) - datetime.strptime(self.createdAt,datetimeFormat)).total_seconds() / 3600.0)
         self.number_of_comments = pr['commentCount']
         self.author = pr['author'].split()[0]
         self.gender = getGender(self.author)
@@ -205,17 +213,11 @@ class PullRequest:
         for i in range(5):
             self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
 
-        # print(self.emotion)
-        # self.main_emotion = max(self.emotion)
-        # self.s = ""
-        # for i in range(5):
-        #    self.s += self.emotion[i][0] + ": " + self.emotion[i][1] + "\n"
-
     # Defines a print method for pr
     def __str__(self):
         # s = str(self.emotion)
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
-            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + ">"
+            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + "; lifetime: " + str(self.lifetime) + ">"
 
 
 # Takes a json file and parses it into a list of PullRequest objectss

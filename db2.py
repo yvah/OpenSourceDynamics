@@ -6,35 +6,39 @@ class DB2:
     def __init__(self, credentials_file):
         self.credentials = load_json(credentials_file)
 
+        print("connecting...")
         self.connection = ibm_db.connect(f"DATABASE={self.credentials['database']};"
                                          f"HOSTNAME={self.credentials['hostname']};"
                                          f"PORT={self.credentials['port']};"
+                                         f"SECURITY=SSL;"
+                                         f"SSLServerCertificate={self.credentials['cert_file']}"
                                          f"PROTOCOL=TCPIP;"
                                          f"UID={self.credentials['username']};"
-                                         f"PWD={self.credentials['password']}", '', '')
+                                         f"PWD={self.credentials['password']};", '', '')
+        print("success")
 
-    # creates a database with with the passed in name, returns true on success or if database already exists
-    def create(self, database):
-        success = ibm_db.createdbNX(self.connection, database)
+    # creates a table with with the passed in name, returns true on success or if table already exists
+    def create(self, table):
+        success = ibm_db.createdbNX(self.connection, table)
         if success is None:
             return False
         return True
 
-    # clears the database with the selected name, returns true on success
-    def clear(self, database):
-        sql_instruction = f"DELETE * FROM {database};"
+    # clears the table with the selected name, returns true on success
+    def clear(self, table):
+        sql_instruction = f"DELETE * FROM {table};"
         success = ibm_db.exec_immediate(self.connection, sql_instruction)
         if success is False:
             return False
         return True
 
-    # adds the data to a database, creating the database if it doesn't already exist
+    # adds the data to a table, creating the table if it doesn't already exist
     # returns true if successful, otherwise prints number of successful inserts and returns false
-    def add_data(self, database, data):
-        # creates database if it doesn't already exist
-        success = self.create(database)
+    def add_data(self, table, data):
+        # creates table if it doesn't already exist
+        success = self.create(table)
         if success:
-            insert_command = f"INSERT INTO {database} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            insert_command = f"INSERT INTO {table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
             insert_command = ibm_db.prepare(self.connection, insert_command)
 
             params = []
@@ -51,10 +55,10 @@ class DB2:
             return False
 
     # copies the data from one table into another
-    def copy_into(self, to_database, from_database):
-        success = self.clear(to_database)
+    def copy_into(self, to_table, from_table):
+        success = self.clear(to_table)
         if success:
-            sql_instruction = f"INSERT INTO {to_database} SELECT * FROM {from_database};"
+            sql_instruction = f"INSERT INTO {to_table} SELECT * FROM {from_table};"
             success = ibm_db.exec_immediate(self.connection, sql_instruction)
             if success is not False:
                 return True

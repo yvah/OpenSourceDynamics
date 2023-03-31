@@ -7,7 +7,7 @@ import cloudant
 from threading import Thread
 
 comment_threshold = 10
-max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 2  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
@@ -360,7 +360,7 @@ if __name__ == '__main__':
             else:
                 print("Invalid input")
 
-    database = cloudant.Database("credentials.json")
+    database = cloudant.Database("cloudant_credentials.json")
     if pull_type == "pullRequests":
         database_name = f"{owner_repo[0]}/{owner_repo[1]}-pull_requests"
     else:

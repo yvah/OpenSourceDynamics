@@ -1,7 +1,7 @@
 import cloudant
 from pr_nlu_analysis import Repository
 from query import run_query
-
+import json
 
 def run_all(auth, repo, pull_type):
     database = cloudant.Database("credentials.json")
@@ -14,6 +14,6 @@ def run_all(auth, repo, pull_type):
         database.clearDatabase(database_name)
     owner_repo = repo.split("/")
     data = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database, database_name)
-    repo = Repository(data)
+    repo = Repository(json.loads(data))
     repo.to_csv()
     repo.stats_to_csv()

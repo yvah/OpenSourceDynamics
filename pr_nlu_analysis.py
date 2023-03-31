@@ -170,17 +170,7 @@ class Repository:
         # Print frequencies
         result += str(self.freq_state) + '\n'
         result += str(self.freq_gender) + '\n\n'
-
-        # Print correlation
-        if self.p_value is None:
-            result += 'Can not preform a correlation test\n'
-        else:
-            result += 'State and sentiment are '
-            if self.p_value > 0.05:
-                result += 'not '
-            result += 'statistically significant: p-value of ' + str(self.p_value) + ' and R-value of ' + str(
-                self.r_value)
-
+        
         return result
 
 

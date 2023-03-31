@@ -5,14 +5,14 @@ from time import sleep
 import json
 
 
-def loadJson(filename):
+def load_json(filename):
     with open(filename) as json_file:
         return json.load(json_file)
 
 
-class Database:
+class CDatabase:
     def __init__(self, credentials_file):
-        self.credentials = loadJson(credentials_file)
+        self.credentials = load_json(credentials_file)
         iam_auth = IAMAuthenticator(self.credentials["apikey"])
 
         self.service = Cloudant(authenticator=iam_auth)

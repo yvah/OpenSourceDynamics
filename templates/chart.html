@@ -45,9 +45,28 @@
   </head>
 <body>
   <div class="bg">
-    <div margin="auto" width="50%" height="80%" display="block">
-      <iframe position="center" src="" id="cognos" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+    <div id="cognos" margin="0" width="100%" height="100%" display="flex">
+      <button id="load">Load Charts</button>
+      <a href="https://eu-gb.dataplatform.cloud.ibm.com/dashboards/31b7965b-1071-4f70-a6d9-0c29e8500668/view/5428e70d14b111f216f4b5e407982a047d61775ababbd651d6817b490a342397f36e4292c82a1f0cda105332f1ec105a9d">
+        <button>Go to Cognos Dashboard</button>
+      </a>
     </div>
   </div>
 </body>
+<script src="https://dde-us-south.analytics.ibm.com/daas/CognosApi.js"></script>
+<!-- TODO embed dashboard -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("#load").click(function(){
+    var ca = new CognosApi({cognosRootURL: 'https://eu-gb.dynamic-dashboard-embedded.cloud.ibm.com/daas/',
+	node: document.getElementById('cognos'),
+	sessionCode: 'CD1a2b34567b8c901234d5',
+	language: 'en'
+  })
+  ca.initialize()
+  $("#cognos").html("<embed src=\"https://eu-gb.dataplatform.cloud.ibm.com/dashboards/31b7965b-1071-4f70-a6d9-0c29e8500668/view/5428e70d14b111f216f4b5e407982a047d61775ababbd651d6817b490a342397f36e4292c82a1f0cda105332f1ec105a9d\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></embed>")
+  })});
+</script>
 </html>

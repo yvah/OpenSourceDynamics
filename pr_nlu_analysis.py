@@ -3,7 +3,7 @@ import statistics
 from time import time
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, EmotionOptions, ConceptsOptions
 import scipy.stats as stats
 from datetime import datetime
 
@@ -109,11 +109,10 @@ class Repository:
             self.corr_state_emotion = [[None, None], [None, None], [None, None], [None, None], [None, None]]
 
 
-
     def to_csv(self):
         cwd = os.getcwd()
         csv_fields = ['Number', 'Title', 'Author', 'Gender', 'State', 'Created', 'Closed', 'Lifetime', 'Number of Comments',
-                      'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger']
+                      'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger', 'Concepts']
         with open(f'{cwd}/fetched_data/sentiment_analysis_result.csv', 'w', newline='') as analysis_results_file:
             writer = csv.DictWriter(analysis_results_file, csv_fields)
             writer.writeheader()
@@ -134,7 +133,8 @@ class Repository:
                         'Joy': f'{str(ri.emotion[1][1])}',
                         'Fear': f'{str(ri.emotion[2][1])}',
                         'Disgust': f'{str(ri.emotion[3][1])}',
-                        'Anger': f'{str(ri.emotion[4][1])}'
+                        'Anger': f'{str(ri.emotion[4][1])}',
+                        'Concepts': str(ri.concepts)[1:-1]
                     }
                 ]
                 writer.writerows(analysis_result)
@@ -239,7 +239,9 @@ class RepoItem:
         # IBM NLP
         response = natural_language_understanding.analyze(
             text=self.comments,
-            features=Features(sentiment=SentimentOptions(), emotion=EmotionOptions())).get_result()
+            features=Features(sentiment=SentimentOptions(), emotion=EmotionOptions(), concepts=ConceptsOptions(limit=3))).get_result()
+        
+        # Store Sentiment Analyisis result
         self.sentiment = round(response['sentiment']['document']['score'], 4)
         
         # Creates an array to store emotion scores
@@ -247,10 +249,18 @@ class RepoItem:
         for i in range(5):
             self.emotion[i][1] = round(response['emotion']['document']['emotion'][self.emotion[i][0]], 4)
 
+        # Store concepts
+        self.concepts = []
+        for i in range(3):
+            con = response['concepts']
+            if con[i]['relevance'] > 0.7:
+                self.concepts.append(con[i]['text']) 
+        if not self.concepts:
+            self.concepts = [None]
+
     # Defines a print method for RepoItem
     def __str__(self):
-        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(
-            self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + "; lifetime: " + str(self.lifetime) + ">"
+        return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + "; lifetime: " + str(self.lifetime) + "; concepts: " + str(self.concepts)[1:-1] + ">"
 
 
 # Takes a json file and parses it into a list of RepoItem objectss
@@ -259,6 +269,9 @@ def list_of_repo_items(data):
     for ri in data:
         # NEED TO IMPLEMENT BETTER ERROR HANDLING
         # ApiException: Error: not enough text for language id, Code: 422
+        # SO BAD: manually filtering out a bot for flutter
+        if ri['author'] == 'engine-flutter-autoroll':
+            continue
         try:
             repo_items.append(RepoItem(ri))
         except Exception:

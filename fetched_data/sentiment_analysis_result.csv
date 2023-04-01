@@ -1,98 +1,100 @@
-Number,Title,Author,Gender,State,Created,Closed,Number of Comments,Sentiment,Sadness,Joy,Fear,Disgust,Anger
-30999,Roll engine 72986c39ea36..49a72e1e41c9 (36 commits),engine-flutter-autoroll,none,CLOSED,2019-04-13 00:40:23,2019-04-13 00:44:18,149,-0.6319,0.3767,0.0884,0.1233,0.0593,0.1331
-61221,[flutter_tools] Add ARM64 Linux host and cross-building option support,Hidenori,male,MERGED,2020-07-10 08:44:54,2021-02-12 22:25:30,98,0.4624,0.3111,0.3288,0.0957,0.0298,0.0652
-71235,Roll Engine from 20caf5496951 to e89090181b63 (3 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-25 20:55:40,2020-11-30 17:54:34,110,-0.6248,0.342,0.1755,0.119,0.0157,0.0522
-34087,Roll engine 06dbe28e33e5..afb5dc400a89 (3 commits),engine-flutter-autoroll,none,CLOSED,2019-06-08 00:11:11,2019-06-08 00:51:55,69,-0.635,0.3778,0.0881,0.123,0.0595,0.1329
-105335,`OverlayPortal` ,LongCatIsLooong,none,MERGED,2022-06-03 20:48:46,2023-03-02 17:34:01,67,0.3382,0.2769,0.3196,0.1304,0.0349,0.0602
-76519,Proposal: A more complete app template for Flutter,Brian,male,CLOSED,2021-02-22 12:13:03,2021-03-25 13:04:21,63,0.4218,0.241,0.405,0.0841,0.0354,0.0667
-86587,Roll Plugins from f726c319a61d to 57fb51f06e18 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-07-16 23:04:18,2021-07-19 18:27:12,63,-0.9519,0.3682,0.2283,0.1226,0.0119,0.0605
-81857,Roll Plugins from a2ce3dab4661 to c54b73d67393 (2 revisions),engine-flutter-autoroll,none,CLOSED,2021-05-04 19:32:09,2021-05-07 15:20:02,63,-0.7336,0.3594,0.201,0.0556,0.021,0.0583
-76903,Roll Plugins from aead5acb35c6 to a0fe2225e255 (4 revisions),engine-flutter-autoroll,none,CLOSED,2021-02-27 00:43:53,2021-03-01 17:25:46,60,-0.9519,0.2837,0.1808,0.1939,0.011,0.0438
-72968,Roll Engine from f5364860ab10 to 2021ca2ad87c (1 revision),engine-flutter-autoroll,none,CLOSED,2020-12-26 00:56:44,2020-12-28 18:12:36,61,-0.621,0.3646,0.1786,0.072,0.0164,0.045
-82047,Roll Plugins from d763b2c7293c to b2104b420a76 (4 revisions),engine-flutter-autoroll,none,CLOSED,2021-05-07 18:17:09,2021-05-10 11:05:02,60,-0.9519,0.2805,0.1779,0.2026,0.0106,0.0401
-85789,Scale selection handles for rich text on iOS,Renzo,male,MERGED,2021-07-02 17:31:23,2021-07-22 23:46:07,41,-0.5842,0.519,0.3334,0.0261,0.0401,0.0251
-73622,Roll Plugins from b3bc1f2e246f to 34faaafe5071 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-01-09 00:45:15,2021-01-11 13:58:08,57,-0.6944,0.3301,0.1864,0.1373,0.0133,0.041
-108052,Deprecate `BoxDecoration.shape`.,Bernardo,male,OPEN,2022-07-20 20:41:28,None,56,-0.2625,0.2914,0.3094,0.1247,0.0295,0.0907
-80437,"Fix ""`TextStyle.overflow` is not working for SelectableText widget""",Pedro,male,CLOSED,2021-04-14 16:20:25,2021-07-13 08:26:22,51,-0.4889,0.3019,0.265,0.121,0.0363,0.0653
-31425,Roll engine ca31a7c57bad..8b5f77630fc3 (19 commits),engine-flutter-autoroll,none,CLOSED,2019-04-22 16:51:23,2019-04-22 17:07:17,54,-0.6366,0.3783,0.0879,0.1228,0.0596,0.1328
-106552,Improve fidelity of multi-pointer drag gestures.,Winctoryang,none,CLOSED,2022-06-24 11:42:37,2022-10-04 22:17:54,52,0.3447,0.2401,0.3303,0.1056,0.0312,0.0934
-94645,let the plugin's output generated in flutter/.android/plugins_build_output/${androidPlugin.name},姚春锋,none,MERGED,2021-12-04 03:08:21,2022-09-14 15:47:17,50,-0.3875,0.2957,0.2392,0.1185,0.0337,0.0736
-57861,Roll Engine from 9ce1e5c5c7e7 to 42bac718f814 (63 revisions),engine-flutter-autoroll,none,CLOSED,2020-05-23 17:10:26,2020-05-26 15:06:37,51,-0.6931,0.2969,0.171,0.1448,0.0173,0.0598
-23397,Fixes gradle error: 'Could not find lint-gradle-api.jar' (#23095),Stefan,male,MERGED,2018-10-23 09:26:06,2018-10-24 21:33:40,51,-0.3295,0.2801,0.2999,0.1329,0.0254,0.0846
-96276,TextField text backgroundColor covers text selection color,JsouLiang,none,CLOSED,2022-01-07 10:23:11,2022-11-15 23:43:38,40,-0.4554,0.3209,0.2618,0.1123,0.0281,0.0735
-66152,Added timeout for closing devfs sync http connections.,gaaclarke,none,MERGED,2020-09-18 23:01:02,2020-09-25 17:52:34,47,-0.632,0.3163,0.2632,0.1585,0.026,0.0629
-66157,Roll Engine from 2abe69c60818 to 7dc2ec2fbfe6 (29 revisions),engine-flutter-autoroll,none,CLOSED,2020-09-19 00:10:08,2020-09-21 23:00:56,46,-0.6409,0.3721,0.1749,0.0814,0.0182,0.0521
-76072,[text_input] introduce TextInputControl,J-P,male,MERGED,2021-02-15 16:23:47,2022-10-04 22:23:12,45,-0.4252,0.292,0.319,0.1047,0.0357,0.0744
-73105,[UserAccountsDrawerHeader] New option for changing profiles images size,burekas7,none,MERGED,2020-12-29 18:16:48,2021-02-03 18:56:06,33,0.543,0.3176,0.2975,0.1029,0.0278,0.0708
-56409,InteractiveViewer Widget,Justin,male,MERGED,2020-05-05 23:57:35,2020-06-03 00:53:06,44,0.413,0.2716,0.3592,0.11,0.0282,0.0733
-42100,Run secondary animation of previous route when using pushReplacement(…,joellurcook,none,MERGED,2019-10-07 10:39:23,2020-01-27 18:33:05,43,0.2863,0.3063,0.2773,0.132,0.0328,0.0702
-21896,Bottom sheet scrolling,Dan,male,MERGED,2018-09-14 23:44:35,2019-04-26 21:12:12,44,-0.327,0.2719,0.2931,0.1191,0.0392,0.1049
-108339,Refactor StrokeAlign to allow double values.,Bernardo,male,MERGED,2022-07-26 01:38:55,2022-08-15 20:23:21,43,0.3121,0.2848,0.2985,0.132,0.0376,0.0923
-97972,Deprecate `toggleableActiveColor`,Taha,male,MERGED,2022-02-07 18:40:34,2022-08-02 19:09:06,40,-0.2677,0.2819,0.3362,0.1051,0.0342,0.055
-16413,Scan assets from disk,fmatosqg,none,MERGED,2018-04-10 10:37:56,2018-05-21 00:52:34,43,0.2743,0.3083,0.3052,0.1241,0.0254,0.0622
-63610,"[flutter_tools] support code size tooling on iOS, linux, windows, macOS, and Android on Windows",Jonah,male,MERGED,2020-08-12 21:36:20,2020-08-25 17:00:25,42,0.3859,0.2575,0.3211,0.1259,0.0304,0.0461
-78699,Roll Plugins from d7125cdb91c0 to 7b9ac6b0c20d (11 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-20 16:30:37,2021-03-22 10:51:31,40,-0.7535,0.2825,0.2236,0.178,0.0107,0.0499
-48155,"Add FormField validation states (touched, saved, etc) with ErrorStateMatcher",Yumin,male,CLOSED,2020-01-03 23:48:18,2020-04-14 23:30:51,40,0.3264,0.2887,0.3279,0.1209,0.0332,0.0574
-99644,docs: Add more potential use case for Bottom Navigation Bar,Aman,male,MERGED,2022-03-06 20:41:06,2022-06-23 17:17:07,2,0.6534,0.2232,0.4616,0.0525,0.0165,0.052
-78706,Roll Engine from e6db3a275eca to 2f47f64e4b14 (16 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-20 22:45:06,2021-03-22 16:36:57,39,-0.715,0.3703,0.2143,0.0616,0.0178,0.0504
-72831,Roll Plugins from 0f1c20dd25c0 to 622ba57c3960 (3 revisions),engine-flutter-autoroll,none,CLOSED,2020-12-22 22:30:54,2020-12-24 16:21:47,39,-0.6314,0.2933,0.1815,0.179,0.0165,0.0411
-85954,Flutter web add support for NetworkImage headers,Jonas,male,MERGED,2021-07-06 09:20:50,2022-01-26 23:00:13,30,-0.4062,0.3642,0.2183,0.1332,0.0265,0.0579
-83047,[Material 3] Add Navigation Bar component to flutter framework.,MH,male,MERGED,2021-05-20 19:44:51,2021-09-26 15:03:04,37,0.4081,0.2863,0.3736,0.0792,0.03,0.0508
-68086,Introduce `MaxLengthEnforcement`,Alex,male,MERGED,2020-10-14 07:30:53,2020-12-09 23:32:00,36,-0.4851,0.3582,0.2232,0.1063,0.0291,0.0749
-33213,Expose InheritedWidget subscription cancelation,Remi,male,CLOSED,2019-05-22 20:19:57,2019-09-18 21:38:09,38,-0.3024,0.3372,0.2968,0.104,0.0306,0.0652
-31485,Prevent exception being thrown on hasScrolledBody,K.,male,MERGED,2019-04-23 13:09:04,2019-06-05 20:31:00,38,-0.4428,0.2871,0.2399,0.1276,0.0424,0.0883
-89511,Reland engine display features,Andrei,male,MERGED,2021-09-05 18:28:23,2021-11-05 01:37:55,37,0.2479,0.2833,0.3652,0.0979,0.0395,0.0699
-86417,Roll Plugins from fbb4b3a85e3a to cf80430e72e1 (1 revision),engine-flutter-autoroll,none,CLOSED,2021-07-14 09:27:17,2021-07-16 01:16:12,37,-0.9519,0.3466,0.1815,0.1232,0.0128,0.0607
-75472,Support Scribble Handwriting,Jami,female,MERGED,2021-02-05 02:46:57,2022-01-11 19:00:13,36,0.2994,0.2946,0.309,0.0991,0.0275,0.0793
-51656,Set AA flag for painting images,Yuqian,female,MERGED,2020-02-28 19:35:08,2020-04-09 02:02:05,37,-0.2766,0.3114,0.2718,0.1043,0.0358,0.0711
-113637,Speed up first asset load by encoding asset manifest in binary rather than JSON,Andrew,male,MERGED,2022-10-18 19:48:33,2022-12-05 18:39:10,35,-0.4776,0.3294,0.2756,0.1094,0.0337,0.0677
-43760,Fix the issue of Android add2app build fails on Android when assets are read-only,shihchanghsiungsonos,none,CLOSED,2019-10-29 22:17:19,2020-02-03 22:52:30,35,0.3627,0.352,0.3095,0.0813,0.0207,0.059
-114997,Roll Flutter Engine from e7d7edab98ad to 1a8888b5170b (33 revisions),engine-flutter-autoroll,none,CLOSED,2022-11-09 16:19:16,2022-11-09 17:10:07,34,-0.5203,0.3026,0.2912,0.1057,0.0306,0.0475
-91802,"Add a ""flutter debug_adapter"" command that runs a DAP server",Danny,male,MERGED,2021-10-14 09:25:05,2021-10-27 13:48:06,35,-0.2588,0.2799,0.306,0.0939,0.0294,0.0622
-68523,Fix the OutlineInputBorder padding (#67707),Michel,male,CLOSED,2020-10-19 21:09:55,2021-03-29 19:38:34,33,-0.372,0.3357,0.2786,0.0966,0.0269,0.0963
-65501,Update the cupertino picker visuals,YeungKC,none,MERGED,2020-09-09 20:06:54,2020-10-07 20:12:13,35,-0.5108,0.3421,0.2377,0.114,0.0346,0.064
-44018,Fix the issue of TextSelection could misbehave inside a Nested Overlay,shihchanghsiungsonos,none,CLOSED,2019-11-01 22:15:03,2020-01-21 22:29:03,35,0.4582,0.2462,0.3256,0.1347,0.0367,0.0811
-22956,[FR] BottomNavigationBar fixed with no titles.,Hyo,female,CLOSED,2018-10-11 14:01:43,2019-02-19 20:19:39,35,-0.4645,0.3264,0.2955,0.0729,0.027,0.0674
-14298,[fuchsia_remote_debug_protocol] Adds the fuchsia remote debug protocol library.,Andrew,male,MERGED,2018-01-26 20:59:02,2018-03-23 00:19:03,35,-0.3288,0.301,0.298,0.1002,0.0305,0.0642
-103833,Add OvalBorder and BoxShape.oval ,Bernardo,male,MERGED,2022-05-14 22:49:21,2022-07-20 21:29:05,32,-0.2949,0.2474,0.3196,0.1151,0.0381,0.1032
-87203,Add image keyboard support on Android,Tanay,male,CLOSED,2021-07-28 15:44:45,2022-08-25 21:43:13,31,0.2982,0.3172,0.3201,0.0848,0.0321,0.0765
-51126,[flutter_tools] fix build for projects with watchOS companion app,tauu,male,MERGED,2020-02-20 15:55:42,2020-04-15 19:13:07,33,-0.27,0.3049,0.3078,0.0882,0.0281,0.0639
-49527,Avoid calling didChangeDependences on a State that has dropped out of the tree,Dan,male,MERGED,2020-01-27 07:08:53,2020-01-29 22:33:02,34,0.2762,0.3067,0.279,0.1446,0.0336,0.0604
-67515,Implement Cupertino Sheet,Jaime,male,CLOSED,2020-10-07 10:32:12,2021-12-09 21:50:42,31,0.4512,0.2319,0.3802,0.098,0.0345,0.0837
-56365,FormField should autovalidate only if its content was changed,Pedro,male,CLOSED,2020-05-05 13:58:26,2020-06-18 15:35:32,32,0.3634,0.2523,0.2907,0.0895,0.0307,0.1209
-39856,Change isFlaky to isNew,Yuqian,female,CLOSED,2019-09-04 23:53:17,2019-10-02 22:47:56,33,-0.6265,0.3224,0.1958,0.1084,0.0438,0.0922
-31028,Adds support for generating projects that use AndroidX support libraries,Josh,male,MERGED,2019-04-14 05:01:19,2019-06-01 01:33:03,33,0.3578,0.2864,0.3396,0.0879,0.0299,0.0625
-18347,Expose Text foreground from engine,Dan,male,MERGED,2018-06-10 19:36:11,2018-06-21 00:23:51,33,-0.31,0.2682,0.3277,0.1037,0.022,0.0717
-5689,Update to Dart `1.20.0-dev.1.0`.,Phil,male,MERGED,2016-08-31 21:41:53,2016-09-08 20:14:08,33,-0.4113,0.3161,0.2512,0.0956,0.0237,0.0757
-117698,Improve CupertinoContextMenu to match native more,Manuel,male,MERGED,2022-12-27 21:52:17,2023-02-15 17:37:22,30,0.6129,0.2725,0.3815,0.0805,0.0311,0.0574
-96774,Fix flutter web app not respecting assets path when in non-root folder,nicolasvac,none,MERGED,2022-01-18 14:45:17,2022-03-10 23:50:17,31,-0.6485,0.3952,0.1657,0.0885,0.0269,0.064
-96664,fix: BottomNavigationBarItem colors,Zlati,female,CLOSED,2022-01-14 17:53:38,2022-07-19 12:32:33,31,-0.4101,0.3277,0.2656,0.0885,0.04,0.0759
-82575,"[flutter] when primary mouse pointers don't contact a focused node, reset the focus",Jonah,male,MERGED,2021-05-14 21:30:23,2021-06-09 00:39:06,31,-0.3698,0.2822,0.3251,0.0893,0.0301,0.0677
-75027,[flutter_tools] switch dart defines to base64 to avoid windows control characters,Jonah,male,MERGED,2021-01-29 23:10:40,2021-02-02 17:10:49,32,0.2948,0.2657,0.3293,0.1285,0.0231,0.0528
-74469,Implement dartPluginClass support for plugins,Emmanuel,male,MERGED,2021-01-22 06:14:01,2021-02-19 17:22:46,32,-0.5196,0.281,0.2768,0.1562,0.028,0.0539
-70747,Roll Engine from 35a0b9fe6827 to 4b859cee939a (4 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-18 07:45:41,2020-11-19 17:51:34,32,-0.6855,0.2944,0.164,0.1903,0.0121,0.0577
-48223,Add HeroMode widget,najeira,none,MERGED,2020-01-06 02:44:32,2020-10-31 04:23:03,32,0.3233,0.2908,0.3122,0.1153,0.0438,0.0641
-29809,Fix text selection toolbar appearing under obstructions,yaheng,female,MERGED,2019-03-22 18:38:37,2019-05-06 18:18:10,32,0.6273,0.2942,0.3146,0.0798,0.0287,0.0763
-5295,Update Dart SDK to `1.19.0-dev.4.0`.,Phil,male,CLOSED,2016-08-08 22:32:35,2016-08-10 23:00:14,32,0.3308,0.2761,0.3467,0.0935,0.0246,0.0722
-112149,Revert file naming convention of .aar files to support fuzzy matching in build.gradle,林军华,none,MERGED,2022-09-22 06:40:23,2022-10-04 03:37:23,27,-0.3289,0.273,0.35,0.0962,0.0205,0.057
-110052,Add support for image insertion on Android,Tanay,male,MERGED,2022-08-23 00:43:55,2023-01-31 19:46:19,29,0.2944,0.3093,0.3096,0.1093,0.0337,0.0577
-102687,[framework] remove forced compositing from opacity,Jonah,male,CLOSED,2022-04-27 20:47:34,2022-05-26 02:00:42,25,0.4718,0.2807,0.2926,0.1226,0.0235,0.0595
-91496,[Stepper] Add Alternative Label on horizontal-type Stepper,Jiun,male,MERGED,2021-10-08 16:07:10,2022-06-06 21:43:10,30,0.5905,0.2312,0.3389,0.1145,0.0319,0.0839
-83530,Add a more complete app template for Flutter (skeleton),Filip,male,MERGED,2021-05-28 00:23:02,2021-06-28 22:26:05,18,0.3468,0.2357,0.4159,0.1056,0.0229,0.0534
-62330,Use a LinkedList to improve the performances of ChangeNotifier,Remi,male,MERGED,2020-07-27 11:19:34,2020-08-26 18:34:03,31,-0.2718,0.3191,0.3147,0.1031,0.0281,0.0529
-43735,Fixed onSort bug in data_table.dart,Ander,male,CLOSED,2019-10-29 17:25:27,2020-03-13 01:20:51,30,0.4198,0.2742,0.33,0.124,0.0276,0.0651
-28152,Improve hot reload performance,Jonah,male,MERGED,2019-02-19 17:51:13,2019-03-15 22:02:46,31,-0.4115,0.3034,0.2988,0.0979,0.0234,0.0701
-16705,Add support for listing and launching emulators,Danny,male,MERGED,2018-04-18 10:06:59,2018-05-09 15:04:01,31,0.2846,0.3386,0.2989,0.1015,0.0196,0.0527
-99731,[Material] Create an InkSparkle splash effect that matches the Material 3 ripple effect,Anthony,male,MERGED,2022-03-08 02:50:33,2022-03-09 23:13:47,29,0.4886,0.5431,0.381,0.0171,0.0451,0.0205
-97928,[defunct] MediaQuery as InheritedModel,Callum,male,CLOSED,2022-02-07 04:51:26,2022-11-01 23:44:04,28,-0.4065,0.3038,0.2888,0.1019,0.0436,0.0637
-78779,Roll Plugins from d7125cdb91c0 to 8621694430d0 (12 revisions),engine-flutter-autoroll,none,CLOSED,2021-03-22 10:52:38,2021-03-23 18:47:31,30,-0.8668,0.2824,0.2223,0.1759,0.0112,0.0514
-74814,Add platform view supports on Linux,Yuhui,male,CLOSED,2021-01-27 14:39:44,2022-08-31 00:57:27,29,-0.3914,0.2538,0.3335,0.1057,0.0257,0.0536
-59766,FormField should autovalidate only if its content was changed (fixed),Pedro,male,MERGED,2020-06-18 14:50:16,2020-07-16 16:31:07,30,0.5036,0.2898,0.375,0.1129,0.0249,0.0483
-49598,add sample code for page_storage.dart,glaze,female,CLOSED,2020-01-28 04:31:40,2020-04-08 22:17:14,30,0.3384,0.379,0.2702,0.0616,0.0291,0.0877
-111852,Add `allowedButtonsFilter` to prevent Draggable from appearing with secondary click.,Bernardo,male,MERGED,2022-09-19 04:36:41,2023-01-13 05:45:50,29,-0.2829,0.2108,0.3686,0.1258,0.0379,0.0776
-105836,"moving the left handle automatically scrolls EditableText to the right handle, which doesn't happen on native",takashi,male,MERGED,2022-06-11 18:11:07,2023-03-01 19:52:28,28,0.3175,0.2982,0.2692,0.102,0.0429,0.0893
-101586,Feat: dSYM debug info for iOS & macOS builds,Ivan,male,MERGED,2022-04-08 15:27:14,2022-09-05 18:16:17,25,-0.3322,0.2912,0.2568,0.1321,0.0308,0.0659
-85118,[integration_test] Support collecting of SkSL,Jia,female,CLOSED,2021-06-23 11:22:53,2021-12-01 00:00:03,29,0.2998,0.2555,0.3042,0.1295,0.0353,0.0798
-70730,Improve performance of Widget Tests,Jia,female,MERGED,2020-11-18 00:39:11,2021-01-13 01:29:03,28,-0.4739,0.2604,0.2788,0.1238,0.0396,0.0739
-70047,Roll Engine from 0f7cdca65fba to e5eea3756a9b (4 revisions),engine-flutter-autoroll,none,CLOSED,2020-11-08 10:57:42,2020-11-09 18:16:34,29,-0.6681,0.3585,0.1762,0.0719,0.0165,0.0625
-37819,Add HtmlElementView (the Flutter Web platform view),Harry,male,MERGED,2019-08-07 23:02:01,2019-08-29 19:49:05,26,0.365,0.2792,0.2927,0.1423,0.0248,0.0622
+Number,Title,Author,Gender,State,Created,Closed,Lifetime,Number of Comments,Sentiment,Sadness,Joy,Fear,Disgust,Anger,Concepts
+5020,Adding Core support for Promises,Chris,male,CLOSED,2016-02-01 09:35:41,2017-02-28 23:08:59,9446,466,-0.3182,0.2906,0.3432,0.1125,0.0352,0.0584,"'ECMAScript', 'Exception handling', 'Reason'"
+18131,esm: provide named exports for all builtin libraries,snek,male,CLOSED,2018-01-13 10:29:10,2018-04-29 13:41:39,2547,274,-0.3603,0.3099,0.2776,0.0929,0.0414,0.0726,"'Reason', 'Export', 'Import'"
+26540,async-hooks: introduce async-storage API,Vladimir,male,CLOSED,2019-03-09 10:07:51,2020-02-23 19:25:03,8433,208,0.3709,0.2696,0.3247,0.1072,0.0375,0.0682,"'Node.js', 'Argument', 'Question'"
+4765,Enable Node.js to run with Microsoft's ChakraCore engine,Kunal,male,CLOSED,2016-01-19 17:18:30,2016-02-19 16:58:51,744,199,-0.2985,0.2497,0.3534,0.0996,0.0447,0.0813,"'Source code', 'Time', 'Cross-platform'"
+6792,Add v8_inspector support,Ali,male,CLOSED,2016-05-16 20:27:18,2016-05-30 16:12:40,332,163,0.2717,0.2937,0.2981,0.0774,0.0411,0.0845,"'Google Chrome', 'Debugger', 'Debugging'"
+2133,workers: initial implementation,Petka,female,CLOSED,2015-07-08 12:31:57,2016-12-11 14:25:53,12530,151,-0.4047,0.2754,0.2687,0.0952,0.0385,0.0863,"'Node.js', 'Serialization', 'Web worker'"
+29327,module: resolve self-references,Jan,male,CLOSED,2019-08-26 21:52:41,2019-10-24 22:15:02,1416,149,-0.3931,0.2978,0.2617,0.0951,0.031,0.0568,"'File system', 'Utility', 'Node.js'"
+758,Implement unhandled rejection tracking,Petka,female,CLOSED,2015-02-08 17:38:00,2015-02-25 00:30:43,391,146,0.3731,0.3008,0.2712,0.1436,0.0313,0.0685,"'Time', 'Node.js', 'Requirement'"
+18392,esm: Implement esm mode flag,Guy,male,CLOSED,2018-01-26 11:07:34,2019-03-19 02:02:47,9999,145,-0.3234,0.2743,0.3169,0.0854,0.0306,0.0645,"'Node.js', 'File format', 'Filename'"
+19335,process: add allowedNodeEnvironmentFlags property,Christopher,male,CLOSED,2018-03-13 23:28:36,2018-08-25 01:17:16,3938,143,-0.4459,0.2835,0.2676,0.0975,0.0463,0.0869,"'Source code', 'Command-line interface', 'Reason'"
+3743,cluster: migrate from worker.suicide,Evan,male,MERGED,2015-11-10 19:15:06,2016-04-26 00:29:24,4013,140,-0.5079,0.3551,0.2441,0.1066,0.044,0.0836,"'Reason', 'Intention', 'Code'"
+20876,worker: initial implementation,Anna,female,CLOSED,2018-05-22 01:12:45,2018-06-06 17:55:00,377,139,0.3268,0.2529,0.3219,0.0906,0.0333,0.0726,"'Unix', 'Exception handling', 'Deadlock'"
+4782,process: add 'warning' event,James,male,CLOSED,2016-01-20 19:47:20,2016-03-24 20:21:24,1537,137,-0.3358,0.2923,0.2905,0.1154,0.036,0.0842,"'Reason', 'Code', 'JavaScript'"
+36328,Https imports,Bradley,male,MERGED,2020-11-30 16:47:19,2022-02-10 03:48:34,10475,132,-0.456,0.3347,0.2884,0.0977,0.0342,0.0626,"'Internet', 'Node.js', 'Hypertext Transfer Protocol'"
+4682,"buffer: add Buffer.from(), Buffer.alloc() and Buffer.allocUnsafe(), soft-deprecate Buffer(num)",James,male,CLOSED,2016-01-14 04:23:32,2016-03-16 15:36:13,1499,132,-0.3777,0.2663,0.3011,0.1162,0.0418,0.0845,"'Argument', 'Code', 'Reason'"
+43525,test_runner: add TAP parser,Wassim,male,MERGED,2022-06-21 16:19:49,2022-11-21 22:50:22,3679,131,-0.3249,0.2655,0.2779,0.111,0.0358,0.0687,"'Parsing', 'Test plan', 'Code'"
+12892,Async Hooks - Initial Implementation,Andreas,male,CLOSED,2017-05-08 07:37:38,2017-05-10 20:27:27,61,129,-0.3795,0.3029,0.2758,0.1296,0.0389,0.0671,"'OS X', 'Linux', 'Node.js'"
+2286,tools: update eslint to v1.x,Michaël,male,CLOSED,2015-08-01 12:55:51,2016-01-13 22:18:02,3969,127,-0.4838,0.2689,0.3203,0.0952,0.0308,0.1136,"'Google', 'Ton', 'Line'"
+21857,util: expose promise events,snek,male,CLOSED,2018-07-17 18:44:25,2018-09-17 15:44:48,1485,125,-0.4634,0.3134,0.2726,0.0896,0.0441,0.0743,"'Debugger', 'Reason', 'Node.js'"
+29656,stream: construct,Robert,male,CLOSED,2019-09-22 21:04:31,2020-05-27 08:26:25,5939,122,-0.5173,0.2996,0.2697,0.1402,0.0385,0.0761,"'Node.js', 'Land', 'Preference'"
+22712,node-report: meld into core,Gireesh,male,MERGED,2018-09-05 15:51:04,2019-01-18 05:08:00,3229,121,0.3533,0.2975,0.3178,0.0881,0.0332,0.0729,"'Reason', 'Report', 'Code'"
+21551,new core modules go under a namespace,Jordan,male,CLOSED,2018-06-26 22:23:02,2020-06-25 01:18:42,17499,120,-0.3101,0.2626,0.3346,0.1052,0.0362,0.0637,"'Node.js', 'Reason', 'Future'"
+33021,process: Change default --unhandled-rejections=throw,Dan,male,CLOSED,2020-04-23 10:36:00,2020-09-22 19:30:16,3657,118,-0.5746,0.3553,0.211,0.1022,0.0332,0.0941,"'Time', 'Reason', 'Philosophy'"
+2534,"http: fixed socket destruction, timeout and leaking",Timur,male,CLOSED,2015-08-25 01:59:16,2017-05-26 16:08:03,15374,119,-0.2695,0.2972,0.2787,0.1166,0.0427,0.0783,"'Reason', 'Linux', 'Web server'"
+41749,lib: add fetch,Michaël,male,MERGED,2022-01-29 14:48:51,2022-02-01 08:17:50,65,118,-0.3931,0.3124,0.338,0.0738,0.0367,0.0658,"'Web browser', 'Node.js', 'Code'"
+29207,"src,lib: make ^C print a JS stack trace",Chengzhong,male,CLOSED,2019-08-19 17:20:15,2020-01-28 05:54:00,3877,118,-0.5767,0.2945,0.2329,0.1184,0.0319,0.0958,"'Reason', 'Code', 'Knowledge'"
+21573,module: use compileFunction over Module.wrap,Ujjwal,male,CLOSED,2018-06-28 06:50:55,2019-02-19 15:29:43,5673,118,-0.3011,0.2899,0.2982,0.1095,0.0314,0.0787,"'Node.js', 'Code', 'Reason'"
+14901,"src, test: node internals' postmortem metadata ",mary,female,CLOSED,2017-08-17 19:08:36,2018-01-26 00:56:50,3870,115,-0.3289,0.2917,0.2675,0.099,0.0304,0.0888,"'Debugger', 'Memory leak', 'Reason'"
+27375,deps: update V8 to 7.5,Michaël,male,MERGED,2019-04-23 19:59:30,2019-06-01 14:05:39,930,114,-0.8382,0.557,0.1058,0.0626,0.0145,0.0427,"'Compiler', 'Code', 'Linux'"
+6102,http: don't inherit from Object.prototype,mscdex,none,CLOSED,2016-04-07 16:10:47,2017-08-24 23:05:10,12103,113,-0.3901,0.3,0.2909,0.1177,0.0339,0.0699,"'Argument', 'Code', 'Utility'"
+14500,test/dgram: Add support for IPv6 link local scope IDs in received UDP datagrams,Pekka,male,CLOSED,2017-07-26 12:03:14,2020-07-21 11:02:41,26183,111,-0.419,0.3274,0.2843,0.1222,0.0291,0.0626,"'Unix', 'Linux', 'Node.js'"
+33416,module: CJS exports detection for modules with __esModule export,Guy,male,CLOSED,2020-05-15 07:17:20,2020-09-29 02:23:26,3283,110,-0.2623,0.254,0.3327,0.1228,0.0394,0.0824,"'JavaScript', 'Node.js', 'XMLHttpRequest'"
+3594,fs: optimize realpath using uv_fs_realpath(),Yuval,male,CLOSED,2015-10-29 23:03:17,2016-04-15 07:50:30,4041,110,-0.5911,0.276,0.2913,0.1301,0.0357,0.0767,"'Operating system', 'Windows 10', 'Node.js'"
+1457,Replace C HTTP parser with JS HTTP parser,mscdex,none,CLOSED,2015-04-18 00:04:16,2016-04-30 16:31:34,9088,108,0.2728,0.2476,0.3158,0.1027,0.0365,0.0836,"'Parsing', 'Code', 'Intel Core'"
+19447,[6.x] n-api: backport to v6.x,Gabriel,male,CLOSED,2018-03-19 15:46:43,2018-04-16 21:49:00,678,107,0.2925,0.2586,0.3418,0.0994,0.0366,0.0725,"'Node.js', 'OS X', 'C++'"
+9659,cluster: fixing debug port logic for forking workers,Yuri,male,CLOSED,2016-11-17 11:00:27,2017-06-11 19:34:34,4953,107,-0.3711,0.2726,0.2795,0.0956,0.0397,0.0758,"'Debugging', 'Node.js', 'Code'"
+5102,fs: add a temporary fix for re-evaluation support,Nikita,female,CLOSED,2016-02-05 17:07:23,2016-02-13 04:41:40,180,105,-0.5097,0.3209,0.2424,0.104,0.0323,0.0803,"'Code', 'Reason', 'Stack trace'"
+21128,util: add MIME utilities,Bradley,male,MERGED,2018-06-04 21:43:35,2022-10-19 02:26:17,38333,104,0.3272,0.2268,0.3521,0.0846,0.0333,0.0728,"'Utility', 'Standardization', 'Node.js'"
+20097,src: exit on gc unhandled rejection,Ruben,male,CLOSED,2018-04-17 12:24:28,2019-03-11 20:35:17,7880,104,-0.5245,0.3455,0.2256,0.1018,0.0413,0.0884,"'Mind', 'Code', 'Semantics'"
+16675,"loader, docs, test: named exports from commonjs modules",snek,male,CLOSED,2017-11-02 00:03:38,2017-12-17 20:30:09,1100,103,-0.4002,0.2834,0.2815,0.1172,0.0354,0.0724,"'Logic', 'Reason', 'Semantics'"
+19898,fs: improve argument handling for ReadStream,Ujjwal,male,CLOSED,2018-04-09 17:35:01,2018-05-14 17:07:28,840,102,-0.4028,0.2807,0.3329,0.1447,0.05,0.0626,"'Floating point', 'Ton', 'Reason'"
+37468,esm: consolidate ESM Loader methods,Jacob,male,CLOSED,2021-02-21 18:29:31,2021-09-12 01:11:05,4855,101,-0.4675,0.3388,0.255,0.1039,0.0359,0.0683,"'Code', 'Iterator', 'Readability'"
+37375,module: Unflag JSON modules,Antoine,male,CLOSED,2021-02-15 01:32:24,2022-02-19 17:26:32,8872,100,-0.513,0.3652,0.2296,0.0791,0.039,0.0905,"'JavaScript', 'Web server', 'Code'"
+33879,doc: drop minimum waiting time as hard guideline,Anna,female,CLOSED,2020-06-14 20:43:42,2022-02-14 00:01:13,14619,96,-0.3188,0.2763,0.2817,0.1099,0.037,0.0771,"'Reason', 'Experiment', 'System'"
+27984,http: don't emit end after aborted,Robert,male,CLOSED,2019-05-30 18:25:59,2019-10-14 02:07:07,3272,98,-0.5626,0.3176,0.2987,0.1178,0.0362,0.066,"'Debian', 'Failure', 'Node'"
+26334,Restrict process and Buffer globals to CommonJS,Guy,male,CLOSED,2019-02-27 12:17:18,2019-07-31 20:47:24,3705,97,-0.295,0.2914,0.2937,0.0997,0.0414,0.0566,"'Standard deviation', 'Syntax', 'Node.js'"
+29197,stream: fix multiple `destroy()` calls,Robert,male,CLOSED,2019-08-18 21:41:53,2020-02-29 08:35:06,4667,96,-0.5908,0.3577,0.2078,0.1351,0.0397,0.1066,"'Argument', 'Evolution', 'Want'"
+12607,src: round nsec instead of truncating stat times,JDP,male,CLOSED,2017-04-23 07:01:19,2017-05-25 22:07:22,783,95,-0.3074,0.2993,0.2938,0.1168,0.0379,0.0565,"'Test case', 'Truncation', 'Microsoft Windows'"
+7152,buffer: runtime-deprecate Buffer constructor,Nikolai,male,CLOSED,2016-06-04 16:22:28,2017-05-04 12:06:39,8012,95,-0.4806,0.2929,0.2764,0.0907,0.0344,0.0867,"'Reason', 'Argument', 'Knowledge'"
+22079,Linux large pages - after rebase,Uttam,male,MERGED,2018-08-02 00:29:24,2018-10-18 21:44:43,1869,94,-0.4409,0.3129,0.3036,0.0957,0.0313,0.0727,"'Executable', 'Compiler', 'Debian'"
+6375,"lib,src: ""throw"" on unhandled promise rejections",Jeremiah,male,CLOSED,2016-04-25 17:23:13,2017-03-23 21:14:55,7972,94,-0.6192,0.3755,0.2125,0.1153,0.0408,0.0876,"'Knowledge', 'Debugging', 'Code'"
+3622,lib: use arrow functions instead of bind,Minwoo,male,CLOSED,2015-11-01 15:08:25,2015-12-17 10:46:53,1100,94,-0.3059,0.2784,0.2873,0.1365,0.0384,0.0732,"'Node.js', 'Argument', 'Land'"
+41263,http: refactor headersTimeout and requestTimeout logic,Paolo,male,MERGED,2021-12-21 15:07:02,2022-04-13 14:48:00,2712,93,-0.3385,0.3205,0.3077,0.0997,0.0387,0.067,"'Node.js', 'Time', 'Code'"
+14004,deps: update V8 to 6.0,Michaël,male,CLOSED,2017-06-30 12:01:35,2017-08-01 20:23:46,776,93,-0.6006,0.315,0.2761,0.1031,0.0349,0.0623,"'Debian', 'FreeBSD', 'Node.js'"
+35015,util: add util.parseArgs(),Christopher,male,CLOSED,2020-09-01 22:31:32,2020-09-20 00:44:15,434,92,-0.356,0.2681,0.276,0.1158,0.0327,0.0809,"'Logic', 'Argument', 'Command-line interface'"
+17156,events: add off alias to removeListener,Ulmanb,none,CLOSED,2017-11-20 18:25:33,2017-12-20 07:57:39,710,92,-0.4313,0.2981,0.3048,0.1071,0.0357,0.0786,"'Argument', 'Node.js', 'Heart'"
+31229,WIP: Move ESM loaders to worker thread,Bradley,male,CLOSED,2020-01-06 21:15:51,2021-04-09 22:00:01,11017,91,-0.3926,0.2543,0.2806,0.1097,0.0307,0.0729,"'Mind', 'Node.js', 'Source code'"
+8169,buffer: hard-deprecate calling Buffer without new,Nikolai,male,CLOSED,2016-08-18 20:52:01,2016-08-25 18:04:43,165,91,-0.3888,0.2773,0.2567,0.1155,0.0333,0.0846,"'Test case', 'Code', 'Reason'"
+881,src: command line option to preload modules,Ali,male,CLOSED,2015-02-18 18:36:44,2015-03-19 10:45:29,688,91,-0.4449,0.2873,0.2998,0.0983,0.0242,0.0948,"'Node.js', 'Perl', 'Executable'"
+42334,"src,doc: Experimental support for SEA",Michael,male,CLOSED,2022-03-14 22:32:45,2023-02-08 22:46:06,7944,90,0.3365,0.2925,0.3039,0.1244,0.0295,0.0826,"'File system', 'Compiler', 'Executable'"
+24811,cli: add --max-http-header-size flag,Colin,male,MERGED,2018-12-03 17:33:00,2018-12-20 14:32:54,405,90,0.3876,0.2801,0.2901,0.1208,0.031,0.0594,"'Ton', 'Node.js', 'Node'"
+37681,dns: default to verbatim=true in dns.lookup(),treysis,none,CLOSED,2021-03-09 22:11:24,2021-03-26 16:18:20,402,89,-0.5381,0.348,0.2864,0.0984,0.0357,0.0626,"'IP address', 'Domain Name System', 'Code'"
+9304,Trace event support for Node.js,Matthew,male,CLOSED,2016-10-26 23:53:35,2016-12-20 20:33:43,1317,89,-0.3122,0.3028,0.2842,0.1041,0.0312,0.0685,"'Code', 'Abstraction', 'Command-line interface'"
+36139,deps: update V8 to 8.8,Michaël,male,MERGED,2020-11-16 20:31:32,2021-02-12 06:59:59,2098,88,-0.5556,0.289,0.3361,0.0926,0.0322,0.0488,"'Microsoft Visual Studio', 'Linux', 'Microsoft Windows'"
+3063,timers: fix processing of nested same delay timers,Jeremy,male,CLOSED,2015-09-25 17:01:14,2016-07-15 17:38:59,7057,88,-0.3437,0.2972,0.2961,0.096,0.0332,0.078,"'Reason', 'Code', 'Timer'"
+44004,"src,process: initial permission model implementation",Rafael,male,MERGED,2022-07-27 01:15:35,2023-02-23 18:11:52,5081,86,-0.3042,0.2805,0.3234,0.0948,0.0332,0.0733,"'File system', 'Node.js', 'Code'"
+16170,Enable explicit `.m.js` intent for ESM,Andrea,female,CLOSED,2017-10-12 21:43:40,2017-12-15 22:16:36,1537,87,-0.319,0.2872,0.3162,0.097,0.0272,0.07,"'Node.js', 'Knowledge', 'Reason'"
+6893,buffer: improve creation performance,Ingvar,male,CLOSED,2016-05-20 10:01:59,2016-06-06 11:31:23,409,87,0.3377,0.2787,0.3058,0.1359,0.0325,0.0673,"'Code', 'System', 'Logic'"
+15346,buffer: runtime-deprecate Buffer ctor by default,Nikolai,male,CLOSED,2017-09-11 19:42:08,2018-06-15 11:32:06,6640,86,-0.5133,0.3379,0.2595,0.1032,0.033,0.0702,"'Code', 'Application programming interface', 'Question'"
+5251,emit `error` events consistently in next tick,Sakthipriyan,male,CLOSED,2016-02-15 23:12:35,2017-05-23 18:49:04,11108,86,-0.5282,0.3324,0.2344,0.1402,0.0309,0.0898,"'Debugger', 'Exception handling', 'Semantics'"
+44250,inspector: introduce inspector/promises API,Erick,male,MERGED,2022-08-16 15:23:10,2022-10-13 23:12:05,1400,85,-0.2924,0.2518,0.3466,0.0958,0.0368,0.0643,"'Requirement', 'Reason', 'Land'"
+38332,errors: display Node.js version at the end of stacktraces on fatal exception that causes exit,Divlo,none,CLOSED,2021-04-21 15:37:25,2021-09-08 17:36:45,3362,85,-0.4056,0.285,0.3036,0.1238,0.0351,0.0783,"'JavaScript', 'Command-line interface', 'Stack trace'"
+33812,esm: loader chaining,snek,male,CLOSED,2020-06-09 15:47:00,2020-12-24 16:08:12,4752,85,-0.3129,0.2479,0.2862,0.096,0.042,0.0909,"'Knowledge', 'Reason', 'Use case'"
+1159,workers: initial implementation,Petka,female,CLOSED,2015-03-15 22:38:28,2015-07-08 12:32:14,2750,84,-0.2724,0.2932,0.3063,0.1013,0.0304,0.0699,"'OS X', 'Node.js', 'Linux'"
+24347,http2: make compat finished match http/1,Robert,male,CLOSED,2018-11-13 23:04:42,2020-02-18 19:55:38,11085,84,-0.403,0.3162,0.2575,0.1227,0.042,0.0726,"'Test case', 'Code', 'Understanding'"
+21875,fs: implement recursive (mkdirp) functionality,Benjamin,male,CLOSED,2018-07-19 00:41:02,2018-08-11 19:09:59,570,84,0.3259,0.265,0.3499,0.1265,0.0317,0.0605,"'Intel Core', 'Reason', 'Code'"
+45803,deps: add simdutf dependency,Yagiz,male,CLOSED,2022-12-09 21:06:31,2022-12-22 20:22:32,311,82,-0.4718,0.4168,0.2606,0.0862,0.0218,0.0712,"'Linux', 'Ton', 'Code'"
+8040,Add crypto.timingSafeEqual(),Teddy,male,CLOSED,2016-08-09 23:32:06,2016-08-20 02:38:11,243,82,-0.5039,0.327,0.2479,0.1189,0.0271,0.073,"'Raspberry Pi', 'Statistics', 'Reason'"
+36111,"TLS: improve compliance with shutdown standard, remove hacks",Jameson,male,CLOSED,2020-11-13 20:46:42,2021-12-08 06:30:54,9346,79,-0.5015,0.3661,0.249,0.1005,0.0292,0.0619,"'Reason', 'Understanding', 'Knowledge'"
+34895,lib: create diagnostics_channel module,Stephen,male,CLOSED,2020-08-23 20:13:02,2020-10-31 21:24:16,1657,77,-0.3425,0.2697,0.3154,0.1063,0.0343,0.0619,"'Time', 'Code', 'Node.js'"
+30020,deps: update V8 to 7.9,Michaël,male,MERGED,2019-10-18 09:10:13,2019-11-08 15:07:24,510,81,-0.521,0.403,0.2774,0.0854,0.0257,0.0445,"'Microsoft Visual Studio', 'Compiler', 'Node.js'"
+6413,"Revert ""fs: add a temporary fix for re-evaluation support""",James,male,CLOSED,2016-04-27 05:29:39,2016-08-29 22:13:47,2993,81,-0.3897,0.2679,0.3107,0.0994,0.0429,0.0824,"'Download', 'Deprecation'"
+36816,http: align with stream.Writable,Robert,male,CLOSED,2021-01-06 17:15:29,2021-03-10 14:04:14,1509,80,-0.5534,0.3116,0.2983,0.122,0.0293,0.0567,"'Code', 'Failure', 'Understanding'"
+25852,deps: update V8 to 7.3,Michaël,male,CLOSED,2019-01-31 16:22:10,2019-03-14 17:53:05,1010,80,-0.4975,0.3414,0.2921,0.0971,0.0363,0.0536,"'Linux', 'Node.js', 'Microsoft Windows'"
+12442,util: add util.promisify(),Anna,female,MERGED,2017-04-16 16:30:05,2017-05-09 13:05:49,549,80,0.4051,0.2806,0.3542,0.0949,0.036,0.051,"'Node.js', 'Conversation', 'Voting'"
+42340,deps: upgrade to libuv 1.44.2,Luigi,male,CLOSED,2022-03-15 09:11:46,2022-11-05 18:55:06,5650,79,-0.4447,0.3322,0.2919,0.1322,0.0303,0.0612,"'Linux', 'Time', 'Node.js'"
+15362,deps: update V8 to 6.2,Michaël,male,CLOSED,2017-09-12 11:20:17,2017-10-19 00:09:58,877,79,-0.5429,0.3081,0.2641,0.11,0.0427,0.0763,"'FreeBSD', 'Node.js', 'Reason'"
+38233,quic: add quic,James,male,CLOSED,2021-04-13 21:13:25,2022-08-21 03:50:43,11863,78,-0.3219,0.3385,0.2529,0.1103,0.0337,0.0473,"'Node.js', 'Multicast', 'Statistics'"
+32116,deps: update V8 to 8.1,mary,female,CLOSED,2020-03-06 04:21:07,2020-03-18 23:50:58,307,78,-0.518,0.2969,0.2868,0.1301,0.0318,0.0589,"'Microsoft Visual Studio', 'Node.js', 'Linux'"
+44731,net: add autoSelectFamily option,Paolo,male,MERGED,2022-09-20 12:31:46,2022-12-03 17:55:57,1781,77,-0.4472,0.2982,0.322,0.1092,0.0361,0.0621,"'Linux', 'Node.js', 'Domain Name System'"
+30891,[WIP] Support requiring .mjs files,Wesley,male,CLOSED,2019-12-10 22:05:32,2021-06-20 16:16:04,13386,77,-0.4605,0.3353,0.2685,0.0845,0.0341,0.0708,"'Reason', 'Code', 'Wiki'"
+30370,src: add support for top level await,snek,male,MERGED,2019-11-12 06:30:54,2020-05-14 17:41:04,4427,77,-0.3973,0.3051,0.2842,0.1091,0.0314,0.076,"'Ton', 'Evaluation', 'Reason'"
+29412,child_process: add 'overlapped' stdio flag,Thiago,male,CLOSED,2019-09-02 18:58:05,2021-01-03 21:42:33,11739,77,-0.5781,0.3219,0.2727,0.0867,0.0544,0.055,"'Unix', 'Code', 'Microsoft Windows'"
+5950,module: preserve symlinks when requiring,Alex,male,CLOSED,2016-03-30 03:54:53,2016-04-25 16:26:14,637,77,-0.4186,0.2968,0.3068,0.1037,0.031,0.0759,"'Want', 'Use case', 'System'"
+38905,bootstrap: implement run-time user-land snapshots via --build-snapshot and --snapshot-blob,Joyee,female,CLOSED,2021-06-02 17:04:41,2022-08-02 16:53:46,10224,76,-0.3122,0.3265,0.308,0.0871,0.0254,0.0496,"'Compiler', 'Node.js', 'Code'"
+35398,deps: Experiments with Corepack,Maël,male,CLOSED,2020-09-28 15:37:26,2021-07-31 13:10:58,7342,76,-0.4018,0.2821,0.3185,0.1131,0.0252,0.0664,"'Experiment', 'Reason', 'Node.js'"
+13870,Report async tasks to V8 Inspector,Miroslav,male,CLOSED,2017-06-22 09:48:09,2017-08-17 12:57:30,1347,76,-0.4132,0.2843,0.2695,0.1039,0.0415,0.0802,"'Node.js', 'Debugging', 'JavaScript'"
+42115,deps: update V8 to 10.2,Michaël,male,CLOSED,2022-02-24 13:54:11,2022-04-14 15:13:47,1177,75,-0.4429,0.2988,0.2891,0.1268,0.0352,0.0562,"'Microsoft Visual Studio', 'Node.js', 'Python (programming language)'"
+34337,deps: update V8 to 8.5,Michaël,male,CLOSED,2020-07-13 13:41:02,2020-09-29 15:25:21,1874,75,-0.5338,0.2805,0.2767,0.0994,0.03,0.0706,"'Compiler', 'Microsoft Visual Studio', 'Linux'"

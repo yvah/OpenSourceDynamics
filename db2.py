@@ -5,7 +5,7 @@ from cloudant import load_json
 class DB2:
     def __init__(self, credentials_file):
         self.credentials = load_json(credentials_file)
-        self.schema = "D662004CBRZ."
+        self.schema = self.credentials["username"].upper() + "."
 
         self.connection = ibm_db.pconnect(f"DATABASE={self.credentials['database']};"
                                           f"HOSTNAME={self.credentials['hostname']};"

@@ -99,14 +99,14 @@ class Repository:
                                    point_biserial_correlation_test(self.repo_items, 'State', 'Disgust'),
                                    point_biserial_correlation_test(self.repo_items, 'State', 'Anger')]
         else:
-            self.average_lifetime_state = None
-            self.average_sentiment_state = None
-            self.average_emotion_state = None
-            self.corr_state_gender = None
-            self.corr_state_comments = None
-            self.corr_state_sentiment = None
-            self.corr_state_lifetime = None
-            self.corr_state_emotion = None
+            self.average_lifetime_state = [None, None, None]
+            self.average_sentiment_state = [None, None, None]
+            self.average_emotion_state = [[None, None, None], [None, None, None], [None, None, None], [None, None, None], [None, None, None]]
+            self.corr_state_gender = [None, None]
+            self.corr_state_comments = [None, None]
+            self.corr_state_sentiment = [None, None]
+            self.corr_state_lifetime = [None, None]
+            self.corr_state_emotion = [[None, None], [None, None], [None, None], [None, None], [None, None]]
 
 
 
@@ -273,6 +273,9 @@ def average(repo_items, variable, filter):
     list3 = []
 
     for ri in repo_items:
+        if variable == 'Lifetime' and ri.state == 'OPEN':
+            continue
+
         filter_var = ''
         if (filter == 'State'):
             filter_var = ri.state
@@ -333,6 +336,9 @@ def point_biserial_correlation_test(repo_items, di_var, cont_var):
     di_list = []
     cont_list = []
     for ri in repo_items:
+        if cont_var == 'Lifetime' and ri.state == 'OPEN':
+            continue
+
         di_value = ''
         if di_var == 'State':
             di_value = ri.state
@@ -402,6 +408,9 @@ def pearson_correlation_test(repo_items, var1, var2):
     var2_list = []
 
     for ri in repo_items:
+        if var1 == 'Lifetime' and ri.state == 'OPEN':
+            continue
+
         if var1 == 'Comments':
             var1_list.append(ri.number_of_comments)
         elif var1 == 'Lifetime':

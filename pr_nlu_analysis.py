@@ -80,7 +80,7 @@ class Repository:
 
 
         # Additional statistics for Pull Requests
-        if type == 'Pull Requests':
+        if type == 'pullRequests':
             self.values_state = ['Open', 'Closed', 'Merged']
             self.average_lifetime_state = average(self.repo_items, 'Lifetime', 'State')
             self.average_sentiment_state = average(self.repo_items, 'Sentiment', 'State')

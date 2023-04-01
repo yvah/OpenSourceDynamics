@@ -1,19 +1,64 @@
 import cloudant
+from db import DB2
 from pr_nlu_analysis import Repository
 from query import run_query
 import json
 
-def run_all(auth, repo, pull_type):
-    database = cloudant.Database("credentials.json")
-    if pull_type == "pullRequests":
-        database_name = f"{repo}-pull_requests"
-    else:
-        database_name = f"{repo}-{pull_type}"
 
-    if database.checkDatabases(database_name):
-        database.clearDatabase(database_name)
+def use_existing_data(repo, pull_type):
+    db = DB2("db2_credentials.json")
+
     owner_repo = repo.split("/")
-    data = run_query(auth, owner_repo[0], owner_repo[1], pull_type, database, database_name)
-    repo = Repository(json.loads(data))
-    repo.to_csv()
-    repo.stats_to_csv()
+    table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
+    db.copy_into("SOURCE", table)
+
+
+def use_new_data(auth, repo, pull_type):
+    # database = cloudant.CDatabase("cloudant_credentials.json")
+    db = DB2("db2_credentials.json")
+
+    owner_repo = repo.split("/")
+    table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
+
+    db.create(table)
+    db.clear(table)
+
+    data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
+    repo = Repository(json.loads(data), pull_type)
+    db.add_data(table, repo.repo_items)
+    # repo.to_csv()
+    # repo.stats_to_csv()
+
+    db.copy_into("SOURCE", table)
+
+
+# main function for testing code
+if __name__ == '__main__':
+
+    print("Enter an access token: ", end="")
+    auth = input()
+
+    p_type = ""
+    own_re = ""
+    valid = False
+
+    while not valid:
+        print("Enter a repo (owner/repo): ", end="")
+        own_re = input()
+        if len(own_re.split("/")) != 2:
+            print("Invalid input")
+        else:
+            print("Get issues or pull requests? (i or p): ", end="")
+            letter = input()
+
+            if letter == "i":
+                p_type = "issues"
+                valid = True
+            elif letter == "p":
+                p_type = "pullRequests"
+                valid = True
+            else:
+                print("Invalid input")
+
+    use_new_data(auth, own_re, p_type)
+

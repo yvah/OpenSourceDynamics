@@ -2,12 +2,7 @@ import ibm_cloud_sdk_core
 from ibmcloudant.cloudant_v1 import CloudantV1 as Cloudant
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from time import sleep
-import json
-
-
-def loadJson(filename):
-    with open(filename) as json_file:
-        return json.load(json_file)
+from db import load_json
 
 
 class Database:

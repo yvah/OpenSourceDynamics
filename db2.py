@@ -39,7 +39,7 @@ class DB2:
             ibm_db.exec_immediate(self.connection, sql_instruction)
             return True
         except Exception:
-        return False
+            return False
 
     # clears the table with the selected name, returns true on success
     def clear(self, table):

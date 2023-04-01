@@ -13,6 +13,7 @@ class DB2:
         self.schema = self.credentials["username"].upper() + "."
 
         print("connecting")
+        # establish connection to db2
         self.connection = ibm_db.pconnect(f"DATABASE={self.credentials['database']};"
                                           f"HOSTNAME={self.credentials['hostname']};"
                                           f"PORT={self.credentials['port']};"
@@ -67,17 +68,13 @@ class DB2:
         insert_command = f"INSERT INTO {self.schema + table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         insert_command = ibm_db.prepare(self.connection, insert_command)
 
+        # adds this data to the table
         params = []
         if data is not None:
             for d in data:
                 params.append((d.number, d.title, d.author, d.gender, d.state, d.createdAt, d.closedAt, d.lifetime,
                                d.number_of_comments, d.sentiment, d.emotion[0][1], d.emotion[1][1], d.emotion[2][1],
                                d.emotion[3][1], d.emotion[4][1]))
-
-        params.append((1, "title", "author", "gender", "state", "create", "close", 1.0, 1, 2.0, 3.0,
-                       4.0, 5.0, 6.0, 7.0))
-        params.append((2, "title1", "author1", "gender", "state", "create1", "close1", 1.0, 1, 2.5, 3.5,
-                       4.5, 5.5, 6.5, 7.5))
 
         success = ibm_db.execute_many(insert_command, tuple(params))
         if success is not False:

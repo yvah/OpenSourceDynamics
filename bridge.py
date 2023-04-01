@@ -5,12 +5,14 @@ from query import run_query
 import json
 
 
+# switch source to existing data set
 def use_existing_data(table):
     db = DB2("db2_credentials.json")
     db.copy_into("SOURCE", table)
     db.close()
 
 
+# gather from new repo and switch source
 def use_new_data(auth, repo, pull_type):
     # database = cloudant.CDatabase("cloudant_credentials.json")
     db = DB2("db2_credentials.json")
@@ -19,15 +21,18 @@ def use_new_data(auth, repo, pull_type):
     table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
     add_name(table)
 
+    # create and clear the table in case it doesn't exist or already has data
     db.create(table)
     db.clear(table)
 
+    # collect data and add it to the database
     data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
     repo = Repository(json.loads(data), pull_type)
     db.add_data(table, repo.repo_items)
     # repo.to_csv()
     # repo.stats_to_csv()
 
+    # switch the source to the gathered data
     db.copy_into("SOURCE", table)
     db.close()
 

@@ -8,21 +8,18 @@ def run_all(auth, repo, pull_type, use_existing):
     # database = cloudant.CDatabase("cloudant_credentials.json")
     db = DB2("db2_credentials.json")
 
-    if pull_type == "pullRequests":
-        table = f"{repo}-pull_requests"
-    else:
-        table = f"{repo}-{pull_type}"
+    owner_repo = repo.split("/")
+    table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
 
     if not use_existing:
         db.create(table)
         db.clear(table)
-        owner_repo = repo.split("/")
-        data = run_query(auth, owner_repo[0], owner_repo[1], pull_type, db, table)
 
+        data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
         repo = Repository(data)
         db.add_data(table, repo.pull_requests)
-        repo.to_csv()
-        repo.stats_to_csv()
+        # repo.to_csv()
+        # repo.stats_to_csv()
 
     db.copy_into("RESULTS", table)
 

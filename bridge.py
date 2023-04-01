@@ -5,13 +5,9 @@ from query import run_query
 import json
 
 
-def use_existing_data(repo, pull_type):
+def use_existing_data(table):
     db = DB2("db2_credentials.json")
-
-    owner_repo = repo.split("/")
-    table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
     db.copy_into("SOURCE", table)
-
     db.close()
 
 

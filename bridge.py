@@ -12,6 +12,8 @@ def use_existing_data(repo, pull_type):
     table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
     db.copy_into("SOURCE", table)
 
+    db.close()
+
 
 def use_new_data(auth, repo, pull_type):
     # database = cloudant.CDatabase("cloudant_credentials.json")
@@ -19,6 +21,7 @@ def use_new_data(auth, repo, pull_type):
 
     owner_repo = repo.split("/")
     table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
+    add_name(table)
 
     db.create(table)
     db.clear(table)
@@ -30,6 +33,14 @@ def use_new_data(auth, repo, pull_type):
     # repo.stats_to_csv()
 
     db.copy_into("SOURCE", table)
+    db.close()
+
+
+# adds the name of a database to a file
+def add_name(name):
+    with open("tables.txt", "r+") as tables:
+        if name not in tables.read():
+            tables.write(name + "\n")
 
 
 # main function for testing code
@@ -61,4 +72,3 @@ if __name__ == '__main__':
                 print("Invalid input")
 
     use_new_data(auth, own_re, p_type)
-

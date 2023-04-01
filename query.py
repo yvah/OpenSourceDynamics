@@ -29,16 +29,13 @@ def time_execution(function):
 
 
 # @time_execution  # uncomment to time function
-def run_query(auth, owner, repo, pull_type, db, db_name):
+def run_query(auth, owner, repo, pull_type):
     global max_iterations
     discount = 0
 
     print(f"Gathering {pull_type}...")
-    db.createDatabase(db_name)
-    print(auth)
-    print(owner)
-    print(repo)
-    print(pull_type)
+    # db.createDatabase(db_name)
+
     # final list to be returned
     json_list = []
     # stores the authorisation token and accept
@@ -59,7 +56,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
     # temporary "fix"
     if pull_type == "pullRequests":
         max_iterations = 1
-        pr_index = 0
+        # pr_index = 0  # todo uncomment
 
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched
@@ -146,7 +143,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                 trimmed_request["edges"][j] = node
 
             # thread started to add list of issues/prs to the database
-            Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
+            # Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
 
             json_list += trimmed_request["edges"]  # add to final list
             print(f'{len(json_list)} {pull_type} gathered')  # print progress

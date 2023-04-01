@@ -95,3 +95,7 @@ class DB2:
             if success is not False:
                 return True
         return False
+
+    # close the connection
+    def close(self):
+        ibm_db.close(self.connection)

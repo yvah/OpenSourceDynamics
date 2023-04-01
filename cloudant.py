@@ -7,7 +7,7 @@ from db import load_json
 
 class Database:
     def __init__(self, credentials_file):
-        self.credentials = loadJson(credentials_file)
+        self.credentials = load_json(credentials_file)
         iam_auth = IAMAuthenticator(self.credentials["apikey"])
 
         self.service = Cloudant(authenticator=iam_auth)

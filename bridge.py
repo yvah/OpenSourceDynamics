@@ -27,7 +27,7 @@ def use_new_data(auth, repo, pull_type):
 
     # collect data and add it to the database
     data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
-    repo = Repository(json.loads(data), pull_type)
+    repo = Repository(data, pull_type)
     db.add_data(table, repo.repo_items)
     # repo.to_csv()
     # repo.stats_to_csv()

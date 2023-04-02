@@ -10,7 +10,7 @@ comment_threshold = 10
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
-              (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (3, 100)]
+              (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
 
 # get a list of known bots
 with open("data/bots.txt") as file:
@@ -41,7 +41,7 @@ def run_query(auth, owner, repo, pull_type):
     # db.createDatabase(db_name)
 
     # final list to be returned
-    json_list = []
+    ipr_list = []
     # stores the authorisation token and accept
     headers = {
         "Authorization": "token " + auth,
@@ -83,8 +83,8 @@ def run_query(auth, owner, repo, pull_type):
                 # trims the result of the api call to remove unneeded nesting
                 trimmed_request = request.json()["data"]["repository"][pull_type]
             except TypeError:
-                if json_list is not None:
-                    pprint(json_list)
+                if ipr_list is not None:
+                    pprint(ipr_list)
                 print("Invalid information provided")
                 break
             # pprint(trimmed_request)
@@ -114,8 +114,8 @@ def run_query(auth, owner, repo, pull_type):
                         break
 
             # loop through issues/prs
-            for j, edge in enumerate(trimmed_request["edges"]):
-                # filter out comments made by bots
+            for edge in trimmed_request["edges"]:
+                # trim data
                 node = edge["node"]
                 if node["author"] is not None:
                     if node["author"]["name"] is not None:
@@ -130,6 +130,7 @@ def run_query(auth, owner, repo, pull_type):
                 count = len(node["comments"]["edges"])
                 node["commentCount"] = count
 
+                still_above_threshold = count >= comment_threshold
                 # pull the rest of the comments if there are any
                 if node["comments"]["pageInfo"]["hasNextPage"]:
                     comments = get_other_comments(node["number"], repo, owner, pull_type[0:-1],
@@ -140,27 +141,24 @@ def run_query(auth, owner, repo, pull_type):
                         node["comments"]["edges"] += comments
                         node["commentCount"] += len(comments)
                     else:
-                        trimmed_request["edges"].pop(j)
+                        still_above_threshold = False
 
-                # remove unnecessary nesting
-                node["comments"] = node["comments"]["edges"]
-                trimmed_request["edges"][j] = node
+                if still_above_threshold:
+                    # remove unnecessary nesting
+                    node["comments"] = node["comments"]["edges"]
+                    ipr_list.append(node)
 
             # thread started to add list of issues/prs to the database
             # Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
-
-            json_list += trimmed_request["edges"]  # add to final list
-            print(f'{len(json_list)} {pull_type} gathered')  # print progress
+            print(f'{len(ipr_list)} {pull_type} gathered')  # print progress
 
         else:
             print(f"Status code: {str(request.status_code)} on iteration {i}, pr_index = {pr_index}. Retrying")
             i -= 1
             discount += 1  # fail occurs when too much fetched at once, so fetch less next time
 
-    # write to file
-    json_string = json.dumps(json_list, indent=4)
-    # pprint(json_string)
-    return json_string
+    # pprint(json.dumps(ipr_list, indent=4))
+    return ipr_list
 
 
 # gets comments for an issue/pr
@@ -215,7 +213,7 @@ def filter_comments(comment_list):
     # iterates through each comment removes it if it was made by a bot
     for comment in comment_list:
         if comment["node"]["author"] is not None:
-            if comment["node"]["author"]["__typename"] != "Bot" and comment["node"]["author"] not in bots:
+            if comment["node"]["author"]["__typename"] != "Bot" and comment["node"]["author"]["login"] not in bots:
                 comment["node"]["author"] = comment["node"]["author"]["login"]  # remove if more author info needed
                 # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
                 return_list.append(comment["node"])

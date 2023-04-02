@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 # Pulls API Keys from keys.txt file
-keys = open('keys.txt', 'r')
+keys = open('credentials/keys.txt', 'r')
 api_key = keys.readline().rstrip('\n')
 url = keys.readline().strip('\n')
 keys.close()

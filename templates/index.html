@@ -121,12 +121,24 @@
       border-radius: 5px; 
       border: none;
       background: #1c87c9; 
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #fff;
       }
       button:hover {
       background: #26a9e0;
+      }
+      select{
+        border:none;
+        padding: 10px 20px;
+        border-radius:5px;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px;
+        color: #666;
+      }
+      
+      select:focus{
+        outline:none;
       }
     </style>
   </head>
@@ -149,6 +161,17 @@
         <hr>
         <div class="btn-block">
           <button type="search" href="/">Search</button>
+        </div>
+      </form>
+      <form method ="POST" action="/pulled">
+      <label for="Pre-Pulled Data">Pre-pulled Data</label>
+        <select name="Pre-Pulled Data"method="GET" action="/" id="Pre-Pulled Data">
+          {% for data in pre_pulled %}
+          <option value= "{{data}}" SELECTED>{{data}}</option>"
+          {% endfor %}
+        </select>
+        <div class="btn-block">
+          <button type="search" href="/">Search Pre-Pulled</button>
         </div>
       </form>
     </div>

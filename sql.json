@@ -1,0 +1,11 @@
+{
+  "source": "Number int NOT NULL, Title varchar(255), Author varchar(255), Gender varchar(255), State varchar(255), Created varchar(255), Closed varchar(255), Lifetime float, Comments int, Sentiment float, Sadness float, Joy float, Fear float, Disgust float, Anger float, PRIMARY KEY (Number));",
+
+  "average": "Sentiment float, Sadness float, Joy float, Fear float, Disgust float, Anger float, Lifetime float, PRIMARY KEY (Sentiment));",
+
+  "state": "State varchar(6), Frequency int, Sentiment float, Sadness float, Joy float, Fear float, Disgust float, Anger float, Lifetime float, PRIMARY KEY (State));",
+
+  "gender": "Gender varchar(7), Frequency int, Sentiment float, Sadness float, Joy float, Fear float, Disgust float, Anger float, Lifetime float, PRIMARY KEY (Gender));",
+
+  "correlation": "Type varchar(14), State_Gender float, State_comments float, State_Lifetime float, State_Sentiment float, State_Sadness float, State_Joy float, State_Fear float, State_Disgust float, State_Anger float, Gender_Comments float, Gender_Lifetime float, Gender_Sentiment float, TODO more of these"
+}

@@ -1,4 +1,0 @@
-apikey
-url
-
-Put the IBM NLU API key on the first line and the url on the second. Do not commit changes to this file.

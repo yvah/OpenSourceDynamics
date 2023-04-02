@@ -10,7 +10,7 @@ if __name__ == '__main__':
     data = json.load(file)
     print("Performing sentiment analysis...\n")
     start_time = time()
-    repo = Repository(data)
+    repo = Repository(data, "Pull Requests")
     end_time = time()
     print(repo)
     print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')

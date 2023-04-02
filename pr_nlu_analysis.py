@@ -455,8 +455,10 @@ def getGender(name):
         url = url + "&name[" + str(cnt) + "]=" + name
 
     req = requests.get("https://api.genderize.io?" + url)
-    result = json.loads(req.text)
-    gender = result[0]["gender"]
-    if gender is None:
-        return "none"
-    return gender
+    # if request limit reached, label as unknown
+    if req.status_code != 429:
+        result = json.loads(req.text)
+        gender = result[0]["gender"]
+        if gender is not None:
+            return gender
+    return "none"

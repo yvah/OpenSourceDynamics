@@ -27,20 +27,20 @@ class DB2:
     def create(self, table):
         sql_instruction = f"CREATE TABLE {self.schema + table} (" \
                           "Number int NOT NULL, " \
-                          "Title varchar(255) NOT NULL, " \
+                          "Title varchar(255), " \
                           "Author varchar(255), " \
-                          "Gender varchar(255) NOT NULL, " \
-                          "State varchar(255) NOT NULL, " \
-                          "Created varchar(255) NOT NULL, " \
-                          "Closed varchar(255) NOT NULL, " \
-                          "Lifetime float NOT NULL, " \
-                          "Comments int NOT NULL, " \
-                          "Sentiment float NOT NULL, " \
-                          "Sadness float NOT NULL, " \
-                          "Joy float NOT NULL, " \
-                          "Fear float NOT NULL, " \
-                          "Disgust float NOT NULL, " \
-                          "Anger float NOT NULL, " \
+                          "Gender varchar(255), " \
+                          "State varchar(255), " \
+                          "Created varchar(255), " \
+                          "Closed varchar(255), " \
+                          "Lifetime float, " \
+                          "Comments int, " \
+                          "Sentiment float, " \
+                          "Sadness float, " \
+                          "Joy float, " \
+                          "Fear float, " \
+                          "Disgust float, " \
+                          "Anger float, " \
                           "PRIMARY KEY (Number));"
 
         try:

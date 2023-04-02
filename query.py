@@ -60,7 +60,7 @@ def run_query(auth, owner, repo, pull_type):
     # temporary "fix"
     if pull_type == "pullRequests":
         max_iterations = 1
-        # pr_index = 0  # todo uncomment
+        pr_index = 0
 
     i = 0
     # query can only fetch at most 100 at a time, so keeps fetching until all fetched

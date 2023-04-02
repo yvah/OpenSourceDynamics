@@ -78,7 +78,6 @@ class Repository:
                                       pearson_correlation_test(self.repo_items, 'Lifetime', 'Disgust'),
                                       pearson_correlation_test(self.repo_items, 'Lifetime', 'Anger')]
 
-
         # Additional statistics for Pull Requests
         if type == 'pullRequests':
             self.values_state = ['Open', 'Closed', 'Merged']
@@ -107,7 +106,6 @@ class Repository:
             self.corr_state_sentiment = [None, None]
             self.corr_state_lifetime = [None, None]
             self.corr_state_emotion = [[None, None], [None, None], [None, None], [None, None], [None, None]]
-
 
     def to_csv(self):
         cwd = os.getcwd()
@@ -138,7 +136,6 @@ class Repository:
                     }
                 ]
                 writer.writerows(analysis_result)
-
 
     def stats_to_csv(self):
         cwd = os.getcwd()
@@ -186,7 +183,6 @@ class Repository:
                     }
                 ]
                 writer.writerows(analysis_result)
-
 
     def __str__(self):
         result = ''
@@ -241,7 +237,7 @@ class RepoItem:
             text=self.comments,
             features=Features(sentiment=SentimentOptions(), emotion=EmotionOptions(), concepts=ConceptsOptions(limit=3))).get_result()
         
-        # Store Sentiment Analyisis result
+        # Store Sentiment Analysis result
         self.sentiment = round(response['sentiment']['document']['score'], 4)
         
         # Creates an array to store emotion scores
@@ -263,15 +259,12 @@ class RepoItem:
         return "<state: " + self.state + "; comments: " + str(self.number_of_comments) + "; sentiment: " + str(self.sentiment) + "; author: " + self.author + "; gender: " + self.gender + "; lifetime: " + str(self.lifetime) + "; concepts: " + str(self.concepts)[1:-1] + ">"
 
 
-# Takes a json file and parses it into a list of RepoItem objectss
+# Takes a json file and parses it into a list of RepoItem objects
 def list_of_repo_items(data):
     repo_items = []
     for ri in data:
         # NEED TO IMPLEMENT BETTER ERROR HANDLING
         # ApiException: Error: not enough text for language id, Code: 422
-        # SO BAD: manually filtering out a bot for flutter
-        if ri['author'] == 'engine-flutter-autoroll':
-            continue
         try:
             repo_items.append(RepoItem(ri))
         except Exception:
@@ -290,9 +283,9 @@ def average(repo_items, variable, filter):
             continue
 
         filter_var = ''
-        if (filter == 'State'):
+        if filter == 'State':
             filter_var = ri.state
-        elif (filter == 'Gender'):
+        elif filter == 'Gender':
             filter_var = ri.gender
         if filter == 'None':
             filter_var = 'None'

@@ -10,7 +10,11 @@ comment_threshold = 10
 max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
-              (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
+              (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (3, 100)]
+
+# get a list of known bots
+with open("data/bots.txt") as file:
+    bots = file.read().splitlines()
 
 
 # for timing how long it takes a function to run
@@ -210,9 +214,8 @@ def filter_comments(comment_list):
     return_list = []
     # iterates through each comment removes it if it was made by a bot
     for comment in comment_list:
-
         if comment["node"]["author"] is not None:
-            if comment["node"]["author"]["__typename"] != "Bot":
+            if comment["node"]["author"]["__typename"] != "Bot" and comment["node"]["author"] not in bots:
                 comment["node"]["author"] = comment["node"]["author"]["login"]  # remove if more author info needed
                 # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
                 return_list.append(comment["node"])

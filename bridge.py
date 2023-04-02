@@ -7,15 +7,15 @@ import json
 
 # switch source to existing data set
 def use_existing_data(table):
-    db = DB2("db2_credentials.json")
+    db = DB2("credentials/db2_credentials.json")
     db.copy_into("SOURCE", table)
     db.close()
 
 
 # gather from new repo and switch source
 def use_new_data(auth, repo, pull_type):
-    # database = cloudant.CDatabase("cloudant_credentials.json")
-    db = DB2("db2_credentials.json")
+    # database = cloudant.CDatabase("credentials/cloudant_credentials.json")
+    db = DB2("credentials/db2_credentials.json")
 
     owner_repo = repo.split("/")
     table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
@@ -39,7 +39,7 @@ def use_new_data(auth, repo, pull_type):
 
 # adds the name of a database to a file
 def add_name(name):
-    with open("tables.txt", "r+") as tables:
+    with open("data/tables.txt", "r+") as tables:
         if name not in tables.read():
             tables.write(name + "\n")
 

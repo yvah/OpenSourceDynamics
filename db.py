@@ -42,7 +42,6 @@ class DB2:
                           "Disgust float NOT NULL, " \
                           "Anger float NOT NULL, " \
                           "PRIMARY KEY (Number));"
-        # todo change comments to int
 
         try:
             ibm_db.exec_immediate(self.connection, sql_instruction)

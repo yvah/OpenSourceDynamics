@@ -28,6 +28,7 @@ natural_language_understanding.set_service_url(url)
 # Defines repositories as objects
 class Repository:
     def __init__(self, data, type):
+        print("starting analysis")
         # Create list of RepoItem objects
         self.repo_items = list_of_repo_items(data)
 

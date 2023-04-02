@@ -9,7 +9,10 @@ app = Flask(__name__, static_folder="templates, fetched_data", static_url_path="
 
 @app.route("/", methods=["GET"])
 def index():
-    pre_pulled = numpy.array(["Flutter", "swEng", "Microsoft Windows"])
+    with open(r'tables.txt', 'r') as fp:
+        lines = fp.readlines()
+        for row in lines:
+            pre_pulled = numpy.add([row])
     return render_template("index.html", pre_pulled=pre_pulled)
 
 @app.route("/query", methods=["POST"])

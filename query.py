@@ -1,6 +1,5 @@
 from pprint import pprint
 from requests import post
-import json
 import os
 from time import time
 import cloudant
@@ -140,6 +139,7 @@ def run_query(auth, owner, repo, pull_type):
                     if count + len(comments) >= comment_threshold:
                         node["comments"]["edges"] += comments
                         node["commentCount"] += len(comments)
+                        still_above_threshold = True
                     else:
                         still_above_threshold = False
 

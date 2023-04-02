@@ -23,11 +23,11 @@ def query():
     # input tag in html requires name attribute that will be used in request.form[]
     user = request.form["user"]
     repo = request.form["repo"]
-    type = request.form["type"]
-    #owner_repo = repo.split("/")
-    print(user,repo,type)
-    use_new_data(user,repo,type)
-    return render_template("index.html")
+    p_type = request.form["type"]
+    # owner_repo = repo.split("/")
+    print(user, repo, p_type)
+    use_new_data(user, repo, p_type)
+    return render_template("dashbaord.html")
 
 
 @app.route("/pulled", methods=["POST"])
@@ -36,6 +36,7 @@ def pulled():
     use_existing_data(repo)
     
     return render_template("dashboard.html")
+
 
 if __name__ == '__main__':
     app.run()

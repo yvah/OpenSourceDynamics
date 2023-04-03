@@ -461,4 +461,4 @@ def getGender(name):
         gender = result[0]["gender"]
         if gender is not None:
             return gender
-    return "none"
+    return "unknown"

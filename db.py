@@ -28,11 +28,11 @@ class DB2:
         sql_instruction = f"CREATE TABLE {self.schema + table} (" \
                           "Number int NOT NULL, " \
                           "Title varchar(255), " \
-                          "Author varchar(255), " \
-                          "Gender varchar(255), " \
-                          "State varchar(255), " \
-                          "Created varchar(255), " \
-                          "Closed varchar(255), " \
+                          "Author varchar(128), " \
+                          "Gender varchar(7), " \
+                          "State varchar(6), " \
+                          "Created varchar(20), " \
+                          "Closed varchar(20), " \
                           "Lifetime float, " \
                           "Comments int, " \
                           "Sentiment float, " \
@@ -41,6 +41,9 @@ class DB2:
                           "Fear float, " \
                           "Disgust float, " \
                           "Anger float, " \
+                          "Concept1 varchar(128)," \
+                          "Concept2 varchar(128)," \
+                          "Concept3 varchar(128)," \
                           "PRIMARY KEY (Number));"
 
         try:
@@ -59,12 +62,12 @@ class DB2:
             print("error clearing table")
             return False
 
-    # adds the data to a table, creating the table if it doesn't already exist
+    # inserts the data into a table, creating the table if it doesn't already exist
     # returns true if successful, otherwise prints number of successful inserts and returns false
-    def add_data(self, table, data):
+    def insert_data(self, table, data):
         # creates table if it doesn't already exist
         self.create(table)
-        insert_command = f"INSERT INTO {self.schema + table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        insert_command = f"INSERT INTO {self.schema + table} VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         insert_command = ibm_db.prepare(self.connection, insert_command)
 
         # adds this data to the table
@@ -73,14 +76,26 @@ class DB2:
             for d in data:
                 params.append((d.number, d.title, d.author, d.gender, d.state, d.createdAt, d.closedAt, d.lifetime,
                                d.number_of_comments, d.sentiment, d.emotion[0][1], d.emotion[1][1], d.emotion[2][1],
-                               d.emotion[3][1], d.emotion[4][1]))
+                               d.emotion[3][1], d.emotion[4][1], d.concepts[0], d.concepts[1], d.concepts[2]))
 
-        success = ibm_db.execute_many(insert_command, tuple(params))
-        if success is not False:
-            return True
-        row_count = ibm_db.num_rows(insert_command)
-        print(f"inserted {row_count} rows")
-        return False
+        try:
+            ibm_db.execute_many(insert_command, tuple(params))
+        except:
+            for i, p in enumerate(params):
+                insert_command = f"INSERT INTO {self.schema + table} VALUES (" \
+                                 f"{p[0]},{p[1]},{p[2]},{p[3]},{p[4]},{p[5]},{p[6]},{p[7]},{p[8]},{p[9]},{p[10]}," \
+                                 f"{p[11]},{p[12]},{p[13]},{p[14]})"
+                try:
+                    ibm_db.exec_immediate(self.connection, insert_command)
+                except:
+                    print(f"crash at {i}")
+        # row_count = ibm_db.num_rows(insert_command)
+        # print(f"inserted {row_count} rows")
+
+    # switch the data source to the passed in table
+    def switch_view(self, view, table):
+        sql_statement = f"CREATE OR REPLACE VIEW {self.schema + view} AS SELECT * FROM {self.schema + table};"
+        ibm_db.exec_immediate(self.connection, sql_statement)
 
     # copies the data from one table into another
     def copy_into(self, to_table, from_table):
@@ -95,3 +110,9 @@ class DB2:
     # close the connection
     def close(self):
         ibm_db.close(self.connection)
+
+
+# function for testing connection
+if __name__ == "__main__":
+    conn = DB2("credentials/db2_credentials.json")
+    conn.close()

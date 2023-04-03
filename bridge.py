@@ -8,7 +8,7 @@ import json
 # switch source to existing data set
 def use_existing_data(table):
     db = DB2("credentials/db2_credentials.json")
-    db.copy_into("SOURCE", table)
+    db.switch_view("SOURCE", table)
     db.close()
 
 
@@ -31,11 +31,11 @@ def use_new_data(auth, repo, pull_type):
     # create and clear the table in case it doesn't exist or already has data
     db.create(table)
     db.clear(table)
-    # add data to the table
-    db.add_data(table, repo.repo_items)
+    # insert data into the table
+    db.insert_data(table, repo.repo_items)
 
     # switch the source to the gathered data
-    db.copy_into("SOURCE", table)
+    db.switch_view("SOURCE", table)
     db.close()
 
 

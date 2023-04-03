@@ -365,7 +365,7 @@ if __name__ == '__main__':
         database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
 
     result = None
-    args = auth, owner_repo[0], owner_repo[1], pull_type, database, database_name
+    args = auth, owner_repo[0], owner_repo[1], pull_type
     if database.checkDatabases(database_name):
         print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
               , end="")

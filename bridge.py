@@ -1,3 +1,5 @@
+import pickle
+
 import cloudant
 from db import DB2
 from pr_nlu_analysis import Repository
@@ -24,7 +26,10 @@ def use_new_data(auth, repo, pull_type):
     data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
     repo = Repository(data, pull_type)
     # repo.to_csv()
-    # repo.stats_to_csv()
+
+    # uncomment this and comment data = ... and repo = ... lines to quickly test DB commands
+    # with open("data/store.txt", "rb") as file:
+    #     repo = pickle.load(file)
 
     # create connection to DB2
     db = DB2("credentials/db2_credentials.json")

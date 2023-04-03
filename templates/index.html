@@ -12,12 +12,12 @@
       height: 100%;
       }
       body, div, h1, form, input, p { 
-      padding: 0;
-      margin: 0;
-      outline: none;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 16px;
-      color: #666;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px;
+        color: #666;
       }
       h1 {
       padding: 10px 0;
@@ -137,14 +137,22 @@
         font-size: 16px;
         color: #666;
       }
-      
       select:focus{
         outline:none;
       }
-      
+      .bg {
+        background-image: url("/background1.png");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+      }
     </style>
   </head>
   <body>
+    <div class="bg">
     <div class="main-block">
       <h1>Search</h1>
       <form method="POST" action="/query">
@@ -177,5 +185,6 @@
         </div>
       </form>
     </div>
+  </div>
   </body>
 </html>

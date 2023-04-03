@@ -1,0 +1,4 @@
+State Values,State Frequency,State-Sentiment Average,State-Sadness Averages,State-Joy Averages,State-Fear Averages,State-Disgust Averages,State-Anger Averages,State-Lifetime Average
+Open,,,,,,,
+Closed,0.0254,0.2906,0.2798,0.1238,0.0256,0.0661,1693.2
+Merged,0.0564,0.3094,0.3165,0.0987,0.0288,0.06,1552.375

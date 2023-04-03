@@ -109,78 +109,95 @@ class Repository:
             self.corr_state_emotion = [[None, None], [None, None], [None, None], [None, None], [None, None]]
 
     def to_csv(self):
-        cwd = os.getcwd()
-        csv_fields = ['Number', 'Title', 'Author', 'Gender', 'State', 'Created', 'Closed', 'Lifetime', 'Number of Comments',
-                      'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger', 'Concepts']
-        with open(f'{cwd}/fetched_data/sentiment_analysis_result.csv', 'w', newline='') as analysis_results_file:
-            writer = csv.DictWriter(analysis_results_file, csv_fields)
+        folder = f'{os.getcwd()}/fetched_data/nlu_results/'
+        with open(f'{folder}repo_items.csv', 'w', newline='') as f:
+            writer = csv.DictWriter(f, ['Number', 'Title', 'Author', 'Gender', 'State', 'Created', 'Closed', 'Lifetime', 'Number of Comments',
+                                        'Sentiment', 'Sadness', 'Joy', 'Fear', 'Disgust', 'Anger', 'Concepts'])
             writer.writeheader()
             for ri in self.repo_items:
                 analysis_result = [
                     {
-                        'Number': f'{str(ri.number)}',
-                        'Title': f'{str(ri.title)}',
-                        'Author': f'{str(ri.author)}',
-                        'Gender': f'{str(ri.gender)}',
-                        'State': f'{str(ri.state)}',
-                        'Created': f'{str(ri.createdAt)}',
-                        'Closed': f'{str(ri.closedAt)}',
-                        'Lifetime': f'{str(ri.lifetime)}',
-                        'Number of Comments': f'{str(ri.number_of_comments)}',
-                        'Sentiment': f'{str(ri.sentiment)}',
-                        'Sadness': f'{str(ri.emotion[0][1])}',
-                        'Joy': f'{str(ri.emotion[1][1])}',
-                        'Fear': f'{str(ri.emotion[2][1])}',
-                        'Disgust': f'{str(ri.emotion[3][1])}',
-                        'Anger': f'{str(ri.emotion[4][1])}',
+                        'Number': ri.number,
+                        'Title': ri.title,
+                        'Author': ri.author,
+                        'Gender': ri.gender,
+                        'State': ri.state,
+                        'Created': ri.createdAt,
+                        'Closed': ri.closedAt,
+                        'Lifetime': ri.lifetime,
+                        'Number of Comments': ri.number_of_comments,
+                        'Sentiment': ri.sentiment,
+                        'Sadness': ri.emotion[0][1],
+                        'Joy': ri.emotion[1][1],
+                        'Fear': ri.emotion[2][1],
+                        'Disgust': ri.emotion[3][1],
+                        'Anger': ri.emotion[4][1],
                         'Concepts': str(ri.concepts)[1:-1]
                     }
                 ]
                 writer.writerows(analysis_result)
 
-    def stats_to_csv(self):
-        cwd = os.getcwd()
-        csv_fields = ['Sentiment Average', 'Emotion Averages', 'Lifetime Average',
-                      'State Values', 'State Frequency', 'State-Sentiment Average', 'State-Emotion Averages', 'State-Lifetime Average',
-                      'Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Emotion Averages', 'Gender-Lifetime Average',
-                      'Correlation', 'State-Gender Correlation', 
-                      'State-Comments Correlation', 'State-Lifetime Correlation', 'State-Sentiment Correlation', 'State-Emotion Correlations',
-                      'Gender-Comments Correlation', 'Gender-Lifetime Correlation', 'Gender-Sentiment Correlation', 'Gender-Emotion Correlations',
-                      'Comments-Sentiment Correlation', 'Comments-Emotion Correlation', 'Lifetime-Sentiment Correlation', 'Lifetime-Emotion Correlation']
-        with open(f'{cwd}/fetched_data/sentiment_analysis_statistics_result.csv', 'w',
-                  newline='') as analysis_results_file:
-            writer = csv.DictWriter(analysis_results_file, csv_fields)
-            writer.writeheader()
+        with open(f'{folder}averages.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['Sentiment Average', 'Sadness Average', 'Joy Average', 'Fear Average', 'Disgust Average', 'Anger Average', 'Lifetime Average'])
+            writer.writerow([self.average_sentiment, self.average_emotion[0], self.average_emotion[1], self.average_emotion[2], self.average_emotion[3], self.average_emotion[4], self.average_lifetime])
+        
+        with open(f'{folder}state.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['State Values', 'State Frequency', 'State-Sentiment Average', 'State-Sadness Averages', 'State-Joy Averages', 'State-Fear Averages', 'State-Disgust Averages', 'State-Anger Averages', 'State-Lifetime Average'])
             for i in range(3):
+                writer.writerow([self.values_state[i], self.average_sentiment_state[i], self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i], self.average_lifetime_state[i]])
+        
+        with open(f'{folder}gender.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Sadness Averages', 'Gender-Joy Averages', 'Gender-Fear Averages', 'Gender-Disgust Averages', 'Gender-Anger Averages', 'Gender-Lifetime Average'])
+            for i in range(3):
+                writer.writerow([self.values_gender[i], self.average_sentiment_gender[i], self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i], self.average_lifetime_gender[i]])
+
+        with open(f'{folder}correlations.csv', 'w', newline='') as f:
+            writer = csv.DictWriter(f, ['Correlation', 'State-Gender Correlation', 
+                                        'State-Comments Correlation', 'State-Lifetime Correlation', 'State-Sentiment Correlation', 
+                                        'State-Sadness Correlation', 'State-Joy Correlation', 'State-Fear Correlation', 'State-Disgust Correlation', 'State-Anger Correlation', 
+                                        'Gender-Comments Correlation', 'Gender-Lifetime Correlation', 'Gender-Sentiment Correlation', 
+                                        'Gender-Sadness Correlation', 'Gender-Joy Correlation', 'Gender-Fear Correlation', 'Gender-Disgust Correlation', 'Gender-Anger Correlation', 
+                                        'Comments-Sentiment Correlation', 
+                                        'Comments-Sadness Correlation', 'Comments-Joy Correlation', 'Comments-Fear Correlation', 'Comments-Disgust Correlation', 'Comments-Anger Correlation', 
+                                        'Lifetime-Sentiment Correlation', 
+                                        'Lifetime-Sadness Correlation', 'Lifetime-Joy Correlation', 'Lifetime-Fear Correlation', 'Lifetime-Disgust Correlation', 'Lifetime-Anger Correlation'])
+            writer.writeheader()
+            for i in range(2):
                 analysis_result = [
                     {
-                        'Sentiment Average': f'{str(self.average_sentiment) if i == 0 else ""}',
-                        'Emotion Averages': f'{str(self.average_emotion) if i == 0 else ""}',
-                        'Lifetime Average': f'{str(self.average_lifetime) if i == 0 else ""}',
-                        'State Values': f'{self.values_state[i]}',
-                        'State Frequency': f'{str(self.freq_state[i])}',
-                        'State-Sentiment Average': f'{str(self.average_sentiment_state[i])}',
-                        'State-Emotion Averages': f'{str([self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i]])}',
-                        'State-Lifetime Average': f'{str(self.average_lifetime_state[i])}',
-                        'Gender Values': f'{self.values_gender[i]}',
-                        'Gender Frequency': f'{str(self.freq_gender[i])}',
-                        'Gender-Sentiment Average': f'{str(self.average_sentiment_gender[i])}',
-                        'Gender-Emotion Averages': f'{str([self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i]])}',
-                        'Gender-Lifetime Average': f'{str(self.average_lifetime_gender[i])}',
-                        'Correlation': f'{"p-value" if i == 0 else "test statistic" if i == 1 else ""}',
-                        'State-Gender Correlation': f'{self.corr_state_gender[i] if i != 2 else ""}',
-                        'State-Comments Correlation': f'{self.corr_state_comments[i] if i != 2 else ""}',
-                        'State-Lifetime Correlation': f'{self.corr_state_lifetime[i] if i != 2 else ""}',
-                        'State-Sentiment Correlation': f'{self.corr_state_sentiment[i] if i != 2 else ""}',
-                        'State-Emotion Correlations': f'{str([self.corr_state_emotion[0][i], self.corr_state_emotion[1][i], self.corr_state_emotion[2][i], self.corr_state_emotion[3][i], self.corr_state_emotion[4][i]]) if i != 2 else ""}',
-                        'Gender-Comments Correlation': f'{self.corr_gender_comments[i] if i != 2 else ""}',
-                        'Gender-Lifetime Correlation': f'{self.corr_gender_lifetime[i] if i != 2 else ""}',
-                        'Gender-Sentiment Correlation': f'{self.corr_gender_sentiment[i] if i != 2 else ""}',
-                        'Gender-Emotion Correlations': f'{str([self.corr_gender_emotion[0][i], self.corr_gender_emotion[1][i], self.corr_gender_emotion[2][i], self.corr_gender_emotion[3][i], self.corr_gender_emotion[4][i]]) if i != 2 else ""}',
-                        'Comments-Sentiment Correlation': f'{self.corr_comments_sentiment[i] if i != 2 else ""}',
-                        'Comments-Emotion Correlation': f'{str([self.corr_comments_emotion[0][i], self.corr_comments_emotion[1][i], self.corr_comments_emotion[2][i], self.corr_comments_emotion[3][i], self.corr_comments_emotion[4][i]]) if i != 2 else ""}',
-                        'Lifetime-Sentiment Correlation': f'{self.corr_lifetime_sentiment[i] if i != 2 else ""}', 
-                        'Lifetime-Emotion Correlation': f'{str([self.corr_lifetime_emotion[0][i], self.corr_lifetime_emotion[1][i], self.corr_lifetime_emotion[2][i], self.corr_lifetime_emotion[3][i], self.corr_lifetime_emotion[4][i]]) if i != 2 else ""}'
+                        'Correlation': f'{"p-value" if i == 0 else "test statistic"}',
+                        'State-Gender Correlation': self.corr_state_gender[i],
+                        'State-Comments Correlation': self.corr_state_comments[i],
+                        'State-Lifetime Correlation': self.corr_state_lifetime[i],
+                        'State-Sentiment Correlation': self.corr_state_sentiment[i],
+                        'State-Sadness Correlation': self.corr_state_emotion[0][i], 
+                        'State-Joy Correlation': self.corr_state_emotion[1][i], 
+                        'State-Fear Correlation': self.corr_state_emotion[2][i], 
+                        'State-Disgust Correlation': self.corr_state_emotion[3][i], 
+                        'State-Anger Correlation': self.corr_state_emotion[4][i], 
+                        'Gender-Comments Correlation': self.corr_gender_comments[i],
+                        'Gender-Lifetime Correlation': self.corr_gender_lifetime[i],
+                        'Gender-Sentiment Correlation': self.corr_gender_sentiment[i],
+                        'Gender-Sadness Correlation': self.corr_gender_emotion[0][i], 
+                        'Gender-Joy Correlation': self.corr_gender_emotion[1][i], 
+                        'Gender-Fear Correlation': self.corr_gender_emotion[2][i], 
+                        'Gender-Disgust Correlation': self.corr_gender_emotion[3][i], 
+                        'Gender-Anger Correlation': self.corr_gender_emotion[4][i], 
+                        'Comments-Sentiment Correlation': self.corr_comments_sentiment[i],
+                        'Comments-Sadness Correlation': self.corr_comments_emotion[0][i], 
+                        'Comments-Joy Correlation': self.corr_comments_emotion[1][i], 
+                        'Comments-Fear Correlation': self.corr_comments_emotion[2][i], 
+                        'Comments-Disgust Correlation': self.corr_comments_emotion[3][i], 
+                        'Comments-Anger Correlation': self.corr_comments_emotion[4][i],
+                        'Lifetime-Sentiment Correlation': self.corr_lifetime_sentiment[i], 
+                        'Lifetime-Sadness Correlation': self.corr_lifetime_emotion[0][i], 
+                        'Lifetime-Joy Correlation': self.corr_lifetime_emotion[1][i], 
+                        'Lifetime-Fear Correlation': self.corr_lifetime_emotion[2][i], 
+                        'Lifetime-Disgust Correlation': self.corr_lifetime_emotion[3][i], 
+                        'Lifetime-Anger Correlation': self.corr_lifetime_emotion[4][i]
                     }
                 ]
                 writer.writerows(analysis_result)

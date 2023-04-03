@@ -10,13 +10,12 @@ if __name__ == '__main__':
     data = json.load(file)
     print("Performing sentiment analysis...\n")
     start_time = time()
-    repo = Repository(data, "Pull Requests")
+    repo = Repository(data, "pullRequests")
     end_time = time()
     print(repo)
     print('\nSentiment analysis took', round(end_time - start_time, 3), 'seconds to run')
 
     repo.to_csv()
-    repo.stats_to_csv()
 
     '''
     # or with data extraction

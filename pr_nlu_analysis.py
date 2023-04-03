@@ -28,7 +28,6 @@ natural_language_understanding.set_service_url(url)
 # Defines repositories as objects
 class Repository:
     def __init__(self, data, type):
-        print("starting analysis")
         # Create list of RepoItem objects
         self.repo_items = list_of_repo_items(data)
 
@@ -146,13 +145,13 @@ class Repository:
             writer = csv.writer(f)
             writer.writerow(['State Values', 'State Frequency', 'State-Sentiment Average', 'State-Sadness Averages', 'State-Joy Averages', 'State-Fear Averages', 'State-Disgust Averages', 'State-Anger Averages', 'State-Lifetime Average'])
             for i in range(3):
-                writer.writerow([self.values_state[i], self.average_sentiment_state[i], self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i], self.average_lifetime_state[i]])
+                writer.writerow([self.values_state[i], self.freq_state[i], self.average_sentiment_state[i], self.average_emotion_state[0][i], self.average_emotion_state[1][i], self.average_emotion_state[2][i], self.average_emotion_state[3][i], self.average_emotion_state[4][i], self.average_lifetime_state[i]])
         
         with open(f'{folder}gender.csv', 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['Gender Values', 'Gender Frequency', 'Gender-Sentiment Average', 'Gender-Sadness Averages', 'Gender-Joy Averages', 'Gender-Fear Averages', 'Gender-Disgust Averages', 'Gender-Anger Averages', 'Gender-Lifetime Average'])
             for i in range(3):
-                writer.writerow([self.values_gender[i], self.average_sentiment_gender[i], self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i], self.average_lifetime_gender[i]])
+                writer.writerow([self.values_gender[i], self.freq_gender[i], self.average_sentiment_gender[i], self.average_emotion_gender[0][i], self.average_emotion_gender[1][i], self.average_emotion_gender[2][i], self.average_emotion_gender[3][i], self.average_emotion_gender[4][i], self.average_lifetime_gender[i]])
 
         with open(f'{folder}correlations.csv', 'w', newline='') as f:
             writer = csv.DictWriter(f, ['Correlation', 'State-Gender Correlation', 

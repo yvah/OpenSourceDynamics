@@ -27,12 +27,12 @@ def query():
     # owner_repo = repo.split("/")
     print(user, repo, p_type)
     use_new_data(user, repo, p_type)
-    return render_template("dashbaord.html")
+    return render_template("dashboard.html")
 
 
 @app.route("/pulled", methods=["POST"])
 def pulled():
-    repo = request.form["Pre-Pulled Data"]
+    repo = request.form["Pre-pulled Data"]
     use_existing_data(repo)
     
     return render_template("dashboard.html")

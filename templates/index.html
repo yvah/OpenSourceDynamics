@@ -33,7 +33,6 @@
       opacity: 0.3;
       }
       .main-block {
-      max-width: 340px; 
       min-height: 460px; 
       padding: 10px 0;
       margin: auto;
@@ -43,6 +42,7 @@
       background: #ebebeb; 
       }
       form {
+      text-align: center;
       margin: 0 30px;
       }
      .gender {
@@ -130,8 +130,10 @@
       background: #26a9e0;
       }
       select{
+        text-align: center;
         border:none;
         padding: 10px 20px;
+        width: 100%;
         border-radius:5px;
         font-family: Roboto, Arial, sans-serif;
         font-size: 16px;
@@ -174,8 +176,9 @@
         </div>
       </form>
       <form method ="POST" action="/pulled">
-      <label for="Pre-Pulled Data">Pre-pulled Data</label>
-        <select name="Pre-Pulled Data"method="GET" action="/" id="Pre-Pulled Data">
+        <label for="Pre-pulled Data">Pre-pulled Data</label>
+        <hr>
+        <select  name="Pre-pulled Data"method="GET" action="/" id="Pre-Pulled Data">
           {% for data in pre_pulled %}
           <option value= "{{data}}" SELECTED>{{data}}</option>"
           {% endfor %}

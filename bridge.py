@@ -20,7 +20,6 @@ def use_new_data(auth, repo, pull_type):
 
     owner_repo = repo.split("/")
     table = f"{owner_repo[0]}_{owner_repo[1]}_{pull_type}"
-    add_name(table)
 
     # collect data and add it to the database
     data = run_query(auth, owner_repo[0], owner_repo[1], pull_type)
@@ -41,6 +40,8 @@ def use_new_data(auth, repo, pull_type):
 
     # switch the source to the gathered data
     db.switch_view("SOURCE", table)
+
+    add_name(table)
     db.close()
 
 

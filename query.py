@@ -1,16 +1,19 @@
 from pprint import pprint
 from requests import post
-import json
 import os
 from time import time
 import cloudant
 from threading import Thread
 
 comment_threshold = 10
-max_iterations = -1  # number of iterations that should run; -1 to keep going until all issues/prs fetched
+max_iterations = 20  # number of iterations that should run; -1 to keep going until all issues/prs fetched
 # first in each tuple is
 pull_rates = [(100, 3), (90, 7), (80, 9), (70, 12), (60, 15), (50, 20), (40, 25), (30, 35),
               (25, 50), (20, 60), (18, 68), (16, 75), (14, 80), (12, 95), (10, 100)]
+
+# get a list of known bots
+with open("data/bots.txt") as file:
+    bots = file.read().splitlines()
 
 
 # for timing how long it takes a function to run
@@ -28,16 +31,16 @@ def time_execution(function):
     return wrapper
 
 
-@time_execution
-def run_query(auth, owner, repo, pull_type, db, db_name):
+# @time_execution  # uncomment to time function
+def run_query(auth, owner, repo, pull_type):
     global max_iterations
     discount = 0
 
     print(f"Gathering {pull_type}...")
-    db.createDatabase(db_name)
+    # db.createDatabase(db_name)
 
     # final list to be returned
-    json_list = []
+    ipr_list = []
     # stores the authorisation token and accept
     headers = {
         "Authorization": "token " + auth,
@@ -68,6 +71,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
         try:
             request = post("https://api.github.com/graphql", json={"query": query}, headers=headers)
         except Exception:
+            print("s")
             print(f"error at iteration {i}")
             i -= 1
             continue
@@ -78,8 +82,8 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                 # trims the result of the api call to remove unneeded nesting
                 trimmed_request = request.json()["data"]["repository"][pull_type]
             except TypeError:
-                if json_list is not None:
-                    pprint(json_list)
+                if ipr_list is not None:
+                    pprint(ipr_list)
                 print("Invalid information provided")
                 break
             # pprint(trimmed_request)
@@ -109,11 +113,14 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                         break
 
             # loop through issues/prs
-            for j, edge in enumerate(trimmed_request["edges"]):
-                # filter out comments made by bots
+            for edge in trimmed_request["edges"]:
+                # trim data
                 node = edge["node"]
                 if node["author"] is not None:
-                    node["author"] = node["author"]["login"]  # remove if more info about author needed
+                    if node["author"]["name"] is not None:
+                        node["author"] = node["author"]["name"]
+                    else:
+                        node["author"] = node["author"]["login"]  # remove if more info about author needed
                 else:
                     node["author"] = "deletedUser"
                 node["comments"]["edges"] = filter_comments(node["comments"]["edges"])
@@ -122,6 +129,7 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                 count = len(node["comments"]["edges"])
                 node["commentCount"] = count
 
+                still_above_threshold = count >= comment_threshold
                 # pull the rest of the comments if there are any
                 if node["comments"]["pageInfo"]["hasNextPage"]:
                     comments = get_other_comments(node["number"], repo, owner, pull_type[0:-1],
@@ -131,29 +139,26 @@ def run_query(auth, owner, repo, pull_type, db, db_name):
                     if count + len(comments) >= comment_threshold:
                         node["comments"]["edges"] += comments
                         node["commentCount"] += len(comments)
+                        still_above_threshold = True
                     else:
-                        trimmed_request["edges"].pop(j)
+                        still_above_threshold = False
 
-                # remove unnecessary nesting
-                node["comments"] = node["comments"]["edges"]
-                trimmed_request["edges"][j] = node
+                if still_above_threshold:
+                    # remove unnecessary nesting
+                    node["comments"] = node["comments"]["edges"]
+                    ipr_list.append(node)
 
             # thread started to add list of issues/prs to the database
-            Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
-
-            json_list += trimmed_request["edges"]  # add to final list
-            print(f'{len(json_list)} {pull_type} gathered')  # print progress
+            # Thread(target=db.addMultipleDocs, args=(trimmed_request["edges"], db_name)).start()
+            print(f'{len(ipr_list)} {pull_type} gathered')  # print progress
 
         else:
             print(f"Status code: {str(request.status_code)} on iteration {i}, pr_index = {pr_index}. Retrying")
             i -= 1
             discount += 1  # fail occurs when too much fetched at once, so fetch less next time
 
-    # write to file
-    json_string = json.dumps(json_list, indent=4)
-    write_to_file(json_string, repo, pull_type)
-    # pprint(json_string)
-    return json_string
+    # pprint(json.dumps(ipr_list, indent=4))
+    return ipr_list
 
 
 # gets comments for an issue/pr
@@ -207,9 +212,8 @@ def filter_comments(comment_list):
     return_list = []
     # iterates through each comment removes it if it was made by a bot
     for comment in comment_list:
-
         if comment["node"]["author"] is not None:
-            if comment["node"]["author"]["__typename"] != "Bot":
+            if comment["node"]["author"]["__typename"] != "Bot" and comment["node"]["author"]["login"] not in bots:
                 comment["node"]["author"] = comment["node"]["author"]["login"]  # remove if more author info needed
                 # comment["node"]["author"].pop("__typename")  # add back if more info about author needed
                 return_list.append(comment["node"])
@@ -252,9 +256,14 @@ def get_comments_query(repo, owner, p_type, pull_rate, discount, cursor=None):
                             title
                             author {
                                 login
+                                ... on User {
+                                    name
+                                }
                             }
                             state
+                            createdAt
                             closedAt
+                            createdAt
                             comments(first: %d) {
                                 totalCount
                                 edges {
@@ -349,13 +358,14 @@ if __name__ == '__main__':
             else:
                 print("Invalid input")
 
-    database = cloudant.Database("credentials.json")
+    database = cloudant.Database("credentials/cloudant_credentials.json")
     if pull_type == "pullRequests":
         database_name = f"{owner_repo[0]}/{owner_repo[1]}-pull_requests"
     else:
         database_name = f"{owner_repo[0]}/{owner_repo[1]}-{pull_type}"
 
-    args = auth, owner_repo[0], owner_repo[1], pull_type, database, database_name
+    result = None
+    args = auth, owner_repo[0], owner_repo[1], pull_type
     if database.checkDatabases(database_name):
         print(f"{owner_repo[0]}/{owner_repo[1]}-{pull_type} is already in the database. Use existing data? (y/n): "
               , end="")
@@ -375,3 +385,6 @@ if __name__ == '__main__':
 
     else:
         result = run_query(*args)
+
+    if result is not None:
+        write_to_file(result, owner_repo[1], pull_type)

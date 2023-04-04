@@ -2,17 +2,12 @@ import ibm_cloud_sdk_core
 from ibmcloudant.cloudant_v1 import CloudantV1 as Cloudant
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from time import sleep
-import json
-
-
-def loadJson(filename):
-    with open(filename) as json_file:
-        return json.load(json_file)
+from db import load_json
 
 
 class Database:
     def __init__(self, credentials_file):
-        self.credentials = loadJson(credentials_file)
+        self.credentials = load_json(credentials_file)
         iam_auth = IAMAuthenticator(self.credentials["apikey"])
 
         self.service = Cloudant(authenticator=iam_auth)

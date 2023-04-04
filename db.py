@@ -49,7 +49,7 @@ class DB2:
         try:
             ibm_db.exec_immediate(self.connection, sql_instruction)
             return True
-        except Exception:
+        except:
             return False
 
     # clears the table with the selected name, returns true on success
@@ -58,7 +58,7 @@ class DB2:
         try:
             ibm_db.exec_immediate(self.connection, sql_instruction)
             return True
-        except Exception:
+        except:
             print("error clearing table")
             return False
 
@@ -76,27 +76,17 @@ class DB2:
         # adds this data to the table
         params = []
         for d in data:
+            # ensure title is less than max length and concepts has length at least 3
+            title = (d.title[:252] + '...') if len(d.title) > 255 else d.title
             concepts = d.concepts
             while len(concepts) < 3:
                 concepts.append(None)
 
-            params.append((d.number, d.title, d.author, d.gender, d.state, d.createdAt, d.closedAt, d.lifetime,
+            params.append((d.number, title, d.author, d.gender, d.state, d.createdAt, d.closedAt, d.lifetime,
                            d.number_of_comments, d.sentiment, d.emotion[0][1], d.emotion[1][1], d.emotion[2][1],
                            d.emotion[3][1], d.emotion[4][1], concepts[0], concepts[1], concepts[2]))
 
-        # try:
         ibm_db.execute_many(insert_command, tuple(params))
-        # except:
-        #     for i, p in enumerate(params):
-        #         insert_command = f"INSERT INTO {self.schema + table} VALUES (" \
-        #                          f"{p[0]},{p[1]},{p[2]},{p[3]},{p[4]},{p[5]},{p[6]},{p[7]},{p[8]},{p[9]},{p[10]}," \
-        #                          f"{p[11]},{p[12]},{p[13]},{p[14]})"
-        #         try:
-        #             ibm_db.exec_immediate(self.connection, insert_command)
-        #         except:
-        #             print(f"crash at {i}")
-        # row_count = ibm_db.num_rows(insert_command)
-        # print(f"inserted {row_count} rows")
 
     # switch the data source to the passed in table
     def switch_view(self, view, table):

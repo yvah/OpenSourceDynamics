@@ -3,7 +3,7 @@ from bridge import use_existing_data, use_new_data
 from time import time
 import json
 import webbrowser
-app = Flask(__name__, static_folder="templates, fetched_data", static_url_path="")
+app = Flask(__name__, static_folder="templates", static_url_path="")
 
 
 @app.route("/", methods=["GET"])

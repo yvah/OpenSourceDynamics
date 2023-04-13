@@ -20,3 +20,20 @@ If the comments are already in the database, you will be asked whether you want 
 
 JSON files with extracted information will be stored in `cwd/fetched_data` folder.
 To run API Queries independently from NL processing, open `query.py` and run the main function.
+
+## Docker Deployment 
+In order to deoply this program using Docker : 
+
+- Create an account on dockerHub .
+- Build docker image : 
+
+docker build -t <dockerHubUsername>/SwEng-app .
+- Run docker image :
+
+docker run -it <dockerHubUsername>/SwEng-app
+- Push docker image to dockerHub :
+
+docker login -u <dockerHubUsername> -p <dockerHubPassword>
+docker push <dockerHubUsername>/SwEng-app
+
+ - Refer to deploy.sh file for more information :  [**Docker.sh**](https://github.com/yvah/SwEng-group13/blob/dockerDeployment/deploy.sh) 
